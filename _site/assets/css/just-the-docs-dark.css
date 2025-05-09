@@ -6815,6 +6815,14 @@ div.opaque {
       display: grid;
       grid-template-columns: auto 1fr; } }
 
+body {
+  font-family: Monospace;
+  font-size: inherit;
+  line-height: 1.4;
+  color: #e6e1e8;
+  background-color: #27262b;
+  overflow-wrap: break-word; }
+
 code {
   font-size: 14px;
   padding: 0.2em 0.4em;

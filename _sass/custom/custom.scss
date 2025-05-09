@@ -8,6 +8,16 @@
 @import 'staffer';
 
 // Overrides
+
+body {
+  font-family: Monospace;
+  font-size: inherit;
+  line-height: $body-line-height;
+  color: $body-text-color;
+  background-color: $body-background-color;
+  overflow-wrap: break-word;
+}
+
 code {
   font-size: 14px;
   padding: 0.2em 0.4em;
