@@ -1,0 +1,30 @@
+{"0": {
+    "doc": "Black Holes in General Relativity and Beyond",
+    "title": "Black Holes in General Relativity and Beyond",
+    "content": "There is perhaps no other object in all of mathematical physics as fascinating as the black holes of Einstein’s general relativity. The notion as such is simpler than the mystique surrounding it may suggest! Loosely speaking, the black hole region $\\mathcal{B}$ of a Lorentzian 4-manifold $(\\mathcal{M}, g)$ is the complement of the causal past of a certain distinguished ideal boundary at infinity, denoted $\\mathcal{I}^+$ and known as future null infinity; in symbols . \\[\\mathcal{B} = \\mathcal{M} \\backslash J^{−} (\\mathcal{I}^ + ).\\] In the context of general relativity, where our physical spacetime continuum is modelled by such a manifold \\mathcal{M}, this ideal boundary at infinity $\\mathcal{I}^+$ corresponds to “far-away” observers in the radiation zone of an isolated self-gravitating system such as a collapsing star. Thus, the black hole region $\\mathcal{B}$ is the set of those spacetime events which cannot send signals to distant observers like us. It is remarkable that the simplest non-trivial spacetimes $(\\mathcal{M}, g)$ solving the Einstein equations in vacuum . \\[\\mathrm{Ric}(g) = 0,\\] the celebrated Schwarzschild and Kerr solutions, indeed contain non-empty black ole regions $\\mathcal{B} \\neq \\emptyset$. — Mihalis Dafermos, The mathematical analysis of black holes in general relativity (in Proceeding of the International Congress of Mathematicans, ICM 2014 ). ",
+    "url": "/docs/blackholes/",
+    
+    "relUrl": "/docs/blackholes/"
+  },"1": {
+    "doc": "Explorations in Theoretical Physics",
+    "title": "Topics by Subject",
+    "content": ". modified-gravity . | Black Holes in General Relativity and Beyond | . tech-help . | Tech Help | . black-holes . | Black Holes in General Relativity and Beyond | . general-relativity . | Black Holes in General Relativity and Beyond | . Here are all the notes in this garden, along with their links, visualized as a graph. ",
+    "url": "/",
+    
+    "relUrl": "/"
+  },"2": {
+    "doc": "Explorations in Theoretical Physics",
+    "title": "Explorations in Theoretical Physics",
+    "content": "These pages contain notes and references on topics in theoretical physics – mostly classical and quantum gravity, with a strong focus on classical and quantum aspects of black holes – and other more or less related subjects. ",
+    "url": "/",
+    
+    "relUrl": "/"
+  },"3": {
+    "doc": "Tech Help",
+    "title": "Tech Help",
+    "content": " ",
+    "url": "/testing/",
+    
+    "relUrl": "/testing/"
+  }
+}
