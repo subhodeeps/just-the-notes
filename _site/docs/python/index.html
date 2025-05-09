@@ -15,7 +15,7 @@
   
 
     
-    .site-nav > ul.nav-list:first-child > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(4)) > a,
     .site-nav > ul.nav-list:first-child > li > ul > li a {
       background-image: none;
     }
@@ -25,12 +25,12 @@
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:first-child > li:nth-child(5) > a {
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > a {
       font-weight: 600;
       text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg {
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg {
       transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list {
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list {
       display: block;
     }
   </style>
@@ -52,18 +52,20 @@
 
 
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Network Graph</title>
+<title>Python Programming</title>
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="Network Graph" />
+<meta property="og:title" content="Python Programming" />
 <meta name="author" content="Subhodeep Sarkar" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4001/testing/" />
-<meta property="og:url" content="http://localhost:4001/testing/" />
+<meta name="description" content="Python programming" />
+<meta property="og:description" content="Python programming" />
+<link rel="canonical" href="http://localhost:4001/docs/python/" />
+<meta property="og:url" content="http://localhost:4001/docs/python/" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Network Graph" />
+<meta property="twitter:title" content="Python Programming" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-05-09T15:50:12+05:30","headline":"Network Graph","url":"http://localhost:4001/testing/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-01-23T11:36:15+05:30","description":"Python programming","headline":"Python Programming","url":"http://localhost:4001/docs/python/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -235,84 +237,28 @@
 <h1>
   
   
-    Network Graph
+    Python Programming
   
   
 </h1>
     
-<time datetime="2025-05-09T15:50:12+05:30">
+<time datetime="2025-01-23T11:36:15+05:30">
   
-    <i>Last updated on May 9, 2025.</i>
+    <i>Last updated on January 23, 2025.</i>
   
 </time>
-<p><strong>under construction</strong>
-<!-- Your graph will be rendered here --></p>
-<svg id="network-graph" width="800" height="600"></svg>
+<h2 id="tutorials">
+  
+  
+    <a href="#tutorials" class="anchor-heading" aria-labelledby="tutorials"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Tutorials:
+  
+  
+</h2>
+    
 
-<!-- Include the JSON data directly -->
-<script src="https://d3js.org/d3.v6.min.js"></script>
-
-<script>
-
-    const graphData = {"edges":[{"source":"80121116104111110328011411110311497109109105110103","target":"83111108118105110103327968691153211711510511010332796869737884"}],"nodes":[{"id":"72111119328411132661013211610410132661011151163286101114115105111110321111023289111117114115101108102","path":"/docs/advice/","label":"How To Be the Best Version of Yourself"},{"id":"66108979910732721111081011153210511032711011101011149710832821011089711610511810511612132971101003266101121111110100","path":"/docs/blackholes/","label":"Black Holes in General Relativity and Beyond"},{"id":"83111108118105110103327968691153211711510511010332796869737884","path":"/docs/ode/","label":"Solving ODEs using ODEINT"},{"id":"80121116104111110328011411110311497109109105110103","path":"/docs/python/","label":"Python Programming"}]};
-
-
-    const width = 800;
-    const height = 600;
-
-    const simulation = d3.forceSimulation(graphData.nodes)
-        .force("link", d3.forceLink(graphData.edges).id(d => d.id))
-        .force("charge", d3.forceManyBody().strength(-150))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("x", d3.forceX())
-        .force("y", d3.forceY());
-
-    const svg = d3.select("#network-graph")
-        .attr("width", width)
-        .attr("height", height);
-
-    const links = svg.selectAll("line")
-        .data(graphData.edges)
-        .enter()
-        .append("line")
-        .attr("stroke", "#aaa")
-        .attr("stroke-width", 1);
-
-    const nodes = svg.selectAll("circle")
-        .data(graphData.nodes)
-        .enter()
-        .append("circle")
-        .attr("r", 8)
-        .attr("fill", "steelblue")
-        .on("click", function(event, d) {
-            window.open(d.path, '_blank');
-        });
-
-    const labels = svg.selectAll("text")
-        .data(graphData.nodes)
-        .enter()
-        .append("text")
-        .text(d => d.label)
-        .attr("font-size", 10)
-        .attr("dx", 12)
-        .attr("dy", 4);
-
-    simulation.on("tick", () => {
-        links
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-
-        nodes
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
-
-        labels
-            .attr("x", d => d.x)
-            .attr("y", d => d.y);
-    });
-</script>
+<ul>
+  <li>Solving ODEs using <code class="language-plaintext highlighter-rouge">odeint</code> – <a href="/docs/ode/">Solving ODEs using ODEINT<a>.</a></a></li>
+</ul>
 
 
 
@@ -321,7 +267,7 @@
 <h2>
   
   
-    Backlinks
+    <a href="#tutorials" class="anchor-heading" aria-labelledby="tutorials"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Backlinks
   
   
 </h2>
