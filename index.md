@@ -37,7 +37,7 @@ These pages contain notes and references on topics in theoretical physics – mo
             {% unless page.url contains '.json' or page.url contains '.csv' or page.url contains '.css' or page.url contains '.txt' or page.url contains 'home' or page.url contains 'tuffo' or page.url contains 'marmellata' or page.url contains 'jam' %}
               {% if page.tags contains tag %}
                 <li>
-                  <a href="{{ "/xthphys" | append: page.url }}">{{ page.title }}</a>
+                  <a href="{{page.url }}">{{ page.title }}</a>
                 </li>
               {% endif %}
             {% endunless %}
@@ -69,4 +69,3 @@ These pages contain notes and references on topics in theoretical physics – mo
 
 <p>Here are all the notes in this garden, along with their links, visualized as a graph.</p>
 
-{% include notes_graph.html %}
