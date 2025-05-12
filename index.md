@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Notes and Stuff | Subhodeep
+title: Notes and Stuff
 permalink: /:path/
 description: "Landing page. Summary of content."
 nav_order: 1
