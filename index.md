@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Notes and Stuff
+title: Hey!
 permalink: /:path/
 description: "Landing page. Summary of content."
 nav_order: 1
