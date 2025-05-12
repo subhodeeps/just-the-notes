@@ -8,7 +8,7 @@ has_children: false
 has_toc: false
 ---
 
-These pages contain notes and references on subjects I find interesting. Broadly, they cover topics in theoretical physics—primarily classical and semiclassical gravity, with a strong focus on black holes—as well as other related areas. You'll also find notes on scientific computing and quantitative programming, along with tutorials from various domains of computational physics. I've also included pages with links to resources and articles I've found useful.
+These pages contain notes and references on subjects I find interesting. Broadly, they cover topics in theoretical physics—primarily classical and semiclassical gravity, with a strong focus on black holes—as well as other related areas. You'll also find notes on scientific computing and quantitative programming, along with tutorials from various domains of computational physics, as well as pages with links to resources and articles I've found useful.
 
 <div>
   <h2>Topics by Subject</h2>
