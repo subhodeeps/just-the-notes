@@ -9,9 +9,6 @@ tags:
     - life-advice
     - career-advice
 ---
-
-# How To Be the Best Version of Yourself
-
 This page is adapted from the Essential Skills section of the Grittings{:target="_blank" rel="noopener"} website. It highlights a set of principles I try to live by and habits I’m working on building. I’m sharing it here because it’s the kind of advice I wish I could’ve given my younger self—lessons I’ve picked up along the way that I hope others might find helpful. Like me, this document is still a work in progress, and I’ll keep updating and editing it as I keep learning and growing.
 
 - **Work. Work. Work.**  
