@@ -47,7 +47,7 @@ These are all the reviews on quasinormal modes that I know of!
 
 21. J. Besson, J. Carballo, C. Pantelidou *et al.*, “[Transients in black hole perturbation theory](https://inspirehep.net/literature/2953013),” *Front. in Phys.* **13** (2025) 1638583. [arXiv:2507.16493](https://arxiv.org/abs/2507.16493).
 
-22. S.V. Bolokhov and M. Skvortsova, “[Review of analytic results on quasinormal modes of black holes](https://inspirehep.net/literature/2908699)”, *arXiv preprint**[arXiv:2504.05014 [gr-qc]](https://arxiv.org/abs/2504.05014)* (2025).
+22. S.V. Bolokhov and M. Skvortsova, “[Review of analytic results on quasinormal modes of black holes](https://inspirehep.net/literature/2908699)”, *arXiv preprint* [arXiv:2504.05014 [gr-qc]](https://arxiv.org/abs/2504.05014)* (2025).
 
 20. L. Santoni, “[Aspects of Black Hole Perturbation Theory](https://courses.ipht.fr/?q=en/node/320)”, *IPhT Courses* (2024).
 21. E. Berti, V. Cardoso et *al*., “[Black hole spectroscopy: from theory to experiment](https://inspirehep.net/literature/2927078)”, *arXiv preprint*, arXiv:2505.23895 (2025).
