@@ -49,7 +49,7 @@ layout: default
         {% unless entry.url contains '.json' or entry.url contains '.csv' or entry.url contains '.css' or entry.url contains '.txt' or entry.url contains 'home' or entry.url contains 'tuffo' or entry.url contains 'marmellata' or entry.url contains 'jam' %}
           {% if entry.content contains pageurl or entry.content contains current_url_downcase %}
             <li>
-              <a href="{{ "/xthphys" | append: entry.url }}">{{ entry.title }}</a>
+              <a href="{entry.url}">{{ entry.title }}</a>
             </li>
           {% endif %}
         {% endunless %}

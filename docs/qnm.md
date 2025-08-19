@@ -10,7 +10,6 @@ tags:
     - quasinormal-modes
 ---
 These are all the reviews on quasinormal modes that I know of!
-## Reviews
 
 1. K. D. Kokkotas and B. G. Schmidt, “[Quasinormal modes of stars and black holes](https://inspirehep.net/literature/507420)”, *Living Rev. Rel.* **2**, 2 (1999).
 2. H.-P. Nollert, “[Quasinormal modes: the characteristic ’sound’ of black holes and neutron stars](https://inspirehep.net/literature/502903)”, *Classical and Quantum Gravity* **16**, R159 (1999).
