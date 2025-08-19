@@ -9,6 +9,10 @@ tags:
     - black-holes
     - quasinormal-modes
 ---
+
+<img src="/assets/images/ringdownl2s2.png" align="middle" title="For Whom The Bell Tolls: Quasinormal Mode Riningdown" width="400"  />
+
+
 These are all the reviews on quasinormal modes that I know of!
 
 1. S. L. Detweiler, ["Black holes and gravitational waves: Perturbation analysis"](https://inspirehep.net/literature/1282516), in *Proceedings of the Workshop on Sources of Gravitational Radiation*, Seattle, WA, USA, July 24 – August 4, 1978, edited by L. L. Smarr, Cambridge University Press, 1979.
