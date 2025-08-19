@@ -9,6 +9,9 @@ tags:
     - black-holes
     - quasinormal-modes
 ---
+> "Over twenty years ago Regge & Wheeler (1957) pioneered in the use of perturbation methods to study black hole dynamics. I find it remarkable that after all of this time the subject is still yielding interesting information and has ample opportunities for research projects."
+>
+> <div align="right">— S. L. Detweiler, 1978</div>
 
 <img src="/assets/images/ringdownl2s2.png" align="middle" title="For Whom The Bell Tolls: Quasinormal Mode Riningdown" width="400"  />
 
