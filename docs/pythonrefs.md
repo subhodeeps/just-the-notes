@@ -31,7 +31,9 @@ tags:
 - [Numerical Python: Scientific Computing and Data Science Applications with NumPy, SciPy and Matplotlib,, Robert Johansson (Third Edition, Apress, 2024)](https://jrjohansson.github.io/numericalpython.html)
 - [Computational Statistics Using Python (2017), Cliburn Chan, Janice McCarthy, Duke University](https://people.duke.edu/~ccc14/sta-663-2017/)
 - [Computational Statistics and Statistical Computing (2018), Cliburn Chan, Duke University](https://people.duke.edu/~ccc14/sta-663-2018/index.html)
-- [Computational Physics: Problem Solving with Python, Rubin H. Landau, Manuel J. Páez, Cristian C. Bordeianu (Fourth Ed.,Wiley-VCH, 2024)](https://www.google.co.in/books/edition/Computational_Physics/DCL6EAAAQBAJ?hl=en)
+- [Computational Physics: Problem Solving with Python, Rubin H. Landau, Manuel J. Páez, Cristian C. Bordeianu (Fourth Ed.,Wiley-VCH, 2024)](https://web.archive.org/web/20241012084239/http://sites.science.oregonstate.edu/~landaur/Books/CPbook/index.html)
+- [Computational Physics: Problem Solving with Python, Rubin H. Landau, Manuel J. Páez, Cristian C. Bordeianu (Third Ed.,Wiley-VCH, 2015)](https://www.google.co.in/books/edition/Computational_Physics/gR6zCQAAQBAJ?hl=en)
+
 
 ## Machine Learning
 
