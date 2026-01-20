@@ -1,0 +1,60 @@
+---
+layout: default
+---
+<!-- MathJax --> 
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML">
+</script>
+
+<!-- https://hw311.me/en/jekyll/2019/01/23/support-latex-in-jekyll-blog/ -->
+
+<h1>{{ page.title }}</h1>
+<time datetime="{{ page.last_modified_at | date_to_xmlschema }}">
+  {% if page.type != 'pages' %}
+    <i>Last updated on {{ page.last_modified_at | date: "%B %-d, %Y" }}.</i>
+  {% endif %}
+</time>
+{{ content }}
+
+{% unless page.url == '/' %}
+  <div>
+    <h2>Backlinks</h2>
+    <p class="center">
+      All the pages of this website containing a link to the current page.<br />Curious about what this means? Check
+      <a href="https://en.wikipedia.org/wiki/Backlink" target="_blank" title="Backlink on Wikipedia">this article</a>.
+    </p>
+    <ul>
+      {% capture current_url %}{{ page.url }}{% endcapture %}
+      {% capture current_url_downcase %}{{ page.url | downcase }}{% endcapture %}
+
+      {% assign pageurl = page.url %}
+
+      {% for entry in site.pages %}
+        {% unless entry.url contains '.json' or entry.url contains '.csv' or entry.url contains '.css' or entry.url contains '.txt' or entry.url contains 'home' or entry.url contains 'tuffo' or entry.url contains 'marmellata' or entry.url contains 'jam' %}
+          {% if entry.content contains pageurl or entry.content contains current_url_downcase %}
+            <li>
+              <a href="{entry.url}">{{ entry.title }}</a>
+            </li>
+          {% endif %}
+        {% endunless %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endunless %}
+
