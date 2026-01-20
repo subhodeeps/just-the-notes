@@ -15,7 +15,7 @@ tags:
 
 ## Introductory Books
 
-- [Think Python, 2nd Edition, Allen B. Downey (O’Reilly, 2015)](https://greenteapress.com/wp/think-python-2e/)
+- [Think Python, 2nd Edition, Allen B. Downey (Third Ed., O’Reilly, 2024)](https://greenteapress.com/wp/think-python-2e/)
 - [Introduction to Scientific Programming with Python, Joakim Sundnes (Springer, 2020)](https://www.springer.com/gp/book/9783030503550)
 - [Python for Scientists, John Stewart and Michael Mommert, (Third Edition, CUP, 2023)](https://doi.org/10.1017/9781009029728)
 
