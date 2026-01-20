@@ -2,7 +2,7 @@
 layout: page
 title: "Solving ODEs using ODEINT"
 description: "solving odes"
-nav_order: 2
+nav_order: 3
 has_children: false
 parent: Programming Resources
 has_toc: false
