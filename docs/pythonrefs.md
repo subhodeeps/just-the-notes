@@ -35,6 +35,6 @@ tags:
 
 ## Machine Learning
 
--[Hands-On Machine Learning with Scikit-Learn and PyTorch: Concepts, Tools, and Techniques to Build Intelligent Systems, Aurélien Géron (O’Reilly Media, 2025)](https://github.com/ageron/handson-mlp)
+- [Hands-On Machine Learning with Scikit-Learn and PyTorch: Concepts, Tools, and Techniques to Build Intelligent Systems, Aurélien Géron (O’Reilly Media, 2025)](https://github.com/ageron/handson-mlp)
 
 - [Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems, Aurélien Géron (O’Reilly Media, 2019)](https://github.com/ageron/handson-ml3)
