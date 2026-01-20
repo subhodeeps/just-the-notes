@@ -4,7 +4,7 @@ title: "Julia Resources"
 description: "getting started with julia"
 nav_order: 1
 has_children: false
-parent: Programming
+parent: Programming Resources
 has_toc: false
 tags:
     - computational-physics
