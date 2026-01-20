@@ -13,10 +13,6 @@ tags:
   - nonlinear-dynamics
 ---
 
-## Julia for Python Users
-
-- [Julia for Pythonistas](https://github.com/ageron/julia_notebooks)
-
 ## Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications
 
 - [SciML Book](https://book.sciml.ai/)
@@ -29,3 +25,7 @@ tags:
 - [_Fundamentals of Numerical Computation: Julia Edition_, Tobin A. Driscoll & Richard J. Braun](https://tobydriscoll.net/fnc-julia/home.html). [Git Repo](https://github.com/fncbook/FundamentalsNumericalComputation.jl)
 
 - [_Algorithms with JULIA: Optimization, Machine Learning, and Differential Equations Using the JULIA Language_, Clemens Heitzinger](http://www.heitzinger.info/Book-Julia.html)
+
+## Julia for Python Users: Quick Guide
+
+- [Julia for Pythonistas](https://github.com/ageron/julia_notebooks)
