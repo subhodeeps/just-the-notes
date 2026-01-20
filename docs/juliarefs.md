@@ -22,9 +22,7 @@ tags:
 
 - [Solving PDEs in parallel on GPUs with Julia, ETH](https://pde-on-gpu.vaw.ethz.ch/)
 - [Julia for high-performance scientific computing, ENCCS](https://enccs.github.io/julia-for-hpc/)
-- Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications
-  - [SciML Book](https://book.sciml.ai/)
-  - [SciML Lectures](https://youtube.com/playlist?list=PLCAl7tjCwWyGjdzOOnlbGnVNZk0kB8VSa&si=FL1h-bzr2QL8X2fM)
+- Parallel Computing and Scientific Machine Learning (SciML): Methods and Applications, [SciML Book](https://book.sciml.ai/), [SciML Lectures](https://youtube.com/playlist?list=PLCAl7tjCwWyGjdzOOnlbGnVNZk0kB8VSa&si=FL1h-bzr2QL8X2fM)
 
 ## Books: Julia Language
 - [Think Julia, Allen B. Downey (O’Reilly, 2019)](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html)
