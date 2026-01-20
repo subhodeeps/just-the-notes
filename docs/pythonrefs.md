@@ -4,7 +4,7 @@ title: "Python Resources"
 description: "Scientific computing with Python"
 nav_order: 2
 has_children: false
-parent: Programming
+parent: Programming Resources
 has_toc: false
 tags:
   - scientific-computing
