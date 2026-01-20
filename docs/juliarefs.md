@@ -40,5 +40,6 @@ tags:
 - [Fundamentals of Numerical Computation: Julia Edition, Tobin A. Driscoll & Richard J. Braun](https://tobydriscoll.net/fnc-julia/home.html). [Git Repo](https://github.com/fncbook/FundamentalsNumericalComputation.jl)
 - [Algorithms with JULIA: Optimization, Machine Learning, and Differential Equations Using the JULIA Language, Clemens Heitzinger](http://www.heitzinger.info/Book-Julia.html)
 
-## Machine Learning 
+## Machine Learning
+
 - [Julia for Machine Learning, TU Berlin](https://adrianhill.de/julia-ml-course/)
