@@ -2,7 +2,7 @@
 layout: page
 title: How To Be the Best Version of Yourself
 description: "Actually, nobody cares! Work harder!"
-nav_order: 2
+nav_order: 3
 has_children: false
 has_toc: false
 tags:

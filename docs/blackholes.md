@@ -2,7 +2,7 @@
 layout: page
 title: Black Holes in General Relativity and Beyond
 description: "Essential references on black holes."
-nav_order: 1
+nav_order: 2
 has_children: false
 has_toc: false
 tags:
