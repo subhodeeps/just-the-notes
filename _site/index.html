@@ -59,14 +59,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Landing page. Summary of content." />
 <meta property="og:description" content="Landing page. Summary of content." />
-<link rel="canonical" href="http://localhost:4001/" />
-<meta property="og:url" content="http://localhost:4001/" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
 <meta property="og:site_name" content="Deep Notes" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Hey!" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-08-19T20:14:48+05:30","description":"Landing page. Summary of content.","headline":"Hey!","name":"Deep Notes","url":"http://localhost:4001/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T13:23:40+05:30","description":"Landing page. Summary of content.","headline":"Hey!","name":"Deep Notes","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -141,13 +141,13 @@
 </svg>
 
   
-    <div class="side-bar">
-  <div class="site-header" role="banner">
+    <header class="side-bar">
+  <div class="site-header">
     <a href="/" class="site-title lh-tight">
   Deep Notes
 
 </a>
-    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
     </button>
   </div>
@@ -155,15 +155,14 @@
   <nav aria-label="Main" id="site-nav" class="site-nav">
   
   
-    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Python Programming category" aria-pressed="false">
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/lecturenotes/" class="nav-list-link">Lecture Notes</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Programming Resources submenu" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-      </button><a href="/docs/python/" class="nav-list-link">Python Programming</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
+      </button><a href="/docs/programming/" class="nav-list-link">Programming Resources</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/juliarefs/" class="nav-list-link">Julia Resources</a></li><li class="nav-list-item"><a href="/docs/pythonrefs/" class="nav-list-link">Python Resources</a></li><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
   
 </nav>
 
 
-
-
+<div class="d-md-block d-none site-footer">
   
   
     <footer class="site-footer">
@@ -171,7 +170,8 @@
 </footer>
 
   
-</div>
+  </div>
+</header>
 
   
   <div class="main" id="top">
@@ -181,8 +181,11 @@
 
 <div class="search" role="search">
   <div class="search-input-wrap">
-    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" aria-label="Search Deep Notes" autocomplete="off">
-    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Deep Notes</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
   </div>
   <div id="search-results" class="search-results"></div>
 </div>
@@ -242,9 +245,9 @@
   
 </h1>
     
-<time datetime="2025-08-19T20:14:48+05:30">
+<time datetime="2026-01-20T13:23:40+05:30">
   
-    <i>Last updated on August 19, 2025.</i>
+    <i>Last updated on January 20, 2026.</i>
   
 </time>
 <p>These pages contain notes and references on subjects I find interesting. Broadly, they cover topics in theoretical physics—primarily classical and semiclassical gravity, with a strong focus on black holes—as well as other related areas. You’ll also find notes on scientific computing and quantitative programming, along with tutorials from various domains of computational physics, as well as pages with links to resources and articles I’ve found useful.</p>
@@ -268,64 +271,6 @@
     
 
     <div style="float: left; width: 50%;">
-<h3>
-  
-  
-    life-advice
-  
-  
-</h3>
-    
-        <ul>
-          
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-              
-            
-          
-            
-          
-            
-              
-            
-          
-            
-              
-            
-          
-            
-              
-                <li>
-                  <a href="/docs/advice/">How To Be the Best Version of Yourself</a>
-                </li>
-              
-            
-          
-            
-              
-            
-          
-            
-              
-            
-          
-            
-              
-            
-          
-            
-              
-            
-          
-        </ul>
 <h3>
   
   
@@ -356,6 +301,18 @@
                 <li>
                   <a href="/docs/blackholes/">Black Holes in General Relativity and Beyond</a>
                 </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
               
             
           
@@ -423,13 +380,29 @@
           
             
               
+                <li>
+                  <a href="/docs/juliarefs/">Julia Resources</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
             
           
             
               
                 <li>
-                  <a href="/docs/python/">Python Programming</a>
+                  <a href="/docs/programming/">Programming Resources</a>
                 </li>
+              
+            
+          
+            
               
             
           
@@ -485,12 +458,32 @@
           
             
               
+                <li>
+                  <a href="/docs/juliarefs/">Julia Resources</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
             
           
             
               
                 <li>
-                  <a href="/docs/python/">Python Programming</a>
+                  <a href="/docs/programming/">Programming Resources</a>
+                </li>
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/pythonrefs/">Python Resources</a>
                 </li>
               
             
@@ -555,9 +548,161 @@
           
             
               
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
                 <li>
                   <a href="/docs/qnm/">Reviews on Quasinormal Modes</a>
                 </li>
+              
+            
+          
+            
+              
+            
+          
+        </ul>
+<h3>
+  
+  
+    scientific-computing
+  
+  
+</h3>
+    
+        <ul>
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/pythonrefs/">Python Resources</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+        </ul>
+<h3>
+  
+  
+    statistics
+  
+  
+</h3>
+    
+        <ul>
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/pythonrefs/">Python Resources</a>
+                </li>
+              
+            
+          
+            
               
             
           
@@ -605,9 +750,21 @@
           
             
               
+            
+          
+            
+              
+            
+          
+            
+              
                 <li>
                   <a href="/testing/">Network Graph</a>
                 </li>
+              
+            
+          
+            
               
             
           
@@ -662,6 +819,22 @@
             
           
             
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/lecturenotes/">Lecture Notes</a>
+                </li>
               
             
           
@@ -747,6 +920,18 @@
               
             
           
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
         </ul>
 <h3>
   
@@ -787,12 +972,32 @@
           
             
               
+                <li>
+                  <a href="/docs/juliarefs/">Julia Resources</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
             
           
             
               
                 <li>
-                  <a href="/docs/python/">Python Programming</a>
+                  <a href="/docs/programming/">Programming Resources</a>
+                </li>
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/pythonrefs/">Python Resources</a>
                 </li>
               
             
@@ -849,13 +1054,29 @@
           
             
               
+                <li>
+                  <a href="/docs/juliarefs/">Julia Resources</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
             
           
             
               
                 <li>
-                  <a href="/docs/python/">Python Programming</a>
+                  <a href="/docs/programming/">Programming Resources</a>
                 </li>
+              
+            
+          
+            
               
             
           
@@ -929,6 +1150,158 @@
               
             
           
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+        </ul>
+<h3>
+  
+  
+    gravitational-waves
+  
+  
+</h3>
+    
+        <ul>
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/lecturenotes/">Lecture Notes</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+        </ul>
+<h3>
+  
+  
+    life-advice
+  
+  
+</h3>
+    
+        <ul>
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+            
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                <li>
+                  <a href="/docs/advice/">How To Be the Best Version of Yourself</a>
+                </li>
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
         </ul>
       
     </div>
@@ -943,7 +1316,22 @@
           
         </main>
         
+<hr>
+<footer>
+  
 
+  
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <footer class="site-footer">
+  &copy; Subhodeep Sarkar
+</footer>
+
+    
+  </div>
+</footer>
 
       </div>
     </div>

@@ -15,7 +15,7 @@
   
 
     
-    .site-nav > ul.nav-list:first-child > li:not(:nth-child(6)) > a,
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(7)) > a,
     .site-nav > ul.nav-list:first-child > li > ul > li a {
       background-image: none;
     }
@@ -25,12 +25,12 @@
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:first-child > li:nth-child(6) > a {
+    .site-nav > ul.nav-list:first-child > li:nth-child(7) > a {
       font-weight: 600;
       text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg {
+    }.site-nav > ul.nav-list:first-child > li:nth-child(7) > button svg {
       transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list {
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(7) > ul.nav-list {
       display: block;
     }
   </style>
@@ -57,14 +57,14 @@
 <meta property="og:title" content="Network Graph" />
 <meta name="author" content="Subhodeep Sarkar" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4001/testing/" />
-<meta property="og:url" content="http://localhost:4001/testing/" />
+<link rel="canonical" href="http://localhost:4000/testing/" />
+<meta property="og:url" content="http://localhost:4000/testing/" />
 <meta property="og:site_name" content="Deep Notes" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Network Graph" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-05-09T15:50:12+05:30","headline":"Network Graph","url":"http://localhost:4001/testing/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T13:23:40+05:30","headline":"Network Graph","url":"http://localhost:4000/testing/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -139,13 +139,13 @@
 </svg>
 
   
-    <div class="side-bar">
-  <div class="site-header" role="banner">
+    <header class="side-bar">
+  <div class="site-header">
     <a href="/" class="site-title lh-tight">
   Deep Notes
 
 </a>
-    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
     </button>
   </div>
@@ -153,15 +153,14 @@
   <nav aria-label="Main" id="site-nav" class="site-nav">
   
   
-    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Python Programming category" aria-pressed="false">
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/lecturenotes/" class="nav-list-link">Lecture Notes</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Programming Resources submenu" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-      </button><a href="/docs/python/" class="nav-list-link">Python Programming</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
+      </button><a href="/docs/programming/" class="nav-list-link">Programming Resources</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/juliarefs/" class="nav-list-link">Julia Resources</a></li><li class="nav-list-item"><a href="/docs/pythonrefs/" class="nav-list-link">Python Resources</a></li><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
   
 </nav>
 
 
-
-
+<div class="d-md-block d-none site-footer">
   
   
     <footer class="site-footer">
@@ -169,7 +168,8 @@
 </footer>
 
   
-</div>
+  </div>
+</header>
 
   
   <div class="main" id="top">
@@ -179,8 +179,11 @@
 
 <div class="search" role="search">
   <div class="search-input-wrap">
-    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" aria-label="Search Deep Notes" autocomplete="off">
-    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Deep Notes</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
   </div>
   <div id="search-results" class="search-results"></div>
 </div>
@@ -240,9 +243,9 @@
   
 </h1>
     
-<time datetime="2025-05-09T15:50:12+05:30">
+<time datetime="2026-01-20T13:23:40+05:30">
   
-    <i>Last updated on May 9, 2025.</i>
+    <i>Last updated on January 20, 2026.</i>
   
 </time>
 <p><strong>under construction</strong>
@@ -254,7 +257,7 @@
 
 <script>
 
-    const graphData = {"edges":[{"source":"80121116104111110328011411110311497109109105110103","target":"83111108118105110103327968691153211711510511010332796869737884"}],"nodes":[{"id":"72111119328411132661013211610410132661011151163286101114115105111110321111023289111117114115101108102","path":"/docs/advice/","label":"How To Be the Best Version of Yourself"},{"id":"66108979910732721111081011153210511032711011101011149710832821011089711610511810511612132971101003266101121111110100","path":"/docs/blackholes/","label":"Black Holes in General Relativity and Beyond"},{"id":"83111108118105110103327968691153211711510511010332796869737884","path":"/docs/ode/","label":"Solving ODEs using ODEINT"},{"id":"80121116104111110328011411110311497109109105110103","path":"/docs/python/","label":"Python Programming"},{"id":"8210111810510111911532111110328111797115105110111114109971083277111100101115","path":"/docs/qnm/","label":"Reviews on Quasinormal Modes"}]};
+    const graphData = {"edges":[{"source":"8011411110311497109109105110103328210111511111711499101115","target":"7411710810597328210111511111711499101115"},{"source":"8011411110311497109109105110103328210111511111711499101115","target":"83111108118105110103327968691153211711510511010332796869737884"},{"source":"8011411110311497109109105110103328210111511111711499101115","target":"80121116104111110328210111511111711499101115"}],"nodes":[{"id":"72111119328411132661013211610410132661011151163286101114115105111110321111023289111117114115101108102","path":"/docs/advice/","label":"How To Be the Best Version of Yourself"},{"id":"66108979910732721111081011153210511032711011101011149710832821011089711610511810511612132971101003266101121111110100","path":"/docs/blackholes/","label":"Black Holes in General Relativity and Beyond"},{"id":"7411710810597328210111511111711499101115","path":"/docs/juliarefs/","label":"Julia Resources"},{"id":"76101991161171141013278111116101115","path":"/docs/lecturenotes/","label":"Lecture Notes"},{"id":"83111108118105110103327968691153211711510511010332796869737884","path":"/docs/ode/","label":"Solving ODEs using ODEINT"},{"id":"8011411110311497109109105110103328210111511111711499101115","path":"/docs/programming/","label":"Programming Resources"},{"id":"80121116104111110328210111511111711499101115","path":"/docs/pythonrefs/","label":"Python Resources"},{"id":"8210111810510111911532111110328111797115105110111114109971083277111100101115","path":"/docs/qnm/","label":"Reviews on Quasinormal Modes"}]};
 
 
     const width = 800;
@@ -370,6 +373,18 @@
         
       
         
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
       
         
       
@@ -391,7 +406,22 @@
           
         </main>
         
+<hr>
+<footer>
+  
 
+  
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <footer class="site-footer">
+  &copy; Subhodeep Sarkar
+</footer>
+
+    
+  </div>
+</footer>
 
       </div>
     </div>

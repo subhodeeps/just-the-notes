@@ -14,9 +14,10 @@
   <style id="jtd-nav-activation">
   
 
+    .site-nav > ul.nav-list:first-child > li > a,
     
-    .site-nav > ul.nav-list:first-child > li:not(:nth-child(3)) > a,
-    .site-nav > ul.nav-list:first-child > li > ul > li a {
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(2)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
       background-image: none;
     }
 
@@ -25,12 +26,14 @@
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:first-child > li:nth-child(3) > a {
+    .site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(2) > a {
       font-weight: 600;
       text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(3) > button svg {
+    }.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(2) > button svg {
       transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list {
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(2) > ul.nav-list {
       display: block;
     }
   </style>
@@ -52,21 +55,21 @@
 
 
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>How To Be the Best Version of Yourself | Deep Notes</title>
+<title>Python Resources | Deep Notes</title>
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="How To Be the Best Version of Yourself" />
+<meta property="og:title" content="Python Resources" />
 <meta name="author" content="Subhodeep Sarkar" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Actually, nobody cares! Work harder!" />
-<meta property="og:description" content="Actually, nobody cares! Work harder!" />
-<link rel="canonical" href="http://localhost:4000/docs/advice/" />
-<meta property="og:url" content="http://localhost:4000/docs/advice/" />
+<meta name="description" content="Scientific computing with Python" />
+<meta property="og:description" content="Scientific computing with Python" />
+<link rel="canonical" href="http://localhost:4000/docs/pythonrefs/" />
+<meta property="og:url" content="http://localhost:4000/docs/pythonrefs/" />
 <meta property="og:site_name" content="Deep Notes" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="How To Be the Best Version of Yourself" />
+<meta property="twitter:title" content="Python Resources" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T13:28:58+05:30","description":"Actually, nobody cares! Work harder!","headline":"How To Be the Best Version of Yourself","url":"http://localhost:4000/docs/advice/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T15:29:46+05:30","description":"Scientific computing with Python","headline":"Python Resources","url":"http://localhost:4000/docs/pythonrefs/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -211,7 +214,14 @@
 </div>
 
     <div class="main-content-wrap">
-      
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/docs/programming/">Programming Resources</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Python Resources</span></li>
+  </ol>
+</nav>
+
+
       <div id="main-content" class="main-content">
         <main>
           
@@ -240,85 +250,77 @@
 <h1>
   
   
-    How To Be the Best Version of Yourself
+    Python Resources
   
   
 </h1>
     
-<time datetime="2026-01-20T13:28:58+05:30">
+<time datetime="2026-01-20T15:29:46+05:30">
   
     <i>Last updated on January 20, 2026.</i>
   
 </time>
-<p>This page is adapted from the Essential Skills section of the Grittings{:target=”_blank” rel=”noopener”} website. It highlights a set of principles I try to live by and habits I’m working on building. I’m sharing it here because it’s the kind of advice I wish I could’ve given my younger self—lessons I’ve picked up along the way that I hope others might find helpful. Like me, this document is still a work in progress, and I’ll keep updating and editing it as I keep learning and growing.</p>
+<h2 id="introductory-books">
+  
+  
+    <a href="#introductory-books" class="anchor-heading" aria-labelledby="introductory-books"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introductory Books
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="https://greenteapress.com/wp/think-python-2e/">Think Python, Allen B. Downey (Third Ed., O’Reilly, 2024)</a></li>
+  <li><a href="https://www.springer.com/gp/book/9783030503550">Introduction to Scientific Programming with Python, Joakim Sundnes (Springer, 2020)</a></li>
+  <li><a href="https://doi.org/10.1017/9781009029728">Python for Scientists, John Stewart and Michael Mommert, (Third Edition, CUP, 2023)</a></li>
+</ul>
+<h2 id="introductory-numerical-and-scientific-computing">
+  
+  
+    <a href="#introductory-numerical-and-scientific-computing" class="anchor-heading" aria-labelledby="introductory-numerical-and-scientific-computing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introductory Numerical and Scientific Computing
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="https://scipython.com/books/book2/">Learning Scientific Programming with Python, Christian Hill (Second Ed., CUP, 2020)</a></li>
+  <li><a href="https://patrickwalls.github.io/mathematicalpython/">Mathematical Python, Patrick Walls, University of British Columbia</a></li>
+  <li><a href="https://pythonnumericalmethods.berkeley.edu/notebooks/Index.html">Python Programming and Numerical Methods: A Guide for Engineers and Scientists, Qingkai Kong, Timmy Siauw, Alexandre M. Bayen (Academic Press, 2021)</a></li>
+</ul>
+<h2 id="advanced-scientific-computing">
+  
+  
+    <a href="#advanced-scientific-computing" class="anchor-heading" aria-labelledby="advanced-scientific-computing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Advanced Scientific Computing
+  
+  
+</h2>
+    
+
+<ul>
+  <li><a href="https://numphyspy.org/">Numerical Methods in Physics with Python, Alex Gezerlis (Second Ed., CUP, 2023)</a></li>
+  <li><a href="https://jrjohansson.github.io/numericalpython.html">Numerical Python: Scientific Computing and Data Science Applications with NumPy, SciPy and Matplotlib,, Robert Johansson (Third Edition, Apress, 2024)</a></li>
+  <li><a href="https://people.duke.edu/~ccc14/sta-663-2017/">Computational Statistics Using Python (2017), Cliburn Chan, Janice McCarthy, Duke University</a></li>
+  <li><a href="https://people.duke.edu/~ccc14/sta-663-2018/index.html">Computational Statistics and Statistical Computing (2018), Cliburn Chan, Duke University</a></li>
+  <li><a href="https://web.archive.org/web/20241012084239/http://sites.science.oregonstate.edu/~landaur/Books/CPbook/index.html">Computational Physics: Problem Solving with Python, Rubin H. Landau, Manuel J. Páez, Cristian C. Bordeianu (Fourth Ed.,Wiley-VCH, 2024)</a></li>
+  <li><a href="https://www.google.co.in/books/edition/Computational_Physics/gR6zCQAAQBAJ?hl=en">Computational Physics: Problem Solving with Python, Rubin H. Landau, Manuel J. Páez, Cristian C. Bordeianu (Third Ed.,Wiley-VCH, 2015)</a></li>
+</ul>
+<h2 id="machine-learning">
+  
+  
+    <a href="#machine-learning" class="anchor-heading" aria-labelledby="machine-learning"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Machine Learning
+  
+  
+</h2>
+    
 
 <ul>
   <li>
-    <p><strong>Work. Work. Work.</strong><br />
-Do a calculation a day to keep bad spirits away. Try to convince yourself that writing code to implement a numerical method counts as doing a <em>real</em> (mathematical) calculation—because it does.</p>
+    <p><a href="https://github.com/ageron/handson-mlp">Hands-On Machine Learning with Scikit-Learn and PyTorch: Concepts, Tools, and Techniques to Build Intelligent Systems, Aurélien Géron (O’Reilly Media, 2025)</a></p>
   </li>
   <li>
-    <p><strong>Be consistent.</strong><br />
-To quote the Jogging Baboon from <em>BoJack Horseman</em>: <em>It gets easier. Every day, it gets a little easier. But you gotta do it every day—that’s the hard part. But it does get easier.</em></p>
+    <p><a href="https://github.com/ageron/handson-ml3">Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems, Aurélien Géron (O’Reilly Media, 2019)</a></p>
   </li>
-  <li>
-    <p><strong>Nobody cares. Work harder.</strong><br />
-Don’t isolate yourself in a little bubble. There’s a whole wild world out there. If you’re a theoretician, learn numerical methods and data analysis. If you’re a data analyst, understand the theoretical foundations of your work. Learn new tools. Learn new methods. Just keep learning. The rewards will follow.</p>
-  </li>
-  <li>
-    <p><strong>Be punctual.</strong><br />
-Nobody likes to wait. If you value other people’s time, they’ll return the kindness.</p>
-  </li>
-  <li>
-    <p><strong>Discuss.</strong><br />
-You’re surrounded by smart people. Pick their brains—and let them pick yours.</p>
-  </li>
-  <li>
-    <p><strong>Attend journal clubs.</strong><br />
-If you can’t find one, start one. If you’re interested in GR, here’s a <a href="https://pages.jh.edu/eberti2/posts/must-read-paper-list/" target="_blank" rel="noopener">reading list</a>. You can also find the PDFs on the <a href="https://blackholes.tecnico.ulisboa.pt/gritting/essential_reading.html" target="_blank" rel="noopener">Grittings website</a>.</p>
-  </li>
-  <li>
-    <p><strong>Read.</strong><br />
-Read a lot. A huge part of a student’s (or a researcher’s) job is reading. I’ve seen most good researchers start their day by checking the <a href="https://arxiv.org/" target="_blank" rel="noopener">arXiv</a>. Do the same—check it daily, and aim to read at least one paper a day. You don’t need to understand every detail. Instead, try to grasp the problem being addressed, why it’s interesting, and how the authors are approaching it. Getting the gist of the argument is what matters. Even if things aren’t immediately clear, this habit will give you tools that you can use later. You might even find something incredibly useful buried in an appendix of a preprint! Learning what to read is itself a learning process. Stay engaged during journal clubs. And don’t underestimate good pop science magazines—they can help you catch important work you might have missed. It will also help to understand how to communicate your work to a non-technical audience (like your aunt).</p>
-  </li>
-  <li>
-    <p><strong>Read some more.</strong><br />
-Make it a point to read books outside your so-called specialization. There are countless great books—fiction and non-fiction alike. Read about the lives of those who made a dent in the universe without arrogance. Keep exploring and expanding your mind. Don’t forget to understand humanity in your quest to understand the universe.</p>
-  </li>
-  <li>
-    <p><strong>Keep reading.</strong><br />
-But eventually, try to think of something new—and then write it down.</p>
-  </li>
-  <li><strong>On a more personal level:</strong>
-    <ul>
-      <li>Always compliment people.</li>
-      <li>Be kind and respectful to everyone, regardless of past encounters.</li>
-      <li>Be generous.</li>
-      <li>Pursue what is meaningful (not what is expedient).</li>
-      <li>Do not wish for more or better.</li>
-      <li>Be precise in speech.</li>
-      <li>Do what you can, with what you have, where you are.</li>
-      <li>Compare yourself to who you were yesterday, not to who someone else is today.</li>
-      <li>Remember: one who is not satisfied with what they have will not be satisfied with what they want.</li>
-      <li>Pet a dog when you see one on the street.</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Lastly</strong>, some words from the wise:</p>
-
-    <blockquote>
-      <p>“The pursuit of science has often been compared to the scaling of mountains, high and not so high. But who amongst us can hope, even in imagination, to scale the Everest and reach its summit when the sky is blue and the air is still, and in the stillness of the air survey the entire Himalayan range in the dazzling white of the snow stretching to infinity? None of us can hope for a comparable vision of nature and of the universe around us. But there is nothing mean or lowly in standing in the valley below and awaiting the sun to rise over Kanchenjunga.”<br />
-— Subrahmanyan Chandrasekhar, <em>Truth and Beauty: Aesthetics and Motivations in Science</em> (1987), p. 26.</p>
-    </blockquote>
-
-    <blockquote>
-      <p>“Do not undertake a scientific career in quest of fame or money. There are easier and better ways to reach them. Undertake it only if nothing else will satisfy you; for nothing else is probably what you will receive. Your reward will be the widening of the horizon as you climb. And if you achieve that reward you will ask no other.”<br />
-— Cecilia Payne-Gaposchkin, as quoted by Donovan Moore in <em>What Stars Are Made Of: The Life of Cecilia Payne-Gaposchkin</em> (2020), p. 253.</p>
-    </blockquote>
-  </li>
-  <li><strong>Fin.</strong><br />
-If you’re still reading—live long and prosper, friend! 🖖
-–</li>
 </ul>
 
 
@@ -327,7 +329,7 @@ If you’re still reading—live long and prosper, friend! 🖖
 <h2>
   
   
-    Backlinks
+    <a href="#machine-learning" class="anchor-heading" aria-labelledby="machine-learning"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Backlinks
   
   
 </h2>
@@ -353,9 +355,9 @@ If you’re still reading—live long and prosper, friend! 🖖
       
         
           
-        
-      
-        
+            <li>
+              <a href="{entry.url}">Hey!</a>
+            </li>
           
         
       
@@ -368,6 +370,14 @@ If you’re still reading—live long and prosper, friend! 🖖
         
       
         
+          
+        
+      
+        
+          
+            <li>
+              <a href="{entry.url}">Programming Resources</a>
+            </li>
           
         
       

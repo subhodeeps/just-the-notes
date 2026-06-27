@@ -15,8 +15,10 @@ tags:
 ## Resouces
 
 - [High Performance Scientific Computing, Randy LeVaque](https://faculty.washington.edu/rjl/uwhpsc-coursera/coursera.html), [Archive Link](https://archive.org/details/academictorrents_cb91a3d7a4c4c086be240b54e83ed8d587b31ff5)
+
 - [[juliarefs|Julia Resources]]
--[[pythonrefs|Python Resources]]
+
+- [[pythonrefs|Python Resources]]
 
 ## Tutorials
 

@@ -15,7 +15,7 @@
   
 
     
-    .site-nav > ul.nav-list:first-child > li:not(:nth-child(4)) > a,
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(2)) > a,
     .site-nav > ul.nav-list:first-child > li > ul > li a {
       background-image: none;
     }
@@ -25,12 +25,12 @@
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:first-child > li:nth-child(4) > a {
+    .site-nav > ul.nav-list:first-child > li:nth-child(2) > a {
       font-weight: 600;
       text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg {
+    }.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg {
       transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list {
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list {
       display: block;
     }
   </style>
@@ -59,14 +59,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Essential references on black holes." />
 <meta property="og:description" content="Essential references on black holes." />
-<link rel="canonical" href="http://localhost:4001/docs/blackholes/" />
-<meta property="og:url" content="http://localhost:4001/docs/blackholes/" />
+<link rel="canonical" href="http://localhost:4000/docs/blackholes/" />
+<meta property="og:url" content="http://localhost:4000/docs/blackholes/" />
 <meta property="og:site_name" content="Deep Notes" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Black Holes in General Relativity and Beyond" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-05-09T15:10:14+05:30","description":"Essential references on black holes.","headline":"Black Holes in General Relativity and Beyond","url":"http://localhost:4001/docs/blackholes/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T13:31:04+05:30","description":"Essential references on black holes.","headline":"Black Holes in General Relativity and Beyond","url":"http://localhost:4000/docs/blackholes/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -141,13 +141,13 @@
 </svg>
 
   
-    <div class="side-bar">
-  <div class="site-header" role="banner">
+    <header class="side-bar">
+  <div class="site-header">
     <a href="/" class="site-title lh-tight">
   Deep Notes
 
 </a>
-    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
     </button>
   </div>
@@ -155,15 +155,14 @@
   <nav aria-label="Main" id="site-nav" class="site-nav">
   
   
-    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Python Programming category" aria-pressed="false">
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/lecturenotes/" class="nav-list-link">Lecture Notes</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Programming Resources submenu" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-      </button><a href="/docs/python/" class="nav-list-link">Python Programming</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
+      </button><a href="/docs/programming/" class="nav-list-link">Programming Resources</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/juliarefs/" class="nav-list-link">Julia Resources</a></li><li class="nav-list-item"><a href="/docs/pythonrefs/" class="nav-list-link">Python Resources</a></li><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
   
 </nav>
 
 
-
-
+<div class="d-md-block d-none site-footer">
   
   
     <footer class="site-footer">
@@ -171,7 +170,8 @@
 </footer>
 
   
-</div>
+  </div>
+</header>
 
   
   <div class="main" id="top">
@@ -181,8 +181,11 @@
 
 <div class="search" role="search">
   <div class="search-input-wrap">
-    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" aria-label="Search Deep Notes" autocomplete="off">
-    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Deep Notes</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
   </div>
   <div id="search-results" class="search-results"></div>
 </div>
@@ -242,9 +245,9 @@
   
 </h1>
     
-<time datetime="2025-05-09T15:10:14+05:30">
+<time datetime="2026-01-20T13:31:04+05:30">
   
-    <i>Last updated on May 9, 2025.</i>
+    <i>Last updated on January 20, 2026.</i>
   
 </time>
 <blockquote>
@@ -254,7 +257,7 @@
 
 \[\mathcal{B} = \mathcal{M} \backslash J^{−} (\mathcal{I}^ + ).\]
 
-  <p>In the context of general relativity, where our physical spacetime continuum is modelled by such a manifold \mathcal{M}, this ideal boundary at infinity $\mathcal{I}^+$ corresponds to “far-away” observers in the radiation zone of an isolated self-gravitating system such as a collapsing star. Thus, the black hole region $\mathcal{B}$ is the set of those spacetime events which cannot send signals to distant observers like us.
+  <p>In the context of general relativity, where our physical spacetime continuum is modelled by such a manifold $\mathcal{M}$, this ideal boundary at infinity $\mathcal{I}^+$ corresponds to “far-away” observers in the radiation zone of an isolated self-gravitating system such as a collapsing star. Thus, the black hole region $\mathcal{B}$ is the set of those spacetime events which cannot send signals to distant observers like us.
 It is remarkable that the simplest non-trivial spacetimes $(\mathcal{M}, g)$ solving the Einstein equations in vacuum</p>
 
 \[\mathrm{Ric}(g) = 0,\]
@@ -317,6 +320,18 @@ It is remarkable that the simplest non-trivial spacetimes $(\mathcal{M}, g)$ sol
         
       
         
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
       
         
       
@@ -338,7 +353,22 @@ It is remarkable that the simplest non-trivial spacetimes $(\mathcal{M}, g)$ sol
           
         </main>
         
+<hr>
+<footer>
+  
 
+  
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <footer class="site-footer">
+  &copy; Subhodeep Sarkar
+</footer>
+
+    
+  </div>
+</footer>
 
       </div>
     </div>

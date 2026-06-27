@@ -15,7 +15,7 @@
   
 
     
-    .site-nav > ul.nav-list:first-child > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(4)) > a,
     .site-nav > ul.nav-list:first-child > li > ul > li a {
       background-image: none;
     }
@@ -25,12 +25,12 @@
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:first-child > li:nth-child(5) > a {
+    .site-nav > ul.nav-list:first-child > li:nth-child(4) > a {
       font-weight: 600;
       text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg {
+    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg {
       transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list {
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list {
       display: block;
     }
   </style>
@@ -52,21 +52,19 @@
 
 
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Python Programming | Deep Notes</title>
+<title>Lecture Notes | Deep Notes</title>
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="Python Programming" />
+<meta property="og:title" content="Lecture Notes" />
 <meta name="author" content="Subhodeep Sarkar" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Python programming" />
-<meta property="og:description" content="Python programming" />
-<link rel="canonical" href="http://localhost:4001/docs/python/" />
-<meta property="og:url" content="http://localhost:4001/docs/python/" />
+<link rel="canonical" href="http://localhost:4000/docs/lecturenotes/" />
+<meta property="og:url" content="http://localhost:4000/docs/lecturenotes/" />
 <meta property="og:site_name" content="Deep Notes" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Python Programming" />
+<meta property="twitter:title" content="Lecture Notes" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-05-09T16:04:54+05:30","description":"Python programming","headline":"Python Programming","url":"http://localhost:4001/docs/python/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T13:28:58+05:30","headline":"Lecture Notes","url":"http://localhost:4000/docs/lecturenotes/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -141,13 +139,13 @@
 </svg>
 
   
-    <div class="side-bar">
-  <div class="site-header" role="banner">
+    <header class="side-bar">
+  <div class="site-header">
     <a href="/" class="site-title lh-tight">
   Deep Notes
 
 </a>
-    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
     </button>
   </div>
@@ -155,15 +153,14 @@
   <nav aria-label="Main" id="site-nav" class="site-nav">
   
   
-    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Python Programming category" aria-pressed="false">
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/lecturenotes/" class="nav-list-link">Lecture Notes</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Programming Resources submenu" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-      </button><a href="/docs/python/" class="nav-list-link">Python Programming</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
+      </button><a href="/docs/programming/" class="nav-list-link">Programming Resources</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/juliarefs/" class="nav-list-link">Julia Resources</a></li><li class="nav-list-item"><a href="/docs/pythonrefs/" class="nav-list-link">Python Resources</a></li><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
   
 </nav>
 
 
-
-
+<div class="d-md-block d-none site-footer">
   
   
     <footer class="site-footer">
@@ -171,7 +168,8 @@
 </footer>
 
   
-</div>
+  </div>
+</header>
 
   
   <div class="main" id="top">
@@ -181,8 +179,11 @@
 
 <div class="search" role="search">
   <div class="search-input-wrap">
-    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" aria-label="Search Deep Notes" autocomplete="off">
-    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Deep Notes</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
   </div>
   <div id="search-results" class="search-results"></div>
 </div>
@@ -237,29 +238,106 @@
 <h1>
   
   
-    Python Programming
+    Lecture Notes
   
   
 </h1>
     
-<time datetime="2025-05-09T16:04:54+05:30">
+<time datetime="2026-01-20T13:28:58+05:30">
   
-    <i>Last updated on May 9, 2025.</i>
+    <i>Last updated on January 20, 2026.</i>
   
 </time>
-<h2 id="tutorials">
+<p><strong>Note: Some of these lecture notes can be classified under multiple headings, my choices are a bit arbitrary!</strong></p>
+<h2 id="black-holes">
   
   
-    <a href="#tutorials" class="anchor-heading" aria-labelledby="tutorials"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Tutorials:
+    <a href="#black-holes" class="anchor-heading" aria-labelledby="black-holes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Black Holes
   
   
 </h2>
     
 
-<ul>
-  <li>Solving ODEs using <code class="language-plaintext highlighter-rouge">odeint</code> – <a href="/docs/ode/">Solving ODEs using ODEINT<a>.</a></a></li>
-</ul>
+<ol>
+  <li>Edward Witten, <a href="https://inspirehep.net/literature/2862365">“Introduction to black hole thermodynamics”</a>, <em>Eur.Phys.J.Plus 140 (2025) 5, 430</em>.</li>
+  <li>Harvey Reall, <a href="https://www.damtp.cam.ac.uk/user/hsr1000/teaching.html">“Mathematical Tripos Part III Black Holes”</a>, Unpublished, 2024(?).</li>
+  <li>P.K. Townsend, <a href="https://inspirehep.net/literature/445233">“Black holes: Lecture notes”</a>, arXiv Preprint, 1997.</li>
+</ol>
+<h2 id="general-relativity">
+  
+  
+    <a href="#general-relativity" class="anchor-heading" aria-labelledby="general-relativity"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> General Relativity
+  
+  
+</h2>
+    
 
+<ol>
+  <li>Edward Witten, <a href="https://inspirehep.net/literature/1713564">“Light Rays, Singularities, and All That”</a>, <em>Rev.Mod.Phys. 92 (2020) 4</em>, 045004.</li>
+  <li>José Natário, <a href="https://inspirehep.net/literature/1784222">“Mathematical relativity”</a>, arXiv Preprint, 2020.</li>
+  <li>Matthias Blau, <a href="http://blau.itp.unibe.ch/GRLecturenotes.html">“Lecture Notes on General Relativity”</a>, Unpublished, 2025</li>
+</ol>
+<h2 id="numerical-relativity">
+  
+  
+    <a href="#numerical-relativity" class="anchor-heading" aria-labelledby="numerical-relativity"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Numerical Relativity
+  
+  
+</h2>
+    
+
+<ol>
+  <li>Ulrich Sperhake, <a href="https://www.damtp.cam.ac.uk/user/us248/Lectures/lectures.html">“Part III Gravitational Waves and Numerical Relativity Lecture Notes”</a>, Unpublished, 2022.</li>
+</ol>
+<h2 id="gravitational-waves">
+  
+  
+    <a href="#gravitational-waves" class="anchor-heading" aria-labelledby="gravitational-waves"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Gravitational Waves
+  
+  
+</h2>
+    
+
+<ol>
+  <li>Enrico Barausse, <a href="https://inspirehep.net/literature/2644545">“The physics of gravitational waves”</a>, <em>PoS QG-MMSchools (2024) 002</em>.</li>
+</ol>
+<h2 id="cosmology">
+  
+  
+    <a href="#cosmology" class="anchor-heading" aria-labelledby="cosmology"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Cosmology
+  
+  
+</h2>
+    
+
+<ol>
+  <li>Guillem Domènech, <a href="https://inspirehep.net/literature/2677295">“Lectures on Gravitational Wave Signatures of Primordial Black Holes”</a>, arXiv Preprint, 2023.</li>
+  <li>Oliver F. Piattella, <a href="https://inspirehep.net/literature/1658087">“Lecture Notes in Cosmology”</a>, UNITEXT for Physics, 2018.</li>
+</ol>
+<h2 id="quantum-field-theory">
+  
+  
+    <a href="#quantum-field-theory" class="anchor-heading" aria-labelledby="quantum-field-theory"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Quantum Field Theory
+  
+  
+</h2>
+    
+
+<ol>
+  <li>Ghanashyam Date, <a href="https://inspirehep.net/literature/2106526">“Lectures on Introduction to Quantum Field Theory”</a>, arXiv Preprint, 2022.</li>
+</ol>
+<h2 id="astrophysics">
+  
+  
+    <a href="#astrophysics" class="anchor-heading" aria-labelledby="astrophysics"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Astrophysics
+  
+  
+</h2>
+    
+
+<ol>
+  <li>Philip J. Armitage, <a href="https://inspirehep.net/literature/2013400">“Lecture notes on accretion disk physics”</a>, arXiv Preprint, 2022.</li>
+</ol>
 
 
 
@@ -267,7 +345,7 @@
 <h2>
   
   
-    <a href="#tutorials" class="anchor-heading" aria-labelledby="tutorials"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Backlinks
+    <a href="#astrophysics" class="anchor-heading" aria-labelledby="astrophysics"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Backlinks
   
   
 </h2>
@@ -316,6 +394,18 @@
         
       
         
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
       
         
       
@@ -337,7 +427,22 @@
           
         </main>
         
+<hr>
+<footer>
+  
 
+  
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <footer class="site-footer">
+  &copy; Subhodeep Sarkar
+</footer>
+
+    
+  </div>
+</footer>
 
       </div>
     </div>

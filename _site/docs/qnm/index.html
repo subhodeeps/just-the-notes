@@ -15,7 +15,7 @@
   
 
     
-    .site-nav > ul.nav-list:first-child > li:not(:nth-child(2)) > a,
+    .site-nav > ul.nav-list:first-child > li:not(:nth-child(5)) > a,
     .site-nav > ul.nav-list:first-child > li > ul > li a {
       background-image: none;
     }
@@ -25,12 +25,12 @@
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:first-child > li:nth-child(2) > a {
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > a {
       font-weight: 600;
       text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg {
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg {
       transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list {
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list {
       display: block;
     }
   </style>
@@ -57,14 +57,14 @@
 <meta property="og:title" content="Reviews on Quasinormal Modes" />
 <meta name="author" content="Subhodeep Sarkar" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4001/docs/qnm/" />
-<meta property="og:url" content="http://localhost:4001/docs/qnm/" />
+<link rel="canonical" href="http://localhost:4000/docs/qnm/" />
+<meta property="og:url" content="http://localhost:4000/docs/qnm/" />
 <meta property="og:site_name" content="Deep Notes" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Reviews on Quasinormal Modes" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2025-08-19T22:03:04+05:30","headline":"Reviews on Quasinormal Modes","url":"http://localhost:4001/docs/qnm/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Subhodeep Sarkar"},"dateModified":"2026-01-20T13:28:58+05:30","headline":"Reviews on Quasinormal Modes","url":"http://localhost:4000/docs/qnm/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -139,13 +139,13 @@
 </svg>
 
   
-    <div class="side-bar">
-  <div class="site-header" role="banner">
+    <header class="side-bar">
+  <div class="site-header">
     <a href="/" class="site-title lh-tight">
   Deep Notes
 
 </a>
-    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
     </button>
   </div>
@@ -153,15 +153,14 @@
   <nav aria-label="Main" id="site-nav" class="site-nav">
   
   
-    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Python Programming category" aria-pressed="false">
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Hey!</a></li><li class="nav-list-item"><a href="/docs/blackholes/" class="nav-list-link">Black Holes in General Relativity and Beyond</a></li><li class="nav-list-item"><a href="/docs/advice/" class="nav-list-link">How To Be the Best Version of Yourself</a></li><li class="nav-list-item"><a href="/docs/lecturenotes/" class="nav-list-link">Lecture Notes</a></li><li class="nav-list-item"><a href="/docs/qnm/" class="nav-list-link">Reviews on Quasinormal Modes</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="Programming Resources submenu" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-      </button><a href="/docs/python/" class="nav-list-link">Python Programming</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
+      </button><a href="/docs/programming/" class="nav-list-link">Programming Resources</a><ul class="nav-list"><li class="nav-list-item"><a href="/docs/juliarefs/" class="nav-list-link">Julia Resources</a></li><li class="nav-list-item"><a href="/docs/pythonrefs/" class="nav-list-link">Python Resources</a></li><li class="nav-list-item"><a href="/docs/ode/" class="nav-list-link">Solving ODEs using ODEINT</a></li></ul></li><li class="nav-list-item"><a href="/testing/" class="nav-list-link">Network Graph</a></li></ul>
   
 </nav>
 
 
-
-
+<div class="d-md-block d-none site-footer">
   
   
     <footer class="site-footer">
@@ -169,7 +168,8 @@
 </footer>
 
   
-</div>
+  </div>
+</header>
 
   
   <div class="main" id="top">
@@ -179,8 +179,11 @@
 
 <div class="search" role="search">
   <div class="search-input-wrap">
-    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" aria-label="Search Deep Notes" autocomplete="off">
-    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Deep Notes" autocomplete="off">
+    <label for="search-input" class="search-label">
+      <span class="sr-only">Search Deep Notes</span>
+      <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg>
+    </label>
   </div>
   <div id="search-results" class="search-results"></div>
 </div>
@@ -240,9 +243,9 @@
   
 </h1>
     
-<time datetime="2025-08-19T22:03:04+05:30">
+<time datetime="2026-01-20T13:28:58+05:30">
   
-    <i>Last updated on August 19, 2025.</i>
+    <i>Last updated on January 20, 2026.</i>
   
 </time>
 <blockquote>
@@ -294,10 +297,13 @@
     <p>J. Besson, J. Carballo, C. Pantelidou <em>et al.</em>, “<a href="https://inspirehep.net/literature/2953013">Transients in black hole perturbation theory</a>,” <em>Front. in Phys.</em> <strong>13</strong> (2025) 1638583. <a href="https://arxiv.org/abs/2507.16493">arXiv:2507.16493</a>.</p>
   </li>
   <li>
-    <p>S.V. Bolokhov and M. Skvortsova, “<a href="https://inspirehep.net/literature/2908699">Review of analytic results on quasinormal modes of black holes</a>”, <em>arXiv preprint</em> <a href="https://arxiv.org/abs/2504.05014">arXiv:2504.05014 [gr-qc]</a>* (2025).</p>
+    <p>S.V. Bolokhov and M. Skvortsova, “<a href="https://inspirehep.net/literature/2908699">Review of analytic results on quasinormal modes of black holes</a>”, <em>arXiv preprint</em> <a href="https://arxiv.org/abs/2504.05014">arXiv:2504.05014 [gr-qc]</a> (2025).</p>
   </li>
   <li>L. Santoni, “<a href="https://courses.ipht.fr/?q=en/node/320">Aspects of Black Hole Perturbation Theory</a>”, <em>IPhT Courses</em> (2024).</li>
-  <li>E. Berti, V. Cardoso et <em>al</em>., “<a href="https://inspirehep.net/literature/2927078">Black hole spectroscopy: from theory to experiment</a>”, <em>arXiv preprint</em>, arXiv:2505.23895 (2025).</li>
+  <li>
+    <p>E. Berti, V. Cardoso et <em>al</em>., “<a href="https://inspirehep.net/literature/2927078">Black hole spectroscopy: from theory to experiment</a>”, <em>arXiv preprint</em>, arXiv:2505.23895 (2025).</p>
+  </li>
+  <li>Shui-Fa Shen, Guan-Ru Li, Ramin G. Daghigh, Jodin C. Morey, Michael D. Green <em>et al</em>., “<a href="https://inspirehep.net/literature/2947437">Asymptotic quasinormal modes, echoes, and black hole spectral instability: a brief review</a>”, <em>arXiv preprint</em>, arXiv: 2507.11663 (2025).</li>
 </ol>
 
 
@@ -356,6 +362,18 @@
         
       
         
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
       
         
       
@@ -377,7 +395,22 @@
           
         </main>
         
+<hr>
+<footer>
+  
 
+  
+
+  <div class="d-md-none mt-4 fs-2">
+    
+    
+      <footer class="site-footer">
+  &copy; Subhodeep Sarkar
+</footer>
+
+    
+  </div>
+</footer>
 
       </div>
     </div>

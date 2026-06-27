@@ -4,3 +4,7 @@ gem "webrick"
 gem "just-the-docs"
 gem "jekyll-last-modified-at", 
 group: :jekyll_plugins
+
+gem "csv", "~> 3.3"
+
+gem "bigdecimal", "~> 4.1"
