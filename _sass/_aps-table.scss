@@ -50,3 +50,14 @@
 .aps-caption.aps-figure {
   margin: -0.5rem 0 1.75rem;
 }
+
+// A reference that a citation links to, e.g. [1] -> #ref-1: it clears the top bar when the
+// page scrolls to it, and it lights up briefly, like a footnote in Chirpy.
+.content [id^='ref-'] {
+  scroll-margin-top: 3.5rem;
+
+  &:target {
+    background-color: var(--footnote-target-bg);
+    transition: background-color 1.75s ease-in-out;
+  }
+}
