@@ -54,6 +54,8 @@ fi
 
 if $prod; then
   command="JEKYLL_ENV=production $command"
+else
+  command="$command --config _config.yml,_config_dev.yml"
 fi
 
 if [ -e /proc/1/cgroup ] && grep -q docker /proc/1/cgroup; then

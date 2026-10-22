@@ -25,3 +25,18 @@
     });
   })();
 </script>
+{% unless jekyll.environment == 'production' %}
+
+<!-- The local preview has no offline cache. Chirpy registers its service worker only in
+     production builds, but one that a production build left behind (tools/test.sh builds into the
+     same _site) would keep serving old pages and scripts, so the preview removes it. -->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      registrations.forEach(function (registration) {
+        registration.unregister();
+      });
+    });
+  }
+</script>
+{% endunless %}

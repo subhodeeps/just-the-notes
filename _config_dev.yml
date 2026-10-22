@@ -1,0 +1,9 @@
+# Settings for the local preview only (bash tools/run.sh), on top of _config.yml.
+#
+# Chirpy registers its service worker only in production builds, but one that a production build
+# left behind (tools/test.sh builds into the same _site as the preview) serves pages and scripts
+# from its cache, so the browser keeps showing old versions. With the cache off, swconf.js tells
+# such a worker to delete its cache, and _includes/metadata-hook.html removes the worker.
+pwa:
+  cache:
+    enabled: false
