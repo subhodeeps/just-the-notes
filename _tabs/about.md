@@ -1,7 +1,7 @@
 ---
 # the default layout is 'page'
 icon: fas fa-info-circle
-order: 4
+order: 5
 ---
 <figure class="about-ringdown">
   {% include ringdown.svg class="about" alt="A black hole ringing down: the signal oscillates and fades through its quasinormal modes" %}

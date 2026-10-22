@@ -1,5 +1,5 @@
 /*
- * The note graph in the right panel (_includes/notes-graph.html), from
+ * The note graph in the right panel and on the Graph tab (_includes/notes-graph.html), from
  * assets/data/notes-graph.json (_plugins/notes-graph.rb).
  *
  * Nodes are posts, coloured by their first category. Solid edges are links between notes
@@ -10,29 +10,26 @@
  * The layout is a small force simulation (repulsion between nodes, springs along edges, a pull
  * to the centre), computed in full before drawing and seeded from the note names, so the same
  * notes always land in the same place and nothing moves on screen. Hovering a node highlights
- * it and its neighbours and shows its title; clicking opens it.
+ * it and its neighbours and shows its title; clicking opens it. On a touch screen, which has no
+ * hover, the first tap on a node shows its title and the second opens it.
  *
  * Colours come from CSS variables set per theme in _sass/amore: --graph-node-<category>
  * (e.g. --graph-node-physics), --graph-node for other categories, --graph-edge,
  * --graph-edge-faint and --graph-current. They are read again when the theme changes.
  */
 (() => {
-  const section = document.getElementById('notes-graph');
-  if (!section) return;
-  const canvas = section.querySelector('canvas');
-  const legend = section.querySelector('.notes-graph-legend');
-  const list = section.querySelector('.notes-graph-list');
-  const current = canvas.dataset.current || null;
-
   const LINK_LENGTH = 30; // rest length of the springs, in layout units
   const TAG_LENGTH = 60;
   const ITERATIONS = 400;
   const HIT = 9; // px: how close the pointer must be to a node
+  const HIT_TOUCH = 18; // px: the same, for a finger
 
-  fetch(canvas.dataset.src)
-    .then((res) => res.json())
-    .then(start)
-    .catch(() => section.remove()); // no graph is better than a broken one
+  document.querySelectorAll('.notes-graph').forEach((section) => {
+    fetch(section.querySelector('canvas').dataset.src)
+      .then((res) => res.json())
+      .then((data) => start(section, data))
+      .catch(() => section.remove()); // no graph is better than a broken one
+  });
 
   const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
 
@@ -48,7 +45,7 @@
   }
 
   // The notes to show: all of them, or the neighbourhood of the current one
-  function subgraph(data) {
+  function subgraph(data, current) {
     if (!current || !data.nodes.some((n) => n.id === current)) return data;
     const keep = new Set([current]);
     const linkNeighbours = (ids) =>
@@ -121,8 +118,12 @@
     return springs;
   }
 
-  function start(data) {
-    const { nodes, edges } = subgraph(data);
+  function start(section, data) {
+    const canvas = section.querySelector('canvas');
+    const legend = section.querySelector('.notes-graph-legend');
+    const list = section.querySelector('.notes-graph-list');
+    const current = canvas.dataset.current || null;
+    const { nodes, edges } = subgraph(data, current);
     if (!nodes.length) return section.remove();
     const springs = layout(nodes, edges);
 
@@ -147,6 +148,7 @@
     const ctx = canvas.getContext('2d');
     let colours = {};
     let hover = null;
+    let touch = false; // whether the last pointer was a finger
     let view = { scale: 1, ox: 0, oy: 0 };
     const dpr = () => window.devicePixelRatio || 1;
     const radius = (n) => (n.id === current ? 5.5 : 3.2 + Math.sqrt(degree.get(n.id)) * 1.2);
@@ -249,7 +251,7 @@
       const px = event.clientX - rect.left;
       const py = event.clientY - rect.top;
       let best = null;
-      let bestD = HIT;
+      let bestD = touch ? HIT_TOUCH : HIT;
       for (const n of nodes) {
         const [x, y] = screen(n);
         const d = Math.hypot(x - px, y - py) - radius(n);
@@ -258,20 +260,33 @@
       return best;
     }
 
+    // A finger cannot hover, and it leaves the canvas at the end of every tap, so only taps
+    // move the highlight on a touch screen
+    canvas.addEventListener('pointerdown', (event) => {
+      touch = event.pointerType === 'touch';
+    });
     canvas.addEventListener('pointermove', (event) => {
+      touch = event.pointerType === 'touch';
+      if (touch) return;
       const n = nodeAt(event);
       if (n === hover) return;
       hover = n;
       canvas.style.cursor = n ? 'pointer' : 'default';
       draw();
     });
-    canvas.addEventListener('pointerleave', () => {
+    canvas.addEventListener('pointerleave', (event) => {
+      if (event.pointerType === 'touch') return;
       hover = null;
       canvas.style.cursor = 'default';
       draw();
     });
     canvas.addEventListener('click', (event) => {
       const n = nodeAt(event);
+      if (touch && n !== hover) {
+        hover = n;
+        draw();
+        return;
+      }
       if (n && n.id !== current) window.location.href = n.url;
     });
 

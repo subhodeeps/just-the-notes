@@ -12,8 +12,8 @@
 #    recorded. Each post gets the notes that link to it, rendered from _includes/backlinks.html
 #    before the post's footer.
 # 3. assets/data/notes-graph.json holds the posts (nodes) and their links and shared tags
-#    (edges), for the graph in the right panel (_includes/notes-graph.html,
-#    assets/js/notes-graph.js).
+#    (edges), for the graph in the right panel and on the Graph tab (_includes/notes-graph.html,
+#    _tabs/graph.md, assets/js/notes-graph.js).
 #
 # The theme's layouts are not changed: the links are rewritten in the Markdown before it is
 # rendered, and the backlinks and the graph are added to the rendered pages, next to markers
@@ -212,6 +212,7 @@ end
 # on pages without a table of contents, which is what keeps it sticky (.access:only-child).
 Jekyll::Hooks.register [:pages, :documents], :post_render do |doc|
   next unless doc.output_ext == '.html' && doc.output&.include?('id="panel-wrapper"')
+  next if doc.data['panel_graph'] == false # the Graph tab, which shows the graph itself
 
   html = NotesGraph.render_include(doc.site, 'notes-graph.html', doc)
   doc.output = NotesGraph.append_to_div(doc.output, NotesGraph::ACCESS_MARKER, html, doc.relative_path)

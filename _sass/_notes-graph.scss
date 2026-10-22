@@ -22,6 +22,27 @@
   touch-action: manipulation;
 }
 
+// The Graph tab (_tabs/graph.md): the whole graph, wide on a desktop and tall on a phone
+.notes-graph-page {
+  margin-top: 1.5rem;
+
+  .notes-graph-canvas {
+    aspect-ratio: 4 / 3;
+    max-height: 75vh;
+    border: 1px solid var(--main-border-color);
+    border-radius: 0.5rem;
+
+    @media (max-width: 576px) {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  .notes-graph-legend {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
 .notes-graph-legend {
   display: flex;
   flex-wrap: wrap;
