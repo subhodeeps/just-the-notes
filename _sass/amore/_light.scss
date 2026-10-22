@@ -1,0 +1,138 @@
+// Light theme: slate for the neutrals, a purple accent (hue 271) between amore's
+// plum and the violet of its colour cycle. Text uses the darker tones; mid tones
+// are for icons, underlines and other non-text accents.
+//
+// Overrides the variables of Chirpy's _sass/themes/_light.scss.
+
+@use 'palette' as p;
+@use 'syntax';
+
+$background: #ffffff;
+$foreground: p.$slate-ink;
+$muted: p.$slate-shade;
+$muted-foreground: #5f6b78; // between slate ink and main
+$accent: #67428a;
+$accent-muted: #9275ae;
+$accent-subtle: #f6f3f9;
+$border: #dbdfe4; // between slate light and shade
+
+// Callout backgrounds: the palette's light tone at this opacity
+$tint: 0.3;
+
+@mixin styles {
+  /* Framework color */
+  --main-bg: #{$background};
+  --mask-bg: #{p.$slate-light};
+  --main-border-color: #{$border};
+
+  /* Common color */
+  --text-color: #{$foreground};
+  --text-muted-color: #{$muted-foreground};
+  --text-muted-highlight-color: inherit;
+  --heading-color: #{$foreground};
+  --label-color: #{$muted-foreground};
+  --blockquote-border-color: #{p.alpha($accent-muted, 0.5)};
+  --blockquote-text-color: #{$muted-foreground};
+  --link-color: #{$accent};
+  --link-underline-color: #{p.alpha($accent-muted, 0.5)};
+  --button-bg: #{$background};
+  --btn-border-color: #{$border};
+  --btn-backtotop-color: #{$muted-foreground};
+  --btn-backtotop-border-color: #{$border};
+  --checkbox-color: #{p.$slate-light};
+  --checkbox-checked-color: #{$accent};
+  --img-bg: radial-gradient(circle, #{$background} 0%, #{$muted} 100%);
+  --shimmer-bg: linear-gradient(
+    90deg,
+    #{p.alpha($muted, 0)} 0%,
+    #{$border} 50%,
+    #{p.alpha($muted, 0)} 100%
+  );
+  --menu-bg: #{$background};
+  --menu-border-color: #{$border};
+  --menu-shadow-color: #{p.alpha(p.$slate-ink, 0.12)};
+  --menu-active-color: #{$foreground};
+  --menu-highlight-bg: #{$accent-subtle};
+
+  /* Sidebar */
+  --site-title-color: #{$foreground};
+  --site-subtitle-color: #{$muted-foreground};
+  --sidebar-bg: #{$muted};
+  --sidebar-border-color: #{$border};
+  --sidebar-muted-color: #{$muted-foreground};
+  --sidebar-active-color: #{$accent};
+  --sidebar-hover-bg: #{$accent-subtle};
+  --sidebar-btn-bg: #{$background};
+  --sidebar-btn-color: #{$muted-foreground};
+  --avatar-border-color: #{$background};
+
+  /* Topbar */
+  --topbar-bg: #{p.alpha($background, 0.7)};
+  --topbar-text-color: #{$foreground};
+  --search-border-color: #{$border};
+  --search-icon-color: #{p.$slate-main};
+  --input-focus-border-color: #{$accent-muted};
+
+  /* Home page */
+  --post-list-text-color: #{$muted-foreground};
+  --btn-patinator-text-color: #{$foreground};
+  --btn-paginator-hover-color: #{$accent-subtle};
+
+  /* Posts */
+  --toc-highlight: #{$accent};
+  --toc-popup-border-color: #{$border};
+  --btn-share-color: #{$muted-foreground};
+  --btn-share-hover-color: #{$accent};
+  --card-bg: #{$background};
+  --card-hover-bg: #{$muted};
+  --card-shadow:
+    #{p.alpha(p.$slate-ink, 0.05)} 0 2px 6px 0, #{$border} 0 0 0 1px;
+  --footnote-target-bg: #{$accent-subtle};
+  --tb-odd-bg: #{$muted};
+  --tb-even-bg: #{$background};
+  --tb-border-color: #{$border};
+  --dash-color: #{$border};
+  --kbd-wrap-color: #{p.$slate-light};
+  --kbd-text-color: #{$foreground};
+  --kbd-bg-color: #{$background};
+  --prompt-text-color: #{$foreground};
+  --prompt-tip-bg: #{p.alpha(p.$green-light, $tint)};
+  --prompt-tip-icon-color: #{p.$green-main};
+  --prompt-info-bg: #{p.alpha(p.$blue-light, $tint)};
+  --prompt-info-icon-color: #{p.$blue-main};
+  --prompt-warning-bg: #{p.alpha(p.$amber-light, $tint)};
+  --prompt-warning-icon-color: #{p.$amber-main};
+  --prompt-danger-bg: #{p.alpha(p.$red-light, $tint)};
+  --prompt-danger-icon-color: #{p.$red-main};
+
+  /* Tags */
+  --tag-border: #{$border};
+  --tag-shadow: #{$border};
+  --tag-hover: #{$accent-subtle};
+  --search-tag-bg: #{$muted};
+
+  /* Categories */
+  --categories-border: #{$border};
+  --categories-hover-bg: #{$muted};
+  --categories-icon-hover-color: #{$accent};
+
+  /* Archive */
+  --timeline-color: #{$border};
+  --timeline-node-bg: #{p.$slate-light};
+  --timeline-year-dot-color: #{$background};
+
+  /* Code */
+  --language-border-color: #{$border};
+  --highlight-bg-color: #{$muted};
+  --highlighter-rouge-color: #{$foreground};
+  --highlight-lineno-color: #{p.$slate-main};
+  --inline-code-bg: #{p.alpha(p.$slate-ink, 0.06)};
+  --code-color: #{$foreground};
+  --code-header-text-color: #{$muted-foreground};
+  --code-header-muted-color: #{$border};
+  --code-header-icon-color: #{p.$slate-light};
+  --clipboard-checked-color: #{p.$green-main};
+  --filepath-text-color: #{$foreground};
+
+  @include syntax.styles(p.$inks, $accent, $muted-foreground, $muted, 0.25);
+}

@@ -1,0 +1,165 @@
+// Code highlighting (Rouge token classes), matching the Next.js site's code blocks:
+// keywords in the accent, comments muted and italic, functions and classes blue,
+// strings green, punctuation teal, numbers amber, variables red.
+//
+// $tones is palette.$inks on the light theme and palette.$lights on the dark one.
+
+@use 'sass:map';
+@use 'palette' as p;
+
+@mixin styles($tones, $accent, $comment, $background, $tint) {
+  $plain: map.get($tones, slate);
+  $blue: map.get($tones, blue);
+  $green: map.get($tones, green);
+  $teal: map.get($tones, teal);
+  $amber: map.get($tones, amber);
+  $red: map.get($tones, red);
+
+  .highlight,
+  .highlight .w {
+    color: $plain;
+    background-color: $background;
+  }
+
+  // Plain names
+  .highlight .n,
+  .highlight .nx,
+  .highlight .ni,
+  .highlight .nl,
+  .highlight .py,
+  .highlight .si {
+    color: $plain;
+  }
+
+  // Keywords, builtins, tags
+  .highlight .k,
+  .highlight .kd,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kt,
+  .highlight .kv,
+  .highlight .nb,
+  .highlight .nt,
+  .highlight .cp,
+  .highlight .sa {
+    color: $accent;
+  }
+
+  // Comments
+  .highlight .c,
+  .highlight .ch,
+  .highlight .cd,
+  .highlight .cm,
+  .highlight .cpf,
+  .highlight .c1,
+  .highlight .cs {
+    color: $comment;
+    font-style: italic;
+  }
+
+  // Classes, functions, decorators, attributes
+  .highlight .nc,
+  .highlight .nn,
+  .highlight .ne,
+  .highlight .nf,
+  .highlight .fm,
+  .highlight .nd,
+  .highlight .na {
+    color: $blue;
+  }
+
+  // Strings
+  .highlight .s,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .dl,
+  .highlight .sd,
+  .highlight .s2,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .sx,
+  .highlight .s1,
+  .highlight .ss,
+  .highlight .sr {
+    color: $green;
+  }
+
+  // Punctuation and operators
+  .highlight .p,
+  .highlight .pi,
+  .highlight .o,
+  .highlight .ow {
+    color: $teal;
+  }
+
+  // Numbers and constants
+  .highlight .l,
+  .highlight .ld,
+  .highlight .m,
+  .highlight .mb,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .il,
+  .highlight .mo,
+  .highlight .mx,
+  .highlight .kc,
+  .highlight .no {
+    color: $amber;
+  }
+
+  // Variables
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi,
+  .highlight .vm,
+  .highlight .bp {
+    color: $red;
+  }
+
+  // Diffs, shell sessions and errors
+  .highlight .gi {
+    color: $green;
+    background-color: p.alpha(p.$green-main, $tint);
+  }
+
+  .highlight .gd {
+    color: $red;
+    background-color: p.alpha(p.$red-main, $tint);
+  }
+
+  .highlight .err {
+    color: $red;
+    background-color: p.alpha(p.$red-main, $tint);
+  }
+
+  .highlight .gr,
+  .highlight .gt {
+    color: $red;
+  }
+
+  .highlight .gh,
+  .highlight .gu {
+    color: $accent;
+    background-color: transparent;
+    font-weight: bold;
+  }
+
+  .highlight .gp,
+  .highlight .go,
+  .highlight .gl {
+    color: $comment;
+  }
+
+  .highlight .ge {
+    color: $plain;
+    font-style: italic;
+  }
+
+  .highlight .gs {
+    color: $plain;
+    font-weight: bold;
+  }
+}

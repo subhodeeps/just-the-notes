@@ -1,0 +1,37 @@
+// The amore colour themes, applied on top of Chirpy's own. The selectors mirror
+// Chirpy's _sass/base/_base.scss and come later in the stylesheet, so these
+// values win: an explicit light or dark mode via the `data-bs-theme` attribute,
+// otherwise the visitor's system setting.
+
+@use 'sass:list';
+@use 'abstracts/variables' as v;
+@use 'light';
+@use 'dark';
+
+$enable-dual: not list.index(v.$theme-options, v.$theme);
+$enable-light: v.$theme == light or $enable-dual;
+$enable-dark: v.$theme == dark or $enable-dual;
+
+@if $enable-light {
+  :root[#{v.$theme-attr}='light'] {
+    @include light.styles;
+  }
+}
+
+@if $enable-dark {
+  :root[#{v.$theme-attr}='dark'] {
+    @include dark.styles;
+  }
+}
+
+@if $enable-dual {
+  :root:not([#{v.$theme-attr}]) {
+    @media (prefers-color-scheme: light) {
+      @include light.styles;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      @include dark.styles;
+    }
+  }
+}

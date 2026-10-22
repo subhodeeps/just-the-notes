@@ -1,0 +1,72 @@
+// The 32 colours of amore.mplstyle (https://github.com/subhodeeps/amore.mplstyle):
+// eight palettes, each with an ink, main, light and shade tone. Ink and light tones
+// carry text (ink on the light theme, light on the dark theme); main tones are for
+// icons, borders and other non-text accents; shades are tinted backgrounds.
+//
+// Kept in sync with src/app/globals.css of the Next.js site.
+
+@use 'sass:color';
+
+$red-ink: #6b1d2a;
+$red-main: #d2737f;
+$red-light: #efc0c4;
+$red-shade: #fbf3f4;
+
+$amber-ink: #6e4a12;
+$amber-main: #d39b3c;
+$amber-light: #efd39a;
+$amber-shade: #fbf6ec;
+
+$olive-ink: #3d4318;
+$olive-main: #97a04c;
+$olive-light: #d2d6a2;
+$olive-shade: #f7f8ee;
+
+$green-ink: #1e4d3b;
+$green-main: #6fa98a;
+$green-light: #bcdcc6;
+$green-shade: #f2f7f3;
+
+$teal-ink: #164b4f;
+$teal-main: #4e9e9f;
+$teal-light: #a8d3d1;
+$teal-shade: #f0f7f7;
+
+$blue-ink: #2e1a6e;
+$blue-main: #5c9dc7;
+$blue-light: #b4d0e6;
+$blue-shade: #f4f4fa;
+
+$plum-ink: #4e2154;
+$plum-main: #9a6aa6;
+$plum-light: #d6bfdc;
+$plum-shade: #f7f2f8;
+
+$slate-ink: #28313d;
+$slate-main: #768594;
+$slate-light: #c2c9d1;
+$slate-shade: #f4f5f7;
+
+// Text tones per theme, used by the syntax highlighter
+$inks: (
+  slate: $slate-ink,
+  red: $red-ink,
+  amber: $amber-ink,
+  green: $green-ink,
+  teal: $teal-ink,
+  blue: $blue-ink,
+);
+
+$lights: (
+  slate: $slate-light,
+  red: $red-light,
+  amber: $amber-light,
+  green: $green-light,
+  teal: $teal-light,
+  blue: $blue-light,
+);
+
+// A colour at the given opacity, like Tailwind's `bg-accent/20`
+@function alpha($color, $alpha) {
+  @return color.change($color, $alpha: $alpha);
+}

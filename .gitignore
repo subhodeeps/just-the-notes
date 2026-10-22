@@ -33,3 +33,7 @@ Thumbs.db
 
 # Project-local toolchain (tools/setup.sh)
 .venv
+
+# Drafts: keep the folder, ignore its contents (preview with `jekyll s --drafts`)
+_drafts/*
+!_drafts/.gitkeep
