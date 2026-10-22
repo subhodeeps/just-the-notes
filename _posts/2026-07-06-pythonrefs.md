@@ -2,7 +2,7 @@
 title: Python Resources
 description: "A collection of references, tutorials, and links for scientific computing using Python."
 date: 2026-07-06 00:00:00 +0530
-categories: [Coding, Resources]
+categories: [Coding, Coding Resources]
 tags: [python, computational-physics, numerical-methods]
 math: true
 ---
