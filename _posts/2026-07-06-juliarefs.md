@@ -7,6 +7,8 @@ tags: [julia, computational-physics, numerical-methods]
 math: true
 ---
 
+For Python, see [[pythonrefs]].
+
 ## Julia Fundamentals
 
 - [Video Tutorials by **`doggo dot jl`**](https://www.youtube.com/@doggodotjl)

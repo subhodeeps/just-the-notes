@@ -1,0 +1,9 @@
+// A display equation wider than the column (on a phone, for example) scrolls inside its own
+// box, instead of widening the whole page. MathJax sets the width of the box in an inline
+// style, which only !important can override.
+mjx-container[display='true'] {
+  min-width: 0 !important;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}

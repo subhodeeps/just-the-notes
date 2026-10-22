@@ -31,6 +31,7 @@ This starter bundles those files from the latest **Chirpy** release along with a
 | libyaml                           | `.venv/deps`    | Needed by Ruby's YAML extension (psych), which Jekyll uses   |
 | Node LTS + npm                    | `.venv/node`    | Official tarball, checksum-verified                          |
 | Bundler, Jekyll, Chirpy, html-proofer | `.venv/bundle`  | Installed from the `Gemfile`                                 |
+| Python + numpy, scipy, matplotlib, amore | `.venv/python` | Optional, for the figures of posts; needs [uv](https://docs.astral.sh/uv/) |
 
 ### First-time setup
 
@@ -54,6 +55,7 @@ Other useful commands while activated:
 
 - `bash tools/run.sh -p` builds in production mode.
 - `bash tools/test.sh` builds the site and checks it with html-proofer, as CI does.
+- `python _includes/code/pendulum_phase_portrait.py assets/images/nonlinearpendulum` redraws the figures of the ODE post (light and dark), with the packages of `tools/requirements-figures.txt`. The figures use LaTeX for text.
 
 ### Starting over
 

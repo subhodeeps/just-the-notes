@@ -1,0 +1,116 @@
+// A long code block folded away under a one-line summary, with <details class="code-fold">
+// in a post (the post needs markdown="1" on the tag, so that the code block inside is
+// rendered as usual). No script is needed: the browser opens and closes it.
+
+.code-fold {
+  margin: 1rem 0 1.5rem;
+
+  > summary {
+    position: relative;
+    display: block;
+    padding: 0.6rem 1rem 0.6rem 2.25rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 0.5rem;
+    background: var(--highlight-bg-color);
+    color: var(--text-muted-color);
+    cursor: pointer;
+    list-style: none; // hide the default triangle; the one below follows the theme
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      width: 0.45rem;
+      height: 0.45rem;
+      margin-top: -0.25rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(-45deg);
+      transition: transform 0.15s ease-in-out;
+    }
+
+    &:hover {
+      color: var(--text-color);
+    }
+
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+
+  &[open] > summary {
+    margin-bottom: 0.75rem;
+
+    &::before {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// An info box that opens on click, with <details class="prompt-fold" markdown="1"> in a post.
+// It uses the colours and the icon of Chirpy's own info box (blockquote.prompt-info).
+.prompt-fold {
+  position: relative;
+  margin: 1rem 0 1.5rem;
+  padding: 0.9rem 1rem 0.9rem 3rem;
+  border-radius: 10px;
+  background-color: var(--prompt-info-bg);
+  color: var(--prompt-text-color);
+
+  &::before {
+    position: absolute;
+    left: 0.25rem;
+    top: 0.95rem;
+    width: 3rem;
+    text-align: center;
+    content: '\f06a';
+    transform: rotate(180deg);
+    font: var(--fa-font-solid);
+    color: var(--prompt-info-icon-color);
+  }
+
+  > summary {
+    position: relative;
+    display: block;
+    padding-right: 1.75rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0.25rem;
+      top: 50%;
+      width: 0.45rem;
+      height: 0.45rem;
+      margin-top: -0.3rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+
+  &[open] > summary {
+    margin-bottom: 0.75rem;
+
+    &::after {
+      transform: rotate(-135deg);
+    }
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,6 @@
+# Python packages for the figures that posts draw with their own scripts
+# (e.g. _includes/code/pendulum_phase_portrait.py). tools/setup.sh installs them into .venv/python.
+numpy
+scipy
+matplotlib
+amore @ git+https://github.com/subhodeeps/amore.mplstyle@e6aa7b2a58fbca0ddecbd587a803a7f14acce27f

@@ -28,3 +28,15 @@
 
 /* Note graph in the right panel, backlinks under posts */
 @use 'notes-graph';
+
+/* Long code blocks folded under a summary (<details class="code-fold">) */
+@use 'code-fold';
+
+/* Tables in the APS style ({: .aps-table}) */
+@use 'aps-table';
+
+/* Wide display equations scroll in place */
+@use 'math';
+
+/* Subsection headings a clear step below section headings */
+@use 'headings';

@@ -23,6 +23,8 @@ RUBY_BUILD_DIR="$VENV/src/ruby-build"
 DEPS_PREFIX="$VENV/deps"
 RUBY_PREFIX="$VENV/ruby"
 NODE_PREFIX="$VENV/node"
+PYTHON_PREFIX="$VENV/python"
+PYTHON_VERSION="${PYTHON_VERSION:-3.12}"
 BUNDLE_DIR="$VENV/bundle"
 
 log() { echo -e "\n\033[1;34m==>\033[0m $*"; }
@@ -126,6 +128,22 @@ install_node() {
   rm -rf "$tmp"
 }
 
+# Optional: a Python environment for the figures that posts draw with their own scripts
+# (e.g. _includes/code/pendulum_phase_portrait.py), from tools/requirements-figures.txt. It needs uv
+# (https://docs.astral.sh/uv/), which also downloads the Python itself; the site does not.
+install_python() {
+  if ! command -v uv &>/dev/null; then
+    log "Skipping the Python environment for figures: uv is not installed"
+    return
+  fi
+  if [[ ! -x "$PYTHON_PREFIX/bin/python" ]]; then
+    log "Creating the Python $PYTHON_VERSION environment for figures in .venv/python"
+    uv venv --quiet "$PYTHON_PREFIX" --python "$PYTHON_VERSION"
+  fi
+  log "Installing the figure packages (numpy, scipy, matplotlib, amore)"
+  uv pip install --quiet --python "$PYTHON_PREFIX/bin/python" -r "$ROOT/tools/requirements-figures.txt"
+}
+
 write_activate() {
   log "Writing .venv/bin/activate"
   mkdir -p "$VENV/bin"
@@ -145,7 +163,7 @@ export BUNDLE_PATH="$_JTN_VENV/bundle"
 export BUNDLE_APP_CONFIG="$_JTN_VENV/bundle-config"
 export BUNDLE_GEMFILE="$_JTN_VENV/../Gemfile"
 export npm_config_prefix="$_JTN_VENV/node"
-export PATH="$_JTN_VENV/ruby/bin:$_JTN_VENV/node/bin:$GEM_HOME/bin:$PATH"
+export PATH="$_JTN_VENV/ruby/bin:$_JTN_VENV/node/bin:$GEM_HOME/bin:$_JTN_VENV/python/bin:$PATH"
 export PS1="(.venv) ${PS1:-}"
 
 deactivate() {
@@ -184,6 +202,7 @@ main() {
   mkdir -p "$VENV"
   install_ruby
   install_node
+  install_python
   write_activate
   install_gems
 

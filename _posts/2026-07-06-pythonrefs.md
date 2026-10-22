@@ -7,6 +7,8 @@ tags: [python, computational-physics, numerical-methods]
 math: true
 ---
 
+For a worked example, see [[ode]]; for Julia, see [[juliarefs]].
+
 ## Introductory Books
 
 - [Think Python, Allen B. Downey (Third Ed., O’Reilly, 2024)](https://greenteapress.com/wp/think-python-2e/)

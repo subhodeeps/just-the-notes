@@ -1,0 +1,52 @@
+// Tables and figure captions in the style of the APS journals. Tables: with {: .aps-table} after a Markdown table and
+// a caption paragraph above it, {: .aps-caption}: the caption sits above the table and
+// starts with "TABLE I." in small capitals; a double rule above and below the table and a
+// single rule under the header; no vertical rules and no shading.
+
+.aps-caption {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+  .aps-label {
+    font-variant: all-small-caps;
+    letter-spacing: 0.04em;
+    margin-right: 0.35em;
+  }
+}
+
+.table-wrapper > table.aps-table {
+  min-width: 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 3px double var(--text-color);
+  border-bottom: 3px double var(--text-color);
+
+  thead {
+    border-bottom: 1px solid var(--text-color);
+
+    th {
+      font-weight: normal;
+    }
+  }
+
+  tbody tr,
+  tbody tr:nth-child(2n),
+  tbody tr:nth-child(2n + 1) {
+    border-bottom: 0;
+    background-color: transparent;
+  }
+
+  th,
+  td {
+    padding: 0.35rem 0.75rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+// A figure caption, below the figure, with {: .aps-caption .aps-figure}: "FIG. 1." in small
+// capitals, then the caption, in the same style as the table captions.
+.aps-caption.aps-figure {
+  margin: -0.5rem 0 1.75rem;
+}

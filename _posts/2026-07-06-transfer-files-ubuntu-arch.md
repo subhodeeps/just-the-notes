@@ -18,6 +18,8 @@ Both machines must:
 
 Note: This guide also works for machines running macOS.
 
+For machines on different networks, section 14 of [[remote-login-arch-thinkpad-from-macos#14-file-transfer-between-the-mac-and-the-thinkpad|the remote login guide]] copies files over Tailscale.
+
 ---
 
 ## 1. Setup SSH server on Arch Linux

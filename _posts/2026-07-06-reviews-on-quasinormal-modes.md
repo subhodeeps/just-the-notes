@@ -14,7 +14,7 @@ math: true
 
 ![Quasinormal Mode Ringdown](/assets/images/ringdownl2s2.png "For Whom The Bell Tolls: Quasinormal Mode Ringdown"){: width="400" }
 
-These are all the reviews on quasinormal modes that I know of!
+These are all the reviews on quasinormal modes that I know of! I collect lecture notes on black holes and general relativity in [[lecture-notes]].
 
 1. S. L. Detweiler, ["Black holes and gravitational waves: Perturbation analysis"](https://inspirehep.net/literature/1282516), in *Proceedings of the Workshop on Sources of Gravitational Radiation*, Seattle, WA, USA, July 24 – August 4, 1978, edited by L. L. Smarr, Cambridge University Press, 1979.
 1. K. D. Kokkotas and B. G. Schmidt, “[Quasinormal modes of stars and black holes](https://inspirehep.net/literature/507420)”, *Living Rev. Rel.* **2**, 2 (1999).
@@ -23,7 +23,7 @@ These are all the reviews on quasinormal modes that I know of!
 4. N. Andersson and B. P. Jensen, “[Chapter 5.1.1 - Scattering by black holes.](https://inspirehep.net/literature/536422)”, in *Scattering: Methods, Theory and Applications*, edited by R. Pike and P. Sabatier, 1607 (2000).
 5. I. Sachs, “[Quasinormal modes](https://inspirehep.net/literature/636387)”, *Fortsch. Phys.* **52**, 667 (2004).
 6. E. Berti, “[Black hole quasinormal modes: hints of quantum gravity?](https://inspirehep.net/literature/663605)”, *Conf. Proc. C* **0405132**, 145 (2004).
-7. V. Cardoso, “[Acoustic black holes](ttps://inspirehep.net/literature/678024),” *New Worlds in Astroparticle Physics: Proceedings of the 5th International Workshop* (Faro, Portugal, Jan 8–10, 2005), pp. 245–251, 2005. 
+7. V. Cardoso, “[Acoustic black holes](https://inspirehep.net/literature/678024),” *New Worlds in Astroparticle Physics: Proceedings of the 5th International Workshop* (Faro, Portugal, Jan 8–10, 2005), pp. 245–251, 2005. 
 
 7. B. Wang, “[Perturbations around black holes](https://inspirehep.net/literature/698774)”, *Braz. J. Phys.* **35**, 1029 (2005).
 8. V. Ferrari and L. Gualtieri, “[Quasi-normal modes and gravitational wave astronomy](https://inspirehep.net/literature/759964)”, *Gen. Rel. Grav.* **40**, 945 (2008).

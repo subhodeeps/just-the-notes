@@ -10,6 +10,8 @@ math: true
 
 **Note: Some of these lecture notes can be classified under multiple headings, my choices are a bit arbitrary!**
 
+I keep the reviews on quasinormal modes in a separate list: [[reviews-on-quasinormal-modes]].
+
 ## Black Holes
 
 1. Edward Witten, ["Introduction to black hole thermodynamics"](https://inspirehep.net/literature/2862365), *Eur.Phys.J.Plus 140 (2025) 5, 430*.

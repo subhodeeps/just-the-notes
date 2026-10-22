@@ -1,0 +1,11 @@
+// Subsection headings: Chirpy sets h3 at 0.88 of h2, so a subsection looks almost like a
+// new section. Here h3 is 0.75 of h2, and h4 a step below it, still above the body text.
+.content {
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  h4 {
+    font-size: 1.05rem;
+  }
+}

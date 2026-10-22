@@ -11,3 +11,23 @@
 .code-token {
   white-space: nowrap;
 }
+
+// Inline code in a heading: Chirpy gives inline code a fixed small size and a tinted
+// background, which leaves a small pill inside a large heading. Here it scales with the
+// heading and drops the background, as in the post title.
+.content :is(h1, h2, h3, h4, h5, h6) code.highlighter-rouge {
+  padding: 0;
+  font-size: 0.9em;
+  background: none;
+  color: inherit;
+}
+
+// Code in a title (the post heading, the cards on the home page, the "Recently Updated"
+// list): Chirpy styles it as code, in another colour; here it takes the colour of the
+// title and scales with it.
+:is(h1, h2, h3, h4, h5, h6, .card-title, #access-lastmod) code {
+  padding: 0;
+  font-size: 0.9em;
+  background: none;
+  color: inherit;
+}
