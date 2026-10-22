@@ -55,7 +55,6 @@ Other useful commands while activated:
 
 - `bash tools/run.sh -p` builds in production mode.
 - `bash tools/test.sh` builds the site and checks it with html-proofer, as CI does.
-- `python _includes/code/pendulum_phase_portrait.py assets/images/nonlinearpendulum` redraws the figures of the ODE post (light and dark), with the packages of `tools/requirements-figures.txt`. The figures use LaTeX for text.
 
 ### Starting over
 
@@ -64,6 +63,82 @@ Delete the environment and run setup again:
 ```shell
 rm -rf .venv && bash tools/setup.sh
 ```
+
+## Writing Posts
+
+Posts follow the style of the APS journals. The classes below come from the partials in `_sass/`.
+
+### Figures
+
+Each figure has a light and a dark version, and Chirpy shows the one that matches the theme. The caption goes below the figure:
+
+```markdown
+![Alt text](/assets/images/post/name-light.png){: .light width="1603" height="523" }
+![Alt text](/assets/images/post/name-dark.png){: .dark width="1603" height="523" }
+
+<span class="aps-label">Fig. 1.</span> Caption.
+{: .aps-caption .aps-figure}
+```
+
+In the text, write Fig. 1, or Figure 1 at the start of a sentence.
+
+### Tables
+
+The caption goes above the table, and the table gets double rules and no shading:
+
+```markdown
+<span class="aps-label">Table I.</span> Caption.
+{: .aps-caption}
+
+| Set | $x(0)$ |
+|:---:|:---:|
+| (a) | $5\pi$ |
+{: .aps-table}
+```
+
+### Equations
+
+MathJax numbers the equations of an `align` environment. Label one with `\label{eq:name}` and refer to it as `Eq. $\eqref{eq:name}$`. A display equation wider than the page scrolls sideways, and the page itself keeps its width.
+
+### Folded boxes
+
+A `<details>` box hides long code or an aside until the reader opens it. With `markdown="1"`, kramdown renders the Markdown inside:
+
+```markdown
+<details class="code-fold" markdown="1">
+<summary>Show the script</summary>
+
+A code block, a list, or any other Markdown.
+
+</details>
+```
+
+`code-fold` gives a plain box, and `prompt-fold` one that looks like Chirpy's info box. A link to anything inside a closed box opens the box first.
+
+### Citations
+
+Number the references, give each one an anchor, and link every citation to it:
+
+```markdown
+the well-known equation [\[1\]](#ref-1).
+
+[1] S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015).
+{: #ref-1 }
+```
+
+The backslashes stop the note links from reading `[[1]]` as a link to a note. A reference lights up briefly when a citation brings the reader to it, as Chirpy's footnotes do.
+
+### Code from files
+
+A script in `_includes/code/` can appear in a post, so the post always shows the script as it is:
+
+~~~markdown
+```python
+{% include code/script.py %}
+```
+~~~
+
+Code blocks fit the page without scrolling sideways at 72 characters or fewer. `uvx ruff format --line-length 72` formats a script to this width; it leaves long comments alone, so move them to a line of their own.
 
 ## Linking Notes
 
@@ -92,6 +167,24 @@ A link to a note that does not exist yet is shown as muted text, and the build p
 The repository is set up for [Foam](https://foambubble.github.io/foam/): install the recommended extension, and VS Code offers `[[` completion, backlinks and a graph of the notes. `.vscode/settings.json` keeps Foam out of the build output and the toolchain, and stops it from appending link reference definitions to the notes, which the site does not need. **Foam: Create New Note** starts a draft in `_drafts/` from `.foam/templates/new-note.md`; to publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Links written as `[[slug]]` keep working after the move.
 
 The idea of publishing a Foam workspace with Jekyll comes from hikerpig's [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), which rewrites Foam's links in the browser. This site does the same at build time, and adds backlinks and the graph.
+
+## Customising the Theme
+
+All the changes to Chirpy live in files of their own, so a new release of the theme merges without conflicts. Only two files replace files of the theme, and Chirpy provides both for this purpose:
+
+- `assets/css/jekyll-theme-chirpy.scss` keeps the theme's own lines at the top. The styles of this site follow the line "append your custom style below", one `@use` for each partial in `_sass/`.
+- `_includes/metadata-hook.html` is the theme's empty placeholder for the `<head>`. Here it loads JetBrains Mono and the script that opens folded boxes.
+
+Everything else is new:
+
+| Location | Contents |
+| --- | --- |
+| `_sass/amore/` | Colours of the light and dark themes |
+| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, folded boxes, APS captions and tables, display equations, heading sizes, footer |
+| `_plugins/` | Home page hero, footer, note links and graph, inline code without line breaks, plain page titles (`posts-lastmod-hook.rb` comes with the starter) |
+| `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
+
+After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy, at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles rely on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, the style that uses it stops applying, and the rest of the site keeps working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero and the footer, print a warning during the build when they cannot find the markup they look for, and the page then keeps Chirpy's own version.
 
 ## Usage
 

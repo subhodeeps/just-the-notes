@@ -1,0 +1,63 @@
+// The site footer (_includes/site-footer.html): the copyright line in the accent colour
+// and a quotation under it, small and faint, centred and set in the code font, as on
+// subhodeeps.github.io. Chirpy gives the footer a fixed height and lays out its two
+// lines side by side on wide screens; here the content sets the height.
+
+footer.site-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: auto;
+  padding: 2rem 1rem 2.5rem;
+  font-family: var(--bs-font-monospace);
+  text-align: center;
+
+  .footer-copyright {
+    margin: 0;
+    color: var(--link-color);
+
+    a {
+      color: inherit;
+      font-weight: normal;
+    }
+  }
+
+  .footer-quote {
+    max-width: 28rem;
+    margin: 0;
+    color: var(--text-muted-color);
+    line-height: 1.6;
+    text-wrap: balance;
+    opacity: 0.75;
+
+    blockquote {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      color: inherit;
+      font-style: normal;
+    }
+
+    figcaption {
+      margin-top: 0.25rem;
+      opacity: 0.8;
+    }
+  }
+
+  // From tablets up, the quotation breaks once, after "useful;", so that it is wide and
+  // low rather than a square block
+  .footer-quote-break {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .footer-quote {
+      max-width: none;
+    }
+
+    .footer-quote-break {
+      display: inline;
+    }
+  }
+}

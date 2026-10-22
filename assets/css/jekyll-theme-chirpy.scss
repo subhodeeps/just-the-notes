@@ -32,7 +32,7 @@
 /* Long code blocks folded under a summary (<details class="code-fold">) */
 @use 'code-fold';
 
-/* Tables in the APS style ({: .aps-table}) */
+/* Captions, tables and cited references in the APS style */
 @use 'aps-table';
 
 /* Wide display equations scroll in place */
@@ -40,3 +40,6 @@
 
 /* Subsection headings a clear step below section headings */
 @use 'headings';
+
+/* Footer: copyright line and a quotation (_includes/site-footer.html) */
+@use 'footer';
