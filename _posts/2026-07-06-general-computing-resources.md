@@ -2,7 +2,7 @@
 title: General Computing Resources
 description: "References and guides for Linux, Git, LaTeX, and high-performance computing."
 date: 2026-07-06 00:00:00 +0530
-categories: [Programming, General Resources]
+categories: [Homelab, Resources]
 tags: [linux, git, latex, hpc]
 ---
 

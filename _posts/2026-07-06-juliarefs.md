@@ -2,7 +2,7 @@
 title: Julia Resources
 description: "A collection of references, tutorials, and links for scientific computing using Julia."
 date: 2026-07-06 00:00:00 +0530
-categories: [Programming, Julia]
+categories: [Coding, Resources]
 tags: [julia, computational-physics, numerical-methods]
 math: true
 ---
