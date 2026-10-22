@@ -46,3 +46,6 @@
 
 /* Small boxes of colour in the text (<span class="swatch">) */
 @use 'swatch';
+
+/* Figures side by side ({: .figure-row } after a paragraph of images) */
+@use 'figure-row';
