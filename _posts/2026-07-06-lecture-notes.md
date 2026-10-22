@@ -26,6 +26,8 @@ I keep the reviews on quasinormal modes in a separate list: [[reviews-on-quasino
 
 ## Numerical Relativity
 
+For numerical methods in general, see [[pythonrefs]] and [[juliarefs]].
+
 1. Ulrich Sperhake, ["Part III Gravitational Waves and Numerical Relativity Lecture Notes"](https://www.damtp.cam.ac.uk/user/us248/Lectures/lectures.html), Unpublished, 2022.
 
 ## Gravitational Waves

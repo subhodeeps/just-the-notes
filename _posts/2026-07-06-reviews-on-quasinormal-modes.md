@@ -3,7 +3,7 @@ title: Reviews on Quasinormal Modes
 description: "A comprehensive list of review articles on black hole perturbation theory and quasinormal modes."
 date: 2026-07-06 00:00:00 +0530
 categories: [Physics, Physics Resources]
-tags: [black-holes, quasinormal-modes, reviews]
+tags: [black-holes, quasinormal-modes, reviews, general-relativity, gravitational-waves, differential-equations]
 pin: true
 math: true
 ---
