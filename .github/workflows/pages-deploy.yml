@@ -1,6 +1,6 @@
 name: "Build and Test"
 
-# Vercel builds and deploys the site (https://just-the-notes.vercel.app). This workflow
+# Vercel builds and deploys the site (https://quasinormal-notes.vercel.app). This workflow
 # only checks that the site builds and that its internal links work, as tools/test.sh
 # does locally. GitHub Pages is not enabled for this repository, so the Pages steps of
 # the Chirpy starter (configure-pages, upload-pages-artifact, deploy-pages) are left out.
