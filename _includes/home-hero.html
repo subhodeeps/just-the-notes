@@ -9,8 +9,20 @@
   {% endif %}
   <div>
     <p class="home-hero-text">{{ hero.text | default: site.description | newline_to_br }}</p>
-    {% if hero.subtext %}
-      <p class="home-hero-subtext">{{ hero.subtext }}</p>
+    {% if hero.subtext or hero.byline %}
+      <p class="home-hero-subtext">
+        {{- hero.subtext -}}
+        {%- if hero.byline and site.social.name -%}
+          {%- assign first_name = site.social.name | split: ' ' | first %}
+          <span class="home-hero-byline"><span aria-hidden="true">—&#8202;</span>
+          {%- if site.social.links.first -%}
+            <a href="{{ site.social.links.first }}">{{ first_name }}</a>
+          {%- else -%}
+            {{ first_name }}
+          {%- endif -%}
+          </span>
+        {%- endif -%}
+      </p>
     {% endif %}
   </div>
 </section>

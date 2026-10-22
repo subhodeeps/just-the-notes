@@ -1,0 +1,8 @@
+// Code in JetBrains Mono (loaded in _includes/metadata-hook.html). Chirpy sets no code font of its
+// own: code, kbd, pre and samp use Bootstrap's --bs-font-monospace, so redefining it covers inline
+// code and code blocks alike. The rest of the list is Bootstrap's default, used until the font loads.
+
+:root,
+[data-bs-theme] {
+  --bs-font-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
