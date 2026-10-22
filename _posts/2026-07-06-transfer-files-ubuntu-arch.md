@@ -2,7 +2,7 @@
 title: "Transfer Files from Ubuntu to Arch Linux over SSH/SFTP"
 description: "A secure and efficient guide to transferring files between Ubuntu and Arch Linux using rsync and SSH."
 date: 2026-07-06 00:00:00 +0530
-categories: [Programming, Tutorials]
+categories: [Homelab, Linux]
 tags: [linux, ubuntu, arch-linux, ssh, rsync]
 math: false
 pin: false
