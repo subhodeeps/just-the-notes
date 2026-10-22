@@ -32,7 +32,7 @@ math: true
 
 - [Numerical Methods for Scientific Computing: The Definitive Manual for Math Geeks, Kyle A. Novak](https://www.equalsharepress.com/)
 - [Fundamentals of Numerical Computation: Julia Edition, Tobin A. Driscoll & Richard J. Braun](https://tobydriscoll.net/fnc-julia/home.html). [Git Repo](https://github.com/fncbook/FundamentalsNumericalComputation.jl)
-- [Algorithms with JULIA: Optimization, Machine Learning, and Differential Equations Using the JULIA Language, Clemens Heitzinger](http://www.heitzinger.info/Book-Julia.html)
+- [Algorithms with JULIA: Optimization, Machine Learning, and Differential Equations Using the JULIA Language, Clemens Heitzinger](https://www.heitzinger.info/Book-Julia.html)
 
 ## Machine Learning
 

@@ -19,7 +19,7 @@ math: true
 
 1. Edward Witten, ["Light Rays, Singularities, and All That"](https://inspirehep.net/literature/1713564), *Rev.Mod.Phys. 92 (2020) 4*, 045004.
 2. José Natário, ["Mathematical relativity"](https://inspirehep.net/literature/1784222), arXiv Preprint, 2020.
-3. Matthias Blau, ["Lecture Notes on General Relativity"](http://blau.itp.unibe.ch/GRLecturenotes.html), Unpublished, 2025
+3. Matthias Blau, ["Lecture Notes on General Relativity"](http://blau.itp.unibe.ch/GRLecturenotes.html){: data-proofer-ignore=""}, Unpublished, 2025
 
 ## Numerical Relativity
 

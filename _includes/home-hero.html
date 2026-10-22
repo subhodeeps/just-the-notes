@@ -1,0 +1,18 @@
+<!-- Figure and a line about the site, inserted above the home page's post list by _plugins/home-hero.rb -->
+{% assign hero = page.hero %}
+<section id="home-hero" aria-label="About this site">
+  {% if hero.figure %}
+    {% include {{ hero.figure }} alt=hero.alt %}
+  {% elsif hero.image %}
+    <img class="home-hero-figure" src="{{ hero.image | relative_url }}" alt="{{ hero.alt | escape }}">
+  {% endif %}
+  <div>
+    <p class="home-hero-text">{{ hero.text | default: site.description | newline_to_br }}</p>
+    {% if hero.subtext %}
+      <p class="home-hero-subtext">{{ hero.subtext }}</p>
+    {% endif %}
+  </div>
+</section>
+{% if hero.list_heading %}
+  <h2 id="home-list-heading">{{ hero.list_heading }}</h2>
+{% endif %}

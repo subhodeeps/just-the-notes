@@ -16,7 +16,7 @@ timezone: Asia/Kolkata
 
 title: "Quasinormal Notes" # the main title
 
-tagline: "Physics, maths and programming." # it will display as the subtitle
+tagline: "Notes on physics, math, code, and other random tangents." # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Notes on theoretical physics, numerical methods, programming, tools and software.
@@ -225,6 +225,7 @@ exclude:
   - purgecss.js
   - "*.config.js"
   - "package*.json"
+  - old_theme_backup # pre-Chirpy files kept for reference, not published
 
 jekyll-archives:
   enabled: [categories, tags]

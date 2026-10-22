@@ -1,0 +1,76 @@
+// The figure and line above the home page's post list (_includes/home-hero.html)
+
+@use 'abstracts/breakpoints' as bp;
+
+#home-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--main-border-color);
+  text-align: center;
+  text-wrap: pretty; // avoid a single word on the last line
+
+  @include bp.md {
+    flex-direction: row;
+    gap: 2rem;
+    text-align: start;
+  }
+
+  @include bp.lg {
+    margin-top: 2.5rem;
+  }
+}
+
+.home-hero-figure {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+
+  @include bp.md {
+    width: 45%;
+  }
+
+  .axis {
+    stroke: var(--main-border-color);
+    stroke-width: 1;
+  }
+
+  .wave {
+    fill: none;
+    stroke: var(--link-color);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke; // 2px on screen at any size
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+}
+
+.home-hero-text,
+.home-hero-subtext {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--heading-color);
+}
+
+.home-hero-subtext {
+  margin-top: 0.75rem;
+  color: var(--text-muted-color);
+}
+
+#home-list-heading {
+  margin: 2rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted-color);
+
+  + #post-list {
+    margin-top: 1rem;
+  }
+}
