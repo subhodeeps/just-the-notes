@@ -54,7 +54,7 @@ deactivate                  # restore your shell when done
 Other useful commands while activated:
 
 - `bash tools/run.sh -p` builds in production mode.
-- `bash tools/test.sh` builds the site and checks it with html-proofer, as CI does.
+- `bash tools/test.sh` builds the site and checks it with html-proofer. The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the same check on every push; Vercel deploys the site from `main`.
 
 ### Starting over
 
@@ -117,16 +117,37 @@ A code block, a list, or any other Markdown.
 
 ### Citations
 
-Number the references, give each one an anchor, and link every citation to it:
+The references go at the end of a post, under `## References`, in a folded box. Each one gets a number and an anchor, and every citation in the text links to its anchor:
 
 ```markdown
-the well-known equation [\[1\]](#ref-1).
+## References
+
+<details class="code-fold" markdown="1">
+<summary>Show the references</summary>
 
 [1] S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015).
 {: #ref-1 }
+
+</details>
 ```
 
-The backslashes stop the note links from reading `[[1]]` as a link to a note. A reference lights up briefly when a citation brings the reader to it, as Chirpy's footnotes do.
+| To cite | You write |
+| --- | --- |
+| One reference | `the well-known equation [\[1\]](#ref-1)` |
+| Several references | `ODEPACK [\[2\]](#ref-2), [\[4\]](#ref-4)` |
+
+The backslashes stop the note links from reading `[[1]]` as a link to a note. A citation opens the folded box, and the reference lights up briefly, as Chirpy's footnotes do.
+
+The references follow the style of the APS journals: initials before the surname, *et al.* after the first author when there are many, article titles in sentence case, the abbreviated journal name, the volume in bold, and the year in parentheses. The link goes on the journal reference, to the DOI.
+
+| Source | You write |
+| --- | --- |
+| Article | `[3] P. Virtanen et al., SciPy 1.0: Fundamental algorithms for scientific computing in Python, [Nat. Methods **17**, 261 (2020)](https://doi.org/10.1038/s41592-019-0686-2).` |
+| Preprint | `[5] A. Author and B. Author, Title of the preprint, [arXiv:2401.01234](https://arxiv.org/abs/2401.01234).` |
+| Book | `[1] S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015), Secs. 6.7 and 7.5.` |
+| Chapter in a book | `[2] A. C. Hindmarsh, ODEPACK, a systematized collection of ODE solvers, in *Scientific Computing*, edited by R. S. Stepleman et al. (North-Holland, Amsterdam, 1983), pp. 55–64.` |
+
+Further reading, which the text does not cite, goes before the references as an ordinary list, with the same format for each entry and a sentence or two on what it covers.
 
 ### Code from files
 
