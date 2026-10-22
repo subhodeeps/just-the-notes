@@ -1,0 +1,35 @@
+// The traced ringdown waveform (_includes/ringdown.svg), in the theme's accent colour
+
+.ringdown {
+  .axis {
+    stroke: var(--main-border-color);
+    stroke-width: 1;
+  }
+
+  .wave {
+    fill: none;
+    stroke: var(--link-color);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke; // 2px on screen at any size
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+}
+
+// On the About page, above the text
+.about-ringdown {
+  margin: 0.5rem 0 2rem;
+
+  svg {
+    display: block;
+    width: 100%;
+    max-width: 32rem;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted-color);
+  }
+}

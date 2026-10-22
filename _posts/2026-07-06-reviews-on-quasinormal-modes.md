@@ -4,6 +4,7 @@ description: "A comprehensive list of review articles on black hole perturbation
 date: 2026-07-06 00:00:00 +0530
 categories: [Physics, Physics Resources]
 tags: [black-holes, quasinormal-modes, reviews]
+pin: true
 math: true
 ---
 

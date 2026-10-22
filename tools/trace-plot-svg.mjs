@@ -2,7 +2,7 @@
 //
 // Trace a coloured curve out of a plot image and write it as an inline SVG.
 //
-// Made for _includes/home-hero-ringdown.svg, which is the waveform in
+// Made for _includes/ringdown.svg, which is the waveform in
 // assets/images/ringdownl2s2.png. The curve is redrawn by CSS in the theme's
 // accent colour, so it stays crisp and works in both light and dark mode.
 //
@@ -16,7 +16,7 @@
 //      the height), and simplify the polyline (Ramer-Douglas-Peucker, --eps).
 //
 // Usage (no dependencies; `source .venv/bin/activate` first for node):
-//   node tools/trace-plot-svg.mjs assets/images/ringdownl2s2.png > _includes/home-hero-ringdown.svg
+//   node tools/trace-plot-svg.mjs assets/images/ringdownl2s2.png > _includes/ringdown.svg
 //
 // Options (defaults reproduce the home page figure):
 //   --t-range -150,150   time at the curve's first and last column
@@ -166,7 +166,7 @@ console.error(`${points.length} points -> ${path.length} after simplification`)
 
 // `include.alt` is filled in by _includes/home-hero.html from index.html's front matter
 process.stdout.write(`<!-- Traced from assets/images/${basename(input)}, t = ${t0} to ${t1} (amplitude rescaled) by tools/trace-plot-svg.mjs -->
-<svg class="home-hero-figure" viewBox="0 0 ${W} ${H}" role="img" aria-label="{{ include.alt | escape }}">
+<svg class="ringdown {{ include.class | default: 'home-hero-figure' }}" viewBox="0 0 ${W} ${H}" role="img" aria-label="{{ include.alt | escape }}">
   <line class="axis" x1="0" y1="${H / 2}" x2="${W}" y2="${H / 2}" />
   <path class="wave" d="${d}" />
 </svg>

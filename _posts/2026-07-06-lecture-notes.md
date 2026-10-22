@@ -4,6 +4,7 @@ description: "A curated collection of lecture notes covering general relativity,
 date: 2026-07-06 00:00:00 +0530
 categories: [Physics, Physics Resources]
 tags: [black-holes, general-relativity, numerical-relativity, gravitational-waves, cosmology, quantum-field-theory, astrophysics]
+pin: true
 math: true
 ---
 

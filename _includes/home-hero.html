@@ -1,5 +1,6 @@
 <!-- Figure and a line about the site, inserted above the home page's post list by _plugins/home-hero.rb -->
 {% assign hero = page.hero %}
+{% assign pinned = site.posts | where: 'pin', 'true' %}
 <section id="home-hero" aria-label="About this site">
   {% if hero.figure %}
     {% include {{ hero.figure }} alt=hero.alt %}
@@ -13,6 +14,9 @@
     {% endif %}
   </div>
 </section>
-{% if hero.list_heading %}
-  <h2 id="home-list-heading">{{ hero.list_heading }}</h2>
+{% comment %} With pinned posts, this heads them; the plugin puts list_heading where the other posts start {% endcomment %}
+{% if pinned.size > 0 and hero.pinned_heading %}
+  <h2 class="home-list-heading px-xl-1">{{ hero.pinned_heading }}</h2>
+{% elsif hero.list_heading %}
+  <h2 class="home-list-heading px-xl-1">{{ hero.list_heading }}</h2>
 {% endif %}

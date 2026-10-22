@@ -140,6 +140,10 @@ $tint: 0.14;
   --clipboard-checked-color: #{p.$green-main};
   --filepath-text-color: #{$foreground};
 
+  /* Home page figure (assets/js/home-hero-pocket.js): the light tone of red on the dark page */
+  --pocket-separatrix: #{p.$blue-main};
+  --pocket-photon: #{p.$red-light};
+
   // Chirpy's dark theme hard-codes this gradient instead of using a variable
   #archives li:nth-child(odd) {
     background-image: linear-gradient(

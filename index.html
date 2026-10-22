@@ -4,14 +4,17 @@ layout: home
 
 # Shown above the post list on the first page (see _plugins/home-hero.rb)
 hero:
-  # An inline SVG from _includes/ (drawn in the theme's accent colour), or use
-  # `image: /assets/images/....png` for a regular picture instead
-  figure: home-hero-ringdown.svg
-  alt: "Ringdown of a perturbed black hole: the signal oscillates and decays through its quasinormal modes"
+  # A figure from _includes/, or `image: /assets/images/....png` for a regular picture instead.
+  # Now: the photon trapped in a pocket of the Hartle-Thorne spacetime (tools/export_pocket_orbit.py).
+  # For the ringdown instead: figure: ringdown.svg, with its alt text below
+  figure: home-hero-pocket.html
+  alt: "A photon trapped in a pocket of the Hartle-Thorne spacetime, bouncing chaotically inside the boundary it cannot cross"
+  # alt: "Ringdown of a perturbed black hole: the signal oscillates and decays through its quasinormal modes"
   # Each line break here is kept on the page
   text: |-
     Notes on physics, math, code,
     and other random tangents.
-  subtext: Posted here so I never have to figure the same thing out twice, and can find it fast when I need it again.
+  subtext: Posted here so I don't have to figure the same thing out twice, and can find it fast when I need it again.
+  pinned_heading: Pinned # above the pinned posts, when there are any
   list_heading: Latest posts
 ---

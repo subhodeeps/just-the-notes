@@ -134,5 +134,9 @@ $tint: 0.3;
   --clipboard-checked-color: #{p.$green-main};
   --filepath-text-color: #{$foreground};
 
+  /* Home page figure (assets/js/home-hero-pocket.js), as in pocket_photons.mp4 */
+  --pocket-separatrix: #{p.$blue-main};
+  --pocket-photon: #{p.$red-ink};
+
   @include syntax.styles(p.$inks, $accent, $muted-foreground, $muted, 0.25);
 }

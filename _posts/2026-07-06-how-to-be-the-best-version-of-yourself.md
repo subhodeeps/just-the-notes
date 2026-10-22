@@ -4,7 +4,7 @@ description: "Actually, nobody cares! Work harder!"
 date: 2026-07-06 00:00:00 +0530
 categories: [Personal, Advice]
 tags: [life-advice, career-advice]
-pin: true
+pin: false
 math: true
 ---
 This page is adapted from the Essential Skills section of [CENTRA 's GRIT (Strong Gravity) website](https://web.archive.org/web/20211017175655/https://blackholes.tecnico.ulisboa.pt/gritting/essential_skills.html){:target="_blank" rel="noopener"} and Emanuele Berti's [advice for students](https://pages.jh.edu/eberti2/posts/for-students/){:target="_blank" rel="noopener"}. It highlights a set of principles I try to live by and habits I’m working on building. I’m sharing it here because it’s the kind of advice I wish I could’ve given my younger self--lessons I’ve picked up along the way that I hope others might find helpful. Like me, this document is still a work in progress, and I’ll keep updating and editing it as I keep learning and growing.
