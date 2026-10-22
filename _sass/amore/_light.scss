@@ -145,7 +145,7 @@ $tint: 0.3;
   --graph-node-homelab: #{p.$amber-main};
   --graph-node-personal: #{p.$plum-main};
   --graph-edge: #{p.$slate-light};
-  --graph-edge-faint: #{p.alpha(p.$slate-light, 0.7)};
+  --graph-edge-faint: #{p.alpha(p.$slate-main, 0.55)};
   --graph-current: #{$accent};
 
   @include syntax.styles(p.$inks, $accent, $muted-foreground, $muted, 0.25);

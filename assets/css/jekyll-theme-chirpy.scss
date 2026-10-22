@@ -43,3 +43,6 @@
 
 /* Footer: copyright line and a quotation (_includes/site-footer.html) */
 @use 'footer';
+
+/* Small boxes of colour in the text (<span class="swatch">) */
+@use 'swatch';

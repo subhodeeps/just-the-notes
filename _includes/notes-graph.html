@@ -9,13 +9,23 @@
 <section id="notes-graph" class="notes-graph">
   <h2 class="panel-heading">{% if current %}Connections{% else %}Note Graph{% endif %}</h2>
 {% endif %}
-  <canvas
-    class="notes-graph-canvas"
-    role="img"
-    aria-label="{% if current %}Notes linked to this one{% else %}All notes and the links between them{% endif %}"
-    data-src="{{ '/assets/data/notes-graph.json' | relative_url }}"
-    data-current="{{ current }}"
-  ></canvas>
+  <div class="notes-graph-stage">
+    <canvas
+      class="notes-graph-canvas"
+      role="img"
+      aria-label="{% if current %}Notes linked to this one{% else %}All notes and the links between them{% endif %}"
+      data-src="{{ '/assets/data/notes-graph.json' | relative_url }}"
+      data-current="{{ current }}"
+    ></canvas>
+    {% if include.page %}
+    <div class="notes-graph-controls">
+      <button type="button" data-graph="zoom-in" aria-label="Zoom in" title="Zoom in"><i class="fas fa-plus"></i></button>
+      <button type="button" data-graph="zoom-out" aria-label="Zoom out" title="Zoom out"><i class="fas fa-minus"></i></button>
+      <button type="button" data-graph="reset" aria-label="Reset the view" title="Reset the view"><i class="fas fa-rotate-left"></i></button>
+      <button type="button" data-graph="spin" aria-label="Stop turning" title="Stop turning"><i class="fas fa-pause"></i></button>
+    </div>
+    {% endif %}
+  </div>
   <ul class="notes-graph-legend"></ul>
   <ul class="visually-hidden notes-graph-list" aria-label="Notes in the graph"></ul>
   <script defer src="{{ '/assets/js/notes-graph.js' | relative_url }}"></script>

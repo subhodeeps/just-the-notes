@@ -26,14 +26,54 @@
 .notes-graph-page {
   margin-top: 1.5rem;
 
+  .notes-graph-stage {
+    position: relative;
+  }
+
   .notes-graph-canvas {
+    touch-action: none; // a drag turns the graph instead of scrolling the page
     aspect-ratio: 4 / 3;
     max-height: 75vh;
     border: 1px solid var(--main-border-color);
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
+    // A faint dot grid, like graph paper, behind the notes
+    background-image: radial-gradient(var(--main-border-color) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: center;
 
     @media (max-width: 576px) {
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  // Zoom, reset and spin, in the top right corner of the graph
+  .notes-graph-controls {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted-color);
+      background: var(--main-bg);
+      border: 1px solid var(--main-border-color);
+      border-radius: 50%;
+      transition: color 0.15s, border-color 0.15s;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--text-color);
+        border-color: var(--text-muted-color);
+      }
     }
   }
 

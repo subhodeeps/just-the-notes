@@ -1,0 +1,11 @@
+// A small box of colour in the text, e.g. for the colours of a figure:
+// <span class="swatch" style="background: #5c9dc7"></span>
+.swatch {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.25em;
+  vertical-align: -0.05em;
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.15em;
+}
