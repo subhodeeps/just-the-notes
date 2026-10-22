@@ -9,10 +9,16 @@
   }
 }
 
+// The panel leaves out Chirpy's "Trending Tags", so that the graph has the room. The tags
+// are still on the Tags page, under each post, and in the search page's suggestions.
+#panel-wrapper .access > section:has(.post-tag) {
+  display: none;
+}
+
 .notes-graph-canvas {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   touch-action: manipulation;
 }
 
