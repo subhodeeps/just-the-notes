@@ -6,3 +6,8 @@
 [data-bs-theme] {
   --bs-font-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
+
+// A word of inline code that must not break at its hyphens (_plugins/inline-code-nobreak.rb)
+.code-token {
+  white-space: nowrap;
+}
