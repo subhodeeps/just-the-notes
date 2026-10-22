@@ -1,0 +1,12 @@
+<!-- The notes that link to this post, added before its footer by _plugins/notes-graph.rb -->
+<section class="backlinks" aria-labelledby="backlinks-heading">
+  <h2 id="backlinks-heading">Linked from</h2>
+  <ul>
+    {% for note in page.backlinks %}
+      <li>
+        <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+        {% if note.description %}<span class="backlink-description">{{ note.description }}</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>

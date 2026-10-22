@@ -138,5 +138,15 @@ $tint: 0.3;
   --pocket-separatrix: #{p.$blue-main};
   --pocket-photon: #{p.$red-ink};
 
+  /* Note graph (assets/js/notes-graph.js): one colour per top category, main tones */
+  --graph-node: #{p.$slate-main};
+  --graph-node-physics: #{p.$blue-main};
+  --graph-node-coding: #{p.$green-main};
+  --graph-node-homelab: #{p.$amber-main};
+  --graph-node-personal: #{p.$plum-main};
+  --graph-edge: #{p.$slate-light};
+  --graph-edge-faint: #{p.alpha(p.$slate-light, 0.7)};
+  --graph-current: #{$accent};
+
   @include syntax.styles(p.$inks, $accent, $muted-foreground, $muted, 0.25);
 }

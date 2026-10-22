@@ -63,6 +63,34 @@ Delete the environment and run setup again:
 rm -rf .venv && bash tools/setup.sh
 ```
 
+## Linking Notes
+
+Posts can link to each other Zettelkasten-style, with backlinks and a graph of the notes. Everything happens at build time in `_plugins/notes-graph.rb`; Chirpy's layouts are not changed.
+
+### Writing links
+
+| You write | You get |
+| --- | --- |
+| `[[ode]]` | A link to the post, with its title as the text |
+| `[[2026-07-06-ode]]` | The same, by file name (what Foam inserts) |
+| `[[ode\|the ODE note]]` | A link with your own text |
+| `[[ode#a-heading]]` | A link to a section of the post |
+| `[the ODE note](2026-07-06-ode.md)` | A relative `.md` link, which also works in the VS Code and GitHub previews |
+| `[the ODE note](/posts/ode/)` | An ordinary link, which counts as a link between notes too |
+
+A link to a note that does not exist yet is shown as muted text, and the build prints a warning. Code blocks and inline code are left alone, so `[[ -f file ]]` in a shell snippet is safe.
+
+### What the site shows
+
+- **Linked from:** at the end of each post, the notes that link to it (its backlinks).
+- **The note graph:** in the right panel, posts as dots coloured by their first category, solid lines for links and faint dotted lines for shared tags. On a post it shows that post's neighbourhood; on other pages, every note. Hovering a dot shows its title, and clicking opens it. The colours follow the light and dark themes (`--graph-*` in `_sass/amore/`); a new top-level category needs a `--graph-node-<category>` colour there. Chirpy hides the right panel on screens narrower than 1200px.
+
+### Foam in VS Code
+
+The repository is set up for [Foam](https://foambubble.github.io/foam/): install the recommended extension, and VS Code offers `[[` completion, backlinks and a graph of the notes. `.vscode/settings.json` keeps Foam out of the build output and the toolchain, and stops it from appending link reference definitions to the notes, which the site does not need. **Foam: Create New Note** starts a draft in `_drafts/` from `.foam/templates/new-note.md`; to publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Links written as `[[slug]]` keep working after the move.
+
+The idea of publishing a Foam workspace with Jekyll comes from hikerpig's [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), which rewrites Foam's links in the browser. This site does the same at build time, and adds backlinks and the graph.
+
 ## Usage
 
 Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).

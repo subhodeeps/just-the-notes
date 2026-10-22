@@ -1,3 +1,7 @@
 {
-  "recommendations": ["ms-vscode-remote.remote-containers"]
+  "recommendations": [
+    "ms-vscode-remote.remote-containers",
+    // Foam: [[wikilinks]], backlinks and a graph of the notes in _posts (see README)
+    "foam.foam-vscode"
+  ]
 }

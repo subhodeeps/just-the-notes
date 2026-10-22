@@ -144,6 +144,16 @@ $tint: 0.14;
   --pocket-separatrix: #{p.$blue-main};
   --pocket-photon: #{p.$red-light};
 
+  /* Note graph (assets/js/notes-graph.js) */
+  --graph-node: #{p.$slate-main};
+  --graph-node-physics: #{p.$blue-main};
+  --graph-node-coding: #{p.$green-main};
+  --graph-node-homelab: #{p.$amber-main};
+  --graph-node-personal: #{p.$plum-main};
+  --graph-edge: #{p.$slate-main};
+  --graph-edge-faint: #{p.alpha(p.$slate-main, 0.45)};
+  --graph-current: #{$accent};
+
   // Chirpy's dark theme hard-codes this gradient instead of using a variable
   #archives li:nth-child(odd) {
     background-image: linear-gradient(

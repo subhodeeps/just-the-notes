@@ -26,5 +26,22 @@
   // Run tasks in macOS
   "terminal.integrated.profiles.osx": {
     "zsh": { "path": "/bin/zsh", "args": ["-l", "-i"] }
-  }
+  },
+  // Foam: notes are the Markdown files in _posts, _drafts and _tabs. The site turns
+  // [[wikilinks]] into links at build time (_plugins/notes-graph.rb), so Foam must not
+  // append link reference definitions to the notes.
+  "foam.edit.linkReferenceDefinitions": "off",
+  "foam.files.ignore": [
+    "_site/**",
+    ".venv/**",
+    ".jekyll-cache/**",
+    "vendor/**",
+    "node_modules/**",
+    "old_theme_backup/**",
+    "tools/**",
+    "assets/**",
+    "_includes/**",
+    "README.md",
+    "LICENSE"
+  ]
 }

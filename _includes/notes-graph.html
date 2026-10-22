@@ -1,0 +1,17 @@
+<!-- The note graph in the right panel, added by _plugins/notes-graph.rb and drawn by
+     assets/js/notes-graph.js from assets/data/notes-graph.json. On a post it shows the post's
+     neighbourhood; elsewhere, all the notes. -->
+{% if page.collection == 'posts' %}{% assign current = page.slug %}{% endif %}
+<section id="notes-graph">
+  <h2 class="panel-heading">{% if current %}Connections{% else %}Note Graph{% endif %}</h2>
+  <canvas
+    class="notes-graph-canvas"
+    role="img"
+    aria-label="{% if current %}Notes linked to this one{% else %}All notes and the links between them{% endif %}"
+    data-src="{{ '/assets/data/notes-graph.json' | relative_url }}"
+    data-current="{{ current }}"
+  ></canvas>
+  <ul class="notes-graph-legend"></ul>
+  <ul class="visually-hidden notes-graph-list" aria-label="Notes in the graph"></ul>
+  <script defer src="{{ '/assets/js/notes-graph.js' | relative_url }}"></script>
+</section>
