@@ -21,6 +21,48 @@ To unlock all features, the following files must be present in your Jekyll site:
 
 This starter bundles those files from the latest **Chirpy** release along with a [CD][CD] workflow, so you can start writing immediately.
 
+## Local Development
+
+`tools/setup.sh` builds a self-contained toolchain in `.venv/` (git-ignored), similar to a Python virtualenv. Nothing is installed globally and the system Ruby is left untouched.
+
+| Component                         | Location        | Notes                                                        |
+| --------------------------------- | --------------- | ------------------------------------------------------------ |
+| Ruby 3.4.x                        | `.venv/ruby`    | Compiled from source with ruby-build; matches the CI version |
+| libyaml                           | `.venv/deps`    | Needed by Ruby's YAML extension (psych), which Jekyll uses   |
+| Node LTS + npm                    | `.venv/node`    | Official tarball, checksum-verified                          |
+| Bundler, Jekyll, Chirpy, html-proofer | `.venv/bundle`  | Installed from the `Gemfile`                                 |
+
+### First-time setup
+
+Requires Xcode Command Line Tools on macOS (`xcode-select --install`), plus `git`, `curl`, `tar` and `make`. Compiling Ruby takes a few minutes.
+
+```shell
+bash tools/setup.sh
+```
+
+The script is safe to re-run: components that are already installed are skipped and gems are brought up to date. To pin different versions, set `RUBY_SERIES` or `NODE_SERIES`, e.g. `RUBY_SERIES=3.3 bash tools/setup.sh`.
+
+### Serving the site
+
+```shell
+source .venv/bin/activate   # put the local toolchain on PATH
+bash tools/run.sh           # serve at http://127.0.0.1:4000 with live reload
+deactivate                  # restore your shell when done
+```
+
+Other useful commands while activated:
+
+- `bash tools/run.sh -p` builds in production mode.
+- `bash tools/test.sh` builds the site and checks it with html-proofer, as CI does.
+
+### Starting over
+
+Delete the environment and run setup again:
+
+```shell
+rm -rf .venv && bash tools/setup.sh
+```
+
 ## Usage
 
 Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
