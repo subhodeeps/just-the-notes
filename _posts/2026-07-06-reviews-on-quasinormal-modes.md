@@ -14,7 +14,7 @@ math: true
 
 ![Quasinormal Mode Ringdown](/assets/images/ringdownl2s2.png "For Whom The Bell Tolls: Quasinormal Mode Ringdown"){: width="400" }
 
-These are all the reviews on quasinormal modes that I know of! I collect lecture notes on black holes and general relativity in [[lecture-notes]].
+These are all the reviews on quasinormal modes that I know of! I collect lecture notes on black holes and general relativity in [[2026-07-06-lecture-notes]].
 
 1. S. L. Detweiler, ["Black holes and gravitational waves: Perturbation analysis"](https://inspirehep.net/literature/1282516), in *Proceedings of the Workshop on Sources of Gravitational Radiation*, Seattle, WA, USA, July 24 – August 4, 1978, edited by L. L. Smarr, Cambridge University Press, 1979.
 1. K. D. Kokkotas and B. G. Schmidt, “[Quasinormal modes of stars and black holes](https://inspirehep.net/literature/507420)”, *Living Rev. Rel.* **2**, 2 (1999).

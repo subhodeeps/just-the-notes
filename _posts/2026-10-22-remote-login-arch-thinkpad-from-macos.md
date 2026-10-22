@@ -763,7 +763,7 @@ scp ./data.csv thinkpad:~/Downloads/
 scp thinkpad:~/results/plot.png ~/Downloads/
 ```
 
-`scp -r` copies entire directories, which makes this the simpler method for results and datasets. For large transfers, `rsync` over the same alias resumes and skips unchanged files; [[transfer-files-ubuntu-arch]] covers its options.
+`scp -r` copies entire directories, which makes this the simpler method for results and datasets. For large transfers, `rsync` over the same alias resumes and skips unchanged files; [[2026-07-06-transfer-files-ubuntu-arch]] covers its options.
 
 ## References
 

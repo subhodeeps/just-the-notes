@@ -10,7 +10,7 @@ math: true
 
 **Note: Some of these lecture notes can be classified under multiple headings, my choices are a bit arbitrary!**
 
-I keep the reviews on quasinormal modes in a separate list: [[reviews-on-quasinormal-modes]].
+I keep the reviews on quasinormal modes in a separate list: [[2026-07-06-reviews-on-quasinormal-modes]].
 
 ## Black Holes
 
@@ -26,7 +26,7 @@ I keep the reviews on quasinormal modes in a separate list: [[reviews-on-quasino
 
 ## Numerical Relativity
 
-For numerical methods in general, see [[pythonrefs]] and [[juliarefs]].
+For numerical methods in general, see [[2026-07-06-pythonrefs]] and [[2026-07-06-juliarefs]].
 
 1. Ulrich Sperhake, ["Part III Gravitational Waves and Numerical Relativity Lecture Notes"](https://www.damtp.cam.ac.uk/user/us248/Lectures/lectures.html), Unpublished, 2022.
 

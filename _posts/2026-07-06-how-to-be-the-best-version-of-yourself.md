@@ -16,7 +16,7 @@ This page is adapted from the Essential Skills section of [CENTRA 's GRIT (Stron
   To quote the Jogging Baboon from *BoJack Horseman*: _It gets easier. Every day, it gets a little easier. But you gotta do it every day—that’s the hard part. But it does get easier._
 
 - **Nobody cares. Work harder.**  
-  Don’t isolate yourself in a little bubble. There’s a whole wild world out there. If you’re a theoretician, learn [[pythonrefs|numerical methods]] and data analysis. If you’re a data analyst, understand the theoretical foundations of your work. Learn new tools. Learn new methods. Just keep learning. The rewards will follow.
+  Don’t isolate yourself in a little bubble. There’s a whole wild world out there. If you’re a theoretician, learn [[2026-07-06-pythonrefs|numerical methods]] and data analysis. If you’re a data analyst, understand the theoretical foundations of your work. Learn new tools. Learn new methods. Just keep learning. The rewards will follow.
 
 - **Be punctual.**  
   Nobody likes to wait. If you value other people’s time, they’ll return the kindness.
@@ -25,7 +25,7 @@ This page is adapted from the Essential Skills section of [CENTRA 's GRIT (Stron
   You’re surrounded by smart people. Pick their brains—and let them pick yours.
 
 - **Attend journal clubs.**  
-  If you can’t find one, start one. If you’re interested in GR, here’s a [reading list](https://pages.jh.edu/eberti2/posts/must-read-paper-list/){:target="_blank" rel="noopener"}. You can also find the PDFs on the [Grittings website](https://blackholes.tecnico.ulisboa.pt/gritting/essential_reading.html){:target="_blank" rel="noopener"}. I collect lecture notes on GR and black holes in [[lecture-notes]].
+  If you can’t find one, start one. If you’re interested in GR, here’s a [reading list](https://pages.jh.edu/eberti2/posts/must-read-paper-list/){:target="_blank" rel="noopener"}. You can also find the PDFs on the [Grittings website](https://blackholes.tecnico.ulisboa.pt/gritting/essential_reading.html){:target="_blank" rel="noopener"}. I collect lecture notes on GR and black holes in [[2026-07-06-lecture-notes]].
 
 - **Read.**  
   Read a lot. A huge part of a student’s (or a researcher’s) job is reading. I’ve seen most good researchers start their day by checking the [arXiv](https://arxiv.org/){:target="_blank" rel="noopener"}. Do the same—check it daily, and aim to read at least one paper a day. You don’t need to understand every detail. Instead, try to grasp the problem being addressed, why it’s interesting, and how the authors are approaching it. Getting the gist of the argument is what matters. Even if things aren’t immediately clear, this habit will give you tools that you can use later. You might even find something incredibly useful buried in an appendix of a preprint! Learning what to read is itself a learning process. Stay engaged during journal clubs. And don’t underestimate good pop science magazines—they can help you catch important work you might have missed. It will also help to understand how to communicate your work to a non-technical audience (like your aunt).

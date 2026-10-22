@@ -8,7 +8,7 @@ math: false
 pin: false
 ---
 
-This guide walks through creating a dedicated scientific Python environment called **`numerics`**, installing common scientific packages, and making the environment available inside Jupyter notebooks. The [[ode|ODE tutorial]] uses this environment.
+This guide walks through creating a dedicated scientific Python environment called **`numerics`**, installing common scientific packages, and making the environment available inside Jupyter notebooks. The [[2026-07-06-ode|ODE tutorial]] uses this environment.
 
 The instructions assume:
 

@@ -54,6 +54,7 @@ deactivate                  # restore your shell when done
 Other useful commands while activated:
 
 - `bash tools/run.sh -p` builds in production mode.
+- `bash tools/run.sh -d` serves the drafts in `_drafts/` as well, and tags each one `draft`. The deployed site never shows drafts.
 - `bash tools/test.sh` builds the site and checks it with html-proofer. The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the same check on every push; Vercel deploys the site from `main`.
 
 ### Starting over
@@ -169,10 +170,10 @@ Posts can link to each other Zettelkasten-style, with backlinks and a graph of t
 
 | You write | You get |
 | --- | --- |
-| `[[ode]]` | A link to the post, with its title as the text |
-| `[[2026-07-06-ode]]` | The same, by file name (what Foam inserts) |
-| `[[ode\|the ODE note]]` | A link with your own text |
-| `[[ode#a-heading]]` | A link to a section of the post |
+| `[[2026-07-06-ode]]` | A link to the post, with its title as the text |
+| `[[ode]]` | The same, by slug; the site follows it, but Foam does not |
+| `[[2026-07-06-ode\|the ODE note]]` | A link with your own text |
+| `[[2026-07-06-ode#a-heading]]` | A link to a section of the post |
 | `[the ODE note](2026-07-06-ode.md)` | A relative `.md` link, which also works in the VS Code and GitHub previews |
 | `[the ODE note](/posts/ode/)` | An ordinary link, which counts as a link between notes too |
 
@@ -182,10 +183,11 @@ A link to a note that does not exist yet is shown as muted text, and the build p
 
 - **Linked from:** at the end of each post, the notes that link to it (its backlinks).
 - **The note graph:** in the right panel, posts as dots coloured by their first category, solid lines for links and faint dotted lines for shared tags. On a post it shows that post's neighbourhood; on other pages, every note. Hovering a dot shows its title, and clicking opens it. The colours follow the light and dark themes (`--graph-*` in `_sass/amore/`); a new top-level category needs a `--graph-node-<category>` colour there. Chirpy hides the right panel on screens narrower than 1200px.
+- **The Graph tab:** a page with the whole graph (`_tabs/graph.md`), below Tags in the sidebar. Phones and narrow windows have no right panel, so they show the graph here. On a touch screen, the first tap on a dot shows its title, and a second tap opens the note. On this page the right panel leaves the graph out (`panel_graph: false`).
 
 ### Foam in VS Code
 
-The repository is set up for [Foam](https://foambubble.github.io/foam/): install the recommended extension, and VS Code offers `[[` completion, backlinks and a graph of the notes. `.vscode/settings.json` keeps Foam out of the build output and the toolchain, and stops it from appending link reference definitions to the notes, which the site does not need. **Foam: Create New Note** starts a draft in `_drafts/` from `.foam/templates/new-note.md`; to publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Links written as `[[slug]]` keep working after the move.
+The repository is set up for [Foam](https://foambubble.github.io/foam/): install the recommended extension, and VS Code offers `[[` completion, backlinks and a graph of the notes. `.vscode/settings.json` keeps Foam out of the build output and the toolchain, and stops it from appending link reference definitions to the notes, which the site does not need. **Foam: Create New Note** starts a draft in `_drafts/` from `.foam/templates/new-note.md`; to publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Foam finds a note by its file name, so the posts link to each other as `[[2026-07-06-ode]]`. After the move, links to the draft need the date in front of the slug.
 
 The idea of publishing a Foam workspace with Jekyll comes from hikerpig's [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), which rewrites Foam's links in the browser. This site does the same at build time, and adds backlinks and the graph.
 

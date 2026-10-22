@@ -7,7 +7,7 @@ tags: [python, computational-physics, numerical-methods]
 math: true
 ---
 
-For a worked example, see [[ode]]; for Julia, see [[juliarefs]].
+For a worked example, see [[2026-07-06-ode]]; for Julia, see [[2026-07-06-juliarefs]].
 
 ## Introductory Books
 
