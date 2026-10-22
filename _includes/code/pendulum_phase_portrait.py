@@ -5,7 +5,7 @@
 # Contact: subhodeep.sarkar1@gmail.com
 # Date: 2021
 # Last updated: October 2026
-# Github: https://github.com/subhodeeps/just-the-notes
+# Github: https://github.com/subhodeeps/quasinormal-notes
 #
 # /// script
 # requires-python = ">=3.10"
