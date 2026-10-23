@@ -24,7 +24,7 @@
 
 // The Graph tab (_tabs/graph.md): the whole graph, wide on a desktop and tall on a phone
 .notes-graph-page {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0; // the instructions follow the graph, so it needs room below as above
 
   .notes-graph-stage {
     position: relative;
