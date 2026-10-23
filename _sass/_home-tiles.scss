@@ -70,7 +70,28 @@
 
   .tile-tall .card-text p,
   .tile-large .card-text p {
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 3;
+  }
+
+  // The opening of the post (_plugins/home-tiles.rb) fills the space of a tall or a large tile
+  // between the description and the date, and fades out towards the date
+  .tile-excerpt {
+    flex: 1 1 0;
+    min-height: 0;
+    margin-bottom: 0.6rem;
+    overflow: hidden;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-muted-color);
+    mask-image: linear-gradient(to bottom, #000 35%, transparent);
+
+    p {
+      margin: 0 0 0.6rem;
+    }
+  }
+
+  .tile-excerpt + .post-meta {
+    flex-grow: 0 !important; // Chirpy's flex-grow-1 would take the space of the excerpt
   }
 
   .tile-large .card-title {

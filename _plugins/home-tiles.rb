@@ -18,6 +18,11 @@
 #   wide and tall, so the pattern looks varied but stays the same from one build to the next.
 #   The grid packs the tiles densely, so a new post finds its place without any configuration,
 #   and assets/js/home-tiles.js closes the gaps that remain at its end, at every width.
+# - A tall or a large tile has room for more than the description, so it also shows the
+#   opening of the post, which fades out towards the date. The excerpt is the run of
+#   paragraphs at the start of the post, up to the first display equation, code block, folded
+#   box, quotation, figure or table, so that it never starts in the middle of an argument.
+#   Inline math stays, and the home page loads MathJax for it (math: true in index.html).
 
 require 'zlib'
 
@@ -26,6 +31,8 @@ module HomeTiles
   TILE = %r{<article class="card-wrapper card tile .*?</article>}m
   SMALL = 300 # words: a shorter post is a small square
   LARGE = 1500 # words: a longer post is a large square
+  EXCERPT = { 'tile-tall' => 90, 'tile-large' => 150 }.freeze # words of the opening of the post
+  BLOCK = /\A\s*<(?:pre|details|blockquote|figure|table|div|ul|ol|h[1-6])\b/ # ends the opening run
 
   module_function
 
@@ -36,6 +43,28 @@ module HomeTiles
 
   def words(post)
     post.content.to_s.gsub(%r{<pre.*?</pre>}m, ' ').gsub(/```.*?```/m, ' ').gsub(/<[^>]+>/, ' ').split.size
+  end
+
+  # The paragraphs at the start of the post, up to about `limit` words. The run ends at the
+  # first element that is not a paragraph, or at a paragraph with a display equation
+  def excerpt(post, limit)
+    html = post.content.to_s.sub(/\A\s*<!--.*?-->/m, '')
+    out = []
+    count = 0
+    until html.strip.empty? || count >= limit
+      html = html.lstrip.sub(/\A<!--.*?-->/m, '').lstrip
+      break if html.match?(BLOCK)
+
+      paragraph = html.match(%r{\A<p\b[^>]*>(.*?)</p>}m)
+      break unless paragraph
+      break if paragraph[1].match?(/\$\$|\\\[|\\begin\{/)
+
+      text = paragraph[1].gsub(/<[^>]+>/, '').gsub(/\s+/, ' ').strip
+      out << "<p>#{text}</p>" unless text.empty?
+      count += text.split.size
+      html = html[paragraph.end(0)..]
+    end
+    out.join
   end
 
   def size(post)
@@ -67,7 +96,10 @@ Jekyll::Hooks.register :pages, :post_render do |page|
     card = card.sub('class="post-preview', %(#{colour} class="post-preview note-card))
     next card if post.data['pin']
 
-    card.sub('<article class="card-wrapper card">', %(<article class="card-wrapper card tile #{HomeTiles.size(post)}">))
+    size = HomeTiles.size(post)
+    card = card.sub('<article class="card-wrapper card">', %(<article class="card-wrapper card tile #{size}">))
+    excerpt = HomeTiles::EXCERPT[size] && HomeTiles.excerpt(post, HomeTiles::EXCERPT[size])
+    excerpt.to_s.empty? ? card : card.sub('<div class="post-meta', %(<div class="tile-excerpt">#{excerpt}</div><div class="post-meta))
   end
 
   # The latest posts follow the pinned ones, so their tiles form one run
