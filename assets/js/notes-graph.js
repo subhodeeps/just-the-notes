@@ -41,6 +41,26 @@
   const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-');
   const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
 
+  // 3 x 3 rotation matrices, stored by rows: about the vertical axis y and the horizontal axis x
+  const rotY = (a) => [Math.cos(a), 0, Math.sin(a), 0, 1, 0, -Math.sin(a), 0, Math.cos(a)];
+  const rotX = (a) => [1, 0, 0, 0, Math.cos(a), -Math.sin(a), 0, Math.sin(a), Math.cos(a)];
+  const times = (a, b) =>
+    Array.from({ length: 9 }, (_, k) => {
+      const [i, j] = [Math.floor(k / 3), k % 3];
+      return a[3 * i] * b[j] + a[3 * i + 1] * b[3 + j] + a[3 * i + 2] * b[6 + j];
+    });
+
+  // Rounding errors pile up over many small turns; Gram-Schmidt on the rows keeps the matrix a rotation
+  function orthonormal(m) {
+    const unit = (v) => v.map((c) => c / Math.hypot(...v));
+    const dot = (u, v) => u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
+    const a = unit(m.slice(0, 3));
+    const b0 = m.slice(3, 6);
+    const b = unit(b0.map((c, i) => c - dot(a, b0) * a[i]));
+    const c = [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+    return [...a, ...b, ...c];
+  }
+
   // A small deterministic random generator, seeded from a string
   function seeded(text) {
     let h = 2166136261;
@@ -171,7 +191,7 @@
     let hover = null;
     let touch = false; // whether the last pointer was a finger
     let view = { scale: 1, ox: 0, oy: 0, cx: 0, cy: 0, cz: 0, r: 0 }; // r > 0 once the 3D view fits
-    let turn = { yaw: 0, pitch: PITCH, zoom: 1 };
+    let turn = { m: rotX(PITCH), zoom: 1 }; // m: how the 3D view is turned, a rotation matrix
     const proj = new Map(); // node -> where it is drawn: x, y, depth z and perspective factor f
     const dpr = () => window.devicePixelRatio || 1;
     const radius = (n) =>
@@ -222,24 +242,23 @@
       view = { ...view, scale, ox: w / 2 - ((x0 + x1) / 2) * scale, oy: h / 2 - ((y0 + y1) / 2) * scale };
     }
 
-    // Turn the 3D layout by the yaw (about the vertical axis) and then the pitch, and look at it
-    // from a distance of three radii; z grows away from the viewer
+    // Turn the 3D layout by the matrix turn.m, and look at it from a distance of three radii;
+    // z grows away from the viewer
     function project() {
       if (!big) {
         for (const n of nodes) proj.set(n, { x: n.x * view.scale + view.ox, y: n.y * view.scale + view.oy, z: 0, f: 1 });
         return;
       }
-      const [cy, sy, cp, sp] = [Math.cos(turn.yaw), Math.sin(turn.yaw), Math.cos(turn.pitch), Math.sin(turn.pitch)];
+      const m = turn.m;
       const distance = 3 * view.r;
       for (const n of nodes) {
         const [x, y, z] = [n.x - view.cx, n.y - view.cy, n.z - view.cz];
-        const x1 = cy * x + sy * z;
-        const z1 = -sy * x + cy * z;
-        const y2 = cp * y - sp * z1;
-        const z2 = sp * y + cp * z1;
-        const f = distance / (distance + z2);
+        const x1 = m[0] * x + m[1] * y + m[2] * z;
+        const y1 = m[3] * x + m[4] * y + m[5] * z;
+        const z1 = m[6] * x + m[7] * y + m[8] * z;
+        const f = distance / (distance + z1);
         const s = view.scale * turn.zoom * f;
-        proj.set(n, { x: view.ox + x1 * s, y: view.oy + y2 * s, z: z2, f });
+        proj.set(n, { x: view.ox + x1 * s, y: view.oy + y1 * s, z: z1, f });
       }
     }
 
@@ -359,7 +378,8 @@
       frame = null;
       if (!spinning) return;
       if (!hover) {
-        turn.yaw += SPIN;
+        // About the layout's own vertical axis, like a globe, whichever way the view is tilted
+        turn.m = orthonormal(times(turn.m, rotY(SPIN)));
         draw();
       }
       frame = requestAnimationFrame(tick);
@@ -377,8 +397,10 @@
       const [px, py] = pointers.get(event.pointerId);
       const [qx, qy] = [event.clientX, event.clientY];
       if (pointers.size === 1) {
-        turn.yaw += (qx - px) * 0.008;
-        turn.pitch = clamp(turn.pitch + (qy - py) * 0.008, -1.4, 1.4);
+        // About the axes of the screen, so that the view follows the pointer and turns all the
+        // way round in every direction, upside down included
+        const drag = times(rotX((qy - py) * 0.008), rotY((qx - px) * 0.008));
+        turn.m = orthonormal(times(drag, turn.m));
         travel += Math.hypot(qx - px, qy - py);
       } else {
         const [ox, oy] = [...pointers].find(([id]) => id !== event.pointerId)[1];
@@ -446,7 +468,7 @@
         'zoom-in': () => zoomBy(1.25),
         'zoom-out': () => zoomBy(0.8),
         reset: () => {
-          turn = { yaw: 0, pitch: PITCH, zoom: 1 };
+          turn = { m: rotX(PITCH), zoom: 1 };
           draw();
         },
         spin: () => setSpin(!spinning)
