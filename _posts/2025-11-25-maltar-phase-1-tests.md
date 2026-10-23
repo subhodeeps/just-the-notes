@@ -11,7 +11,7 @@ math: true
 pin: false
 ---
 
-This note gives the code and output of the Phase 1 benchmarks of [[2025-11-25-maltar|Maltár]], whose results are discussed in [[2025-11-25-maltar#5-benchmarks|Section 5]] of the main post. Both benchmarks are run from the MacBook Air M1, with workers started over SSH on the ThinkPad P15, which runs Linux. This needs passwordless SSH login from the MacBook Air to the ThinkPad with a key, Julia at `/usr/bin/julia` on the ThinkPad with the same packages as on the Mac, and a licensed Mathematica on both machines. The code is shown as it was run in the notebooks `test_cluster.ipynb` and `maltar_phase_1.nb`, with a few long lines wrapped to fit the page. In the code and its output, `minastirith` is the hostname of the MacBook Air and `isengard` that of the ThinkPad.
+This note gives the code and output of the Phase 1 benchmarks of [[2025-11-25-maltar|Maltár]], whose results are discussed in [[2025-11-25-maltar#5-benchmarks|Section 5]] of the main post. Both benchmarks are run from the MacBook Air M1, with workers started over SSH on the ThinkPad P15, which runs Linux. This needs passwordless SSH login from the MacBook Air to the ThinkPad with a key, Julia at `/usr/bin/julia` on the ThinkPad with the same packages as on the Mac, and a licensed Mathematica on both machines. For the setup, see the [[2026-06-23-direct-ethernet-link-macbook-air-thinkpad|guide to the direct Ethernet link]]. The code is shown as it was run in the notebooks `test_cluster.ipynb` and `maltar_phase_1.nb`, with a few long lines wrapped to fit the page. In the code and its output, `minastirith` is the hostname of the MacBook Air and `isengard` that of the ThinkPad.
 
 ## 1. Julia
 
