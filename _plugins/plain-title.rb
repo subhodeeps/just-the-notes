@@ -8,7 +8,7 @@
 # the browser tab and bookmarks would show the tags as text. The heading is left as it is.
 #
 # Chirpy takes the <title> of a tab from its locale file (_data/locales/en.yml in the
-# theme), which names only its own tabs, so a tab of this site, such as Graph View, would
+# theme), which names only its own tabs, so a tab of this site, such as Note Graph, would
 # get an empty title before " | Quasinormal Notes".
 
 Jekyll::Hooks.register [:pages, :documents], :post_render do |doc|

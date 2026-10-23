@@ -18,7 +18,8 @@
  * drag on empty space moves it across the canvas, a drag on a note pulls the note, so that its
  * links stretch and light up and its neighbours follow, and a drag with Shift or the right
  * button turns it in 3D. On a touch screen, one finger moves the graph or pulls a note, and two
- * fingers zoom and turn it. The wheel, a pinch or the buttons in its corner zoom in and out.
+ * fingers zoom and turn it. The wheel, a pinch, the + and - keys or the buttons in its corner
+ * zoom in and out, and the arrow keys move the graph.
  *
  * Colours come from CSS variables set per theme in _sass/amore: --graph-node-<category>
  * (e.g. --graph-node-physics), --graph-node for other categories, --graph-edge,
@@ -568,6 +569,24 @@
       };
       section.querySelectorAll('[data-graph]').forEach((button) => {
         button.addEventListener('click', () => actions[button.dataset.graph]());
+      });
+      // As in Obsidian, + and - zoom and the arrow keys move the graph, once the canvas has the focus
+      const keys = {
+        '+': () => zoomBy(1.25),
+        '=': () => zoomBy(1.25),
+        '-': () => zoomBy(0.8),
+        ArrowLeft: () => (turn.px += 40),
+        ArrowRight: () => (turn.px -= 40),
+        ArrowUp: () => (turn.py += 40),
+        ArrowDown: () => (turn.py -= 40)
+      };
+      canvas.addEventListener('keydown', (event) => {
+        const key = keys[event.key];
+        if (!key || event.metaKey || event.ctrlKey || event.altKey) return;
+        event.preventDefault(); // the arrow keys would scroll the page
+        setSpin(false);
+        key();
+        draw();
       });
       canvas.addEventListener('contextmenu', (event) => event.preventDefault()); // right-drag turns
       canvas.style.cursor = 'grab';

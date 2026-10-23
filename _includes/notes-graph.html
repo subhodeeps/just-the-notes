@@ -16,6 +16,7 @@
       aria-label="{% if current %}Notes linked to this one{% else %}All notes and the links between them{% endif %}"
       data-src="{{ '/assets/data/notes-graph.json' | relative_url }}"
       data-current="{{ current }}"
+      {% if include.page %}tabindex="0"{% endif %}
     ></canvas>
     {% if include.page %}
     <div class="notes-graph-controls">
@@ -29,7 +30,7 @@
   {% if include.page %}
   <div class="notes-graph-footer">
     <ul class="notes-graph-legend"></ul>
-    <p class="notes-graph-credit">Inspired by the graph view of <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a></p>
+    <p class="notes-graph-credit">Inspired by Obsidian's <a href="https://obsidian.md/help/plugins/graph" target="_blank" rel="noopener">Graph view</a> plugin</p>
   </div>
   {% else %}
   <ul class="notes-graph-legend"></ul>

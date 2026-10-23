@@ -44,6 +44,11 @@
     @media (max-width: 576px) {
       aspect-ratio: 1 / 1;
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--link-color);
+      outline-offset: 2px;
+    }
   }
 
   // Zoom, reset and spin, in the top right corner of the graph
