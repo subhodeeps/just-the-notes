@@ -8,7 +8,10 @@
 
 set -eu
 
-SITE_DIR="_site"
+# A temporary folder of its own: the local preview (tools/run.sh) serves _site, and a
+# production build there would replace the drafts and install Chirpy's service worker
+SITE_DIR="$(mktemp -d)/site"
+trap 'rm -rf "$(dirname "$SITE_DIR")"' EXIT
 
 _config="_config.yml"
 

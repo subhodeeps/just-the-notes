@@ -56,16 +56,19 @@ deactivate                  # restore the shell
 | `bash tools/run.sh` | Serves the site at http://127.0.0.1:4000 with live reload. |
 | `bash tools/run.sh -p` | Serves the site in production mode. |
 | `bash tools/run.sh -d` | Serves the drafts and private notes alongside the posts. |
-| `bash tools/test.sh` | Builds the site and checks it with html-proofer. |
+| `bash tools/test.sh` | Builds the site in a temporary folder and checks it with html-proofer. The preview in `_site/` stays as it is. |
 
 The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the html-proofer check on every push. Vercel deploys the site from `main`.
 
-### Drafts and private notes
+The preview tells the browser to keep no copy of any page or file (`_plugins/preview-no-cache.rb`), so a reload always shows the latest build. Jekyll's server sends this header only with pages, not with styles and scripts. The preview also has no offline cache (`_config_dev.yml`), and it removes any service worker that a production build installed.
 
-`_drafts/` holds drafts and private notes. Git ignores its contents, and the deployed site never builds them. The folder mirrors the root of the site:
+### Stubs, drafts and private notes
+
+`_drafts/` holds notes that the site does not publish: stubs, which have front matter and links but no text yet, drafts, and private notes. Git ignores its contents, and the deployed site never builds them. The folder mirrors the root of the site:
 
 ```
 _drafts/
+├── to-write/slug.md               # stub, to be written
 ├── slug.md                        # draft
 ├── private/note.md                # private note, never published
 ├── _includes/code/script.py       # {% include code/script.py %}
@@ -76,7 +79,7 @@ Two plugins act on these files, only with `-d`:
 
 | Plugin | Function |
 | --- | --- |
-| `_plugins/draft-category.rb` | Puts each draft in the category Draft and each note in `_drafts/private/` in the category Private, ahead of its own categories. Marks their cards on the home page with a teal or red stripe. |
+| `_plugins/draft-category.rb` | Puts each stub in `_drafts/to-write/` in the category To Write, each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories. Marks their cards on the home page with an olive, teal or red stripe. |
 | `_plugins/draft-files.rb` | Serves `_drafts/_includes/` and `_drafts/assets/` at the same paths as their counterparts at the root. |
 
 To publish a draft, move each of its files to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`. The post needs no other changes.
