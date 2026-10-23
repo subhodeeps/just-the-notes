@@ -8,7 +8,7 @@ categories: [Code Carpentry, Code Carpentry Resources]
 tags: [linux, git, latex, hpc]
 ---
 
-References and notes on general computing, command-line tools, LaTeX, and HPC. For Python and Julia, see the [coding resources](/categories/coding-resources/), and for remote access and file transfer, the [guides](/categories/guides/).
+References and notes on general computing, command-line tools, LaTeX, and HPC.
 
 - [The Missing Semester of Your CS Education, MIT](https://missing.csail.mit.edu/)
 
@@ -29,3 +29,7 @@ References and notes on general computing, command-line tools, LaTeX, and HPC. F
 - [High Performance Scientific Computing, Randall J. LeVeque (University of Washington, 2013)](https://faculty.washington.edu/rjl/uwhpsc-coursera/coursera.html)
 
   LeVeque taught this course at the University of Washington and on Coursera in 2013. It covers the tools of scientific computing, including Unix, Git, Python, Fortran, OpenMP and MPI, and the [Internet Archive](https://archive.org/details/academictorrents_cb91a3d7a4c4c086be240b54e83ed8d587b31ff5) keeps a copy of the course.
+
+---
+
+There are separate lists for [[2026-07-06-pythonrefs|Python]] and [[2026-07-06-juliarefs|Julia]], and notes on [[2026-10-22-remote-login-arch-thinkpad-from-macos|remote login]] and [[2026-07-06-transfer-files-ubuntu-arch|file transfer]] between Linux machines.
