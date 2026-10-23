@@ -1,0 +1,7 @@
+# Changes to Chirpy's English strings, from _data/locales/en.yml in the theme's gem.
+# Jekyll merges this file with the theme's, so it holds only the strings that differ.
+
+post:
+  # The posts that share tags with a post, at its end; the notes that link to it are listed
+  # separately, under "Linked from" (_includes/backlinks.html)
+  relate_posts: Related Notes
