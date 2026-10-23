@@ -335,7 +335,7 @@ New files:
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
 | `assets/js/home-tiles.js` | Packing of the tiles on the home page |
-| `assets/img/favicons/` | Icons made from the profile picture, in place of Chirpy's |
+| `assets/img/favicons/` | The site icon, a light bulb, in place of Chirpy's. The 512 px icon is also the preview image that link previews show (`social_preview_image`). |
 
 After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles depend on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, only the style that uses it stops working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero, the tiles and the footer, print a build warning when the markup they expect is missing, and the page then keeps Chirpy's version.
 
