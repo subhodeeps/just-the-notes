@@ -2,24 +2,62 @@
  * The note graph in the right panel and on the Graph tab (_includes/notes-graph.html), from
  * assets/data/notes-graph.json (_plugins/notes-graph.rb).
  *
- * Nodes are posts, coloured by their first category. Solid edges are links between notes
- * (wikilinks or ordinary links); faint edges join notes that share tags. On a post, the graph
- * shows the post, the notes within two links of it and the notes sharing a tag with it;
- * elsewhere it shows every note.
+ * Nodes are posts, coloured by their first category. Solid edges are links between notes,
+ * wikilinks or ordinary links, and dotted edges join notes that share tags. A node grows with
+ * the number of its links. Hovering a node highlights it and its neighbours and shows its
+ * title, and a click opens it. On a touch screen, which has no hover, the first tap on a node
+ * shows its title and the second opens it.
  *
- * The layout is a small force simulation (repulsion between nodes, springs along edges, a pull
- * to the centre), computed in full before drawing and seeded from the note names, so the same
- * notes always land in the same place. Hovering a node highlights it and its neighbours and
- * shows its title; clicking opens it. On a touch screen, which has no hover, the first tap on a
- * node shows its title and the second opens it.
+ * The layout is a small force simulation. Every pair of notes repels, links and shared tags
+ * pull like springs, and a weak pull holds the whole near the centre. It runs in full before
+ * the first frame and starts from positions seeded by the names of the notes, so the same notes
+ * always land in the same place. Nodes are solid: each sits on a disc of the background colour,
+ * so a faded node hides the lines behind it and does not show them through.
  *
- * In the panel the layout is flat and holds still. On the Graph tab it is three-dimensional and
- * drawn in perspective, and it works like Obsidian's graph view: it turns slowly by itself, a
- * drag on empty space moves it across the canvas, a drag on a note pulls the note, so that its
- * links stretch and light up and its neighbours follow, and a drag with Shift or the right
- * button turns it in 3D. On a touch screen, one finger moves the graph or pulls a note, and two
- * fingers zoom and turn it. The wheel, a pinch, the + and - keys or the buttons in its corner
- * zoom in and out, and the arrow keys move the graph.
+ * The right panel is a quiet map of where a note sits, beside the text it accompanies.
+ *
+ * - The layout is flat and holds still, since motion or depth would compete with the text.
+ * - On a post, the post and the notes it links to or from appear at full strength. The notes
+ *   one link further away, and the notes that share a primary tag with the post, appear
+ *   faintly (FAR). They give the wider context without asking for attention. On other pages
+ *   the panel shows every note with its links only. With every note in view, tag edges would
+ *   cover the links.
+ * - A tag edge appears only for a primary tag that both notes share. The primary tags say what
+ *   a note is about: primary_tags in its front matter, at most three, or else its first two
+ *   tags. Minor tags, such as a tool or an operating system, would join almost every note to
+ *   every other and bury the links. A tag edge also gives way to a link between the same two
+ *   notes, which says more. On a post, every tag edge starts at the post, so the panel shows
+ *   how this note relates to the others by topic. A primary tag shared by many notes, such as
+ *   black-holes, would otherwise draw a line between every two of them.
+ * - The panel has no legend. Hovering a node gives its title, and the Graph tab explains the
+ *   colours.
+ *
+ * The Graph tab is the full picture, inspired by Obsidian's Graph view.
+ *
+ * - It shows every note and every edge in three dimensions and in perspective, and it turns
+ *   slowly, so that the depth reads without any interaction. Notes farther back fade a little,
+ *   a second cue for depth, and nodes are drawn from back to front.
+ * - The forces differ from the flat ones. Notes repel more strongly, since three dimensions
+ *   have more room. Tag springs are weaker and longer, because the many shared tags would
+ *   otherwise pull the notes into one clump. The pull to the centre is firmer and brings loosely
+ *   linked notes in from the edge. On the notes of this site, these choices give a rounder and
+ *   more even cloud with fewer stragglers, and linked notes still sit closer together than
+ *   unlinked ones.
+ * - Before the first frame, the simulation runs on at the strength it has while a note is
+ *   pulled (HEAT) until it comes to rest (SETTLE). A pull then moves only the pulled note and the
+ *   notes it drags along, and the graph springs back after it (HOLD).
+ * - The layout is turned so that its longest extent lies across the screen and its shortest
+ *   stands upright, along the eigenvectors of the spread of the notes. The graph spins about
+ *   this shortest axis and fills a wide canvas at every angle of the turn.
+ * - The starting zoom is the largest at which every note stays inside the canvas through a
+ *   full turn of the spin, at the starting tilt and in perspective. The graph opens large and
+ *   never leaves the frame.
+ * - The interaction follows Obsidian. A drag on empty space moves the graph, and a drag on a
+ *   note pulls it, so that its links stretch and take its colour and its neighbours follow. A
+ *   drag with Shift or the right button turns the graph about the axes of the screen, all the
+ *   way round. On a touch screen, one finger moves the graph or pulls a note, and two fingers
+ *   zoom and turn it. The wheel, a pinch, the + and - keys or the buttons in its corner zoom,
+ *   and the arrow keys move the graph.
  *
  * Colours come from CSS variables set per theme in _sass/amore: --graph-node-<category>
  * (e.g. --graph-node-physics), --graph-node for other categories, --graph-edge,
@@ -28,6 +66,7 @@
 (() => {
   const LINK_LENGTH = 30; // rest length of the springs, in layout units
   const TAG_LENGTH = 60;
+  const TAG_LENGTH_3D = 80; // on the Graph tab, where weak, long tag springs give a rounder, even spread
   const ITERATIONS = 400;
   const HIT = 9; // px: how close the pointer must be to a node
   const HIT_TOUCH = 18; // px: the same, for a finger
@@ -37,6 +76,7 @@
   const SETTLE = 3000; // steps at that strength before the Graph tab draws, so the graph starts at rest
   const HOLD = 120; // frames the simulation stays at full strength after a pull, so the graph springs back
   const [ZOOM_MIN, ZOOM_MAX] = [0.5, 4];
+  const FAR = 0.4; // opacity of the notes and edges that the panel draws faintly
 
   document.querySelectorAll('.notes-graph').forEach((section) => {
     fetch(section.querySelector('canvas').dataset.src)
@@ -79,23 +119,91 @@
     };
   }
 
-  // The notes to show: all of them, or the neighbourhood of the current one
-  function subgraph(data, current) {
-    if (!current || !data.nodes.some((n) => n.id === current)) return data;
-    const keep = new Set([current]);
+  // The eigenvalues and eigenvectors of a symmetric 3 x 3 matrix, by Jacobi rotations, largest first
+  function eigen(matrix) {
+    const a = matrix.map((row) => [...row]);
+    const v = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    for (let sweep = 0; sweep < 50; sweep++) {
+      let [p, q] = [0, 1];
+      for (const [i, j] of [[0, 2], [1, 2]]) if (Math.abs(a[i][j]) > Math.abs(a[p][q])) [p, q] = [i, j];
+      if (Math.abs(a[p][q]) < 1e-12) break;
+      const theta = (a[q][q] - a[p][p]) / (2 * a[p][q]);
+      const t = (theta < 0 ? -1 : 1) / (Math.abs(theta) + Math.sqrt(theta * theta + 1));
+      const c = 1 / Math.sqrt(t * t + 1);
+      const s = t * c;
+      const turn = (m, k, i, j) => {
+        const [x, y] = [m[k][i], m[k][j]];
+        [m[k][i], m[k][j]] = [c * x - s * y, s * x + c * y];
+      };
+      for (let k = 0; k < 3; k++) turn(a, k, p, q);
+      for (let k = 0; k < 3; k++) {
+        const [x, y] = [a[p][k], a[q][k]];
+        [a[p][k], a[q][k]] = [c * x - s * y, s * x + c * y];
+      }
+      for (let k = 0; k < 3; k++) turn(v, k, p, q);
+    }
+    return [0, 1, 2]
+      .map((i) => ({ value: a[i][i], vector: [v[0][i], v[1][i], v[2][i]] }))
+      .sort((x, y) => y.value - x.value);
+  }
+
+  // Turn the 3D layout so that its longest extent lies across the screen and its shortest
+  // stands upright: the graph spins about its shortest axis and fills a wide canvas. A
+  // rotation about the centre changes no distance between notes
+  function alignAxes(nodes) {
+    const mean = (key) => nodes.reduce((s, n) => s + n[key], 0) / nodes.length;
+    const c = [mean('x'), mean('y'), mean('z')];
+    const p = nodes.map((n) => [n.x - c[0], n.y - c[1], n.z - c[2]]);
+    const cov = [0, 1, 2].map((i) => [0, 1, 2].map((j) => p.reduce((s, q) => s + q[i] * q[j], 0) / p.length));
+    const [long, middle, short] = eigen(cov).map((e) => e.vector);
+    const third = [
+      long[1] * short[2] - long[2] * short[1],
+      long[2] * short[0] - long[0] * short[2],
+      long[0] * short[1] - long[1] * short[0]
+    ]; // long x short, so that the turn keeps the handedness of the layout
+    const sign = third[0] * middle[0] + third[1] * middle[1] + third[2] * middle[2] < 0 ? -1 : 1;
+    const rows = [long, short, third.map((v) => v * sign)];
+    nodes.forEach((n, i) => {
+      [n.x, n.y, n.z] = rows.map((r) => c[0] + r[0] * p[i][0] + r[1] * p[i][1] + r[2] * p[i][2]);
+    });
+  }
+
+  // The notes and edges to show, and the notes to draw faintly (far). The Graph tab shows them
+  // all. The panel keeps a tag edge only for a primary tag that both notes share, and only
+  // where no link joins the two notes already. On a post it shows the post with the notes it
+  // links to or from, and faintly the notes one link further away and the notes that share a
+  // primary tag with it. Its tag edges then all start at the post. On other pages the panel
+  // shows every note with its links, and no tag edges
+  function subgraph(data, current, panel) {
+    const primary = new Map(data.nodes.map((n) => [n.id, n.primary || []]));
+    const pair = (e) => [e.source, e.target].sort().join('|');
+    const linked = new Set(data.edges.filter((e) => e.kind === 'link').map(pair));
+    const sharesPrimary = (e) =>
+      (e.tags || []).some((tag) => primary.get(e.source).includes(tag) && primary.get(e.target).includes(tag));
+    const edges = panel
+      ? data.edges.filter((e) => e.kind === 'link' || (sharesPrimary(e) && !linked.has(pair(e))))
+      : data.edges;
+    const far = new Set();
+    if (!panel) return { nodes: data.nodes, edges, far };
+    if (!current || !data.nodes.some((n) => n.id === current)) {
+      return { nodes: data.nodes, edges: edges.filter((e) => e.kind === 'link'), far };
+    }
+
     const linkNeighbours = (ids) =>
-      data.edges
+      edges
         .filter((e) => e.kind === 'link' && (ids.has(e.source) || ids.has(e.target)))
         .flatMap((e) => [e.source, e.target]);
-    const first = new Set(linkNeighbours(keep));
-    first.forEach((id) => keep.add(id));
-    linkNeighbours(first).forEach((id) => keep.add(id));
-    data.edges
+    const near = new Set([current, ...linkNeighbours(new Set([current]))]);
+    const keep = new Set([...near, ...linkNeighbours(near)]);
+    edges
       .filter((e) => e.kind === 'tag' && (e.source === current || e.target === current))
       .forEach((e) => keep.add(e.source === current ? e.target : e.source));
+    keep.forEach((id) => near.has(id) || far.add(id));
+    const fromPost = (e) => e.kind === 'link' || e.source === current || e.target === current;
     return {
       nodes: data.nodes.filter((n) => keep.has(n.id)),
-      edges: data.edges.filter((e) => keep.has(e.source) && keep.has(e.target))
+      edges: edges.filter((e) => keep.has(e.source) && keep.has(e.target) && fromPost(e)),
+      far
     };
   }
 
@@ -130,7 +238,7 @@
         let dy = b.y - a.y;
         let dz = b.z - a.z;
         const d2 = Math.max(dx * dx + dy * dy + dz * dz, 1);
-        const f = ((depth ? 2400 : 900) / d2) * alpha; // 3D has more room, so push harder
+        const f = ((depth ? 3000 : 900) / d2) * alpha; // 3D has more room, so push harder
         const d = Math.sqrt(d2);
         dx /= d;
         dy /= d;
@@ -145,8 +253,8 @@
     }
     for (const [a, b, e] of springs) {
       const link = e.kind === 'link';
-      const rest = link ? LINK_LENGTH : TAG_LENGTH;
-      const k = (link ? 0.08 : 0.015 * (e.weight || 1)) * alpha;
+      const rest = link ? LINK_LENGTH : depth ? TAG_LENGTH_3D : TAG_LENGTH;
+      const k = (link ? 0.08 : (depth ? 0.004 : 0.015) * (e.weight || 1)) * alpha;
       const dx = b.x - a.x;
       const dy = b.y - a.y;
       const dz = b.z - a.z;
@@ -159,10 +267,11 @@
       b.vy -= (dy / d) * f;
       b.vz -= (dz / d) * f;
     }
+    const pull = depth ? 0.04 : 0.02; // in 3D a firmer pull keeps loosely linked notes close
     for (const n of nodes) {
-      n.vx = (n.vx - n.x * 0.02 * alpha) * 0.6;
-      n.vy = (n.vy - n.y * 0.02 * alpha) * 0.6;
-      n.vz = (n.vz - n.z * 0.02 * alpha) * 0.6;
+      n.vx = (n.vx - n.x * pull * alpha) * 0.6;
+      n.vy = (n.vy - n.y * pull * alpha) * 0.6;
+      n.vz = (n.vz - n.z * pull * alpha) * 0.6;
       n.x += n.vx;
       n.y += n.vy;
       n.z += n.vz;
@@ -174,12 +283,15 @@
     const legend = section.querySelector('.notes-graph-legend');
     const current = canvas.dataset.current || null;
     const big = section.classList.contains('notes-graph-page'); // the Graph tab: larger and in 3D
-    const { nodes, edges } = subgraph(data, current);
+    const { nodes, edges, far } = subgraph(data, current, !big);
     if (!nodes.length) return section.remove();
     const springs = layout(nodes, edges, big);
     // On the Graph tab the simulation comes alive when a note is pulled; let it come to rest
     // first, so that a pull moves only the pulled note and the notes it drags along
-    if (big) for (let i = 0; i < SETTLE; i++) step(nodes, springs, true, HEAT);
+    if (big) {
+      for (let i = 0; i < SETTLE; i++) step(nodes, springs, true, HEAT);
+      alignAxes(nodes);
+    }
 
     const degree = new Map(nodes.map((n) => [n.id, 0]));
     const neighbours = new Map(nodes.map((n) => [n.id, new Set()]));
@@ -194,9 +306,11 @@
 
     // Legend: the categories in view
     const categories = [...new Set(nodes.map((n) => n.category).filter(Boolean))].sort();
-    legend.innerHTML = categories
-      .map((c) => `<li><span class="dot" data-category="${slugify(c)}"></span>${c}</li>`)
-      .join('');
+    if (legend) {
+      legend.innerHTML = categories
+        .map((c) => `<li><span class="dot" data-category="${slugify(c)}"></span>${c}</li>`)
+        .join('');
+    }
 
     const ctx = canvas.getContext('2d');
     let colours = {};
@@ -227,7 +341,7 @@
           categories.map((c) => [c, get(`--graph-node-${slugify(c)}`, get('--graph-node', '#768594'))])
         )
       };
-      legend.querySelectorAll('.dot').forEach((dot, i) => {
+      legend?.querySelectorAll('.dot').forEach((dot, i) => {
         dot.style.background = colours.category[categories[i]];
       });
     }
@@ -238,13 +352,24 @@
       canvas.width = Math.round(w * dpr());
       canvas.height = Math.round(h * dpr());
       if (big) {
-        // The 3D view turns about the centre of the notes, and the sphere that holds them all
-        // fits the canvas whichever way it turns
+        // The 3D view turns about the centre of the notes. The scale is the largest at which every
+        // note stays inside the canvas through a whole turn of the spin, at the starting tilt and
+        // in perspective, so the graph starts as large as it can
         const mean = (key) => nodes.reduce((s, n) => s + n[key], 0) / nodes.length;
         const [cx, cy, cz] = [mean('x'), mean('y'), mean('z')];
         const r = Math.max(...nodes.map((n) => Math.hypot(n.x - cx, n.y - cy, n.z - cz)), 1);
+        let [ex, ey] = [1, 1]; // the half-width and half-height the notes reach, in layout units
+        for (let k = 0; k < 72; k++) {
+          const m = times(rotX(PITCH), rotY((2 * Math.PI * k) / 72));
+          for (const n of nodes) {
+            const [x, y, z] = [n.x - cx, n.y - cy, n.z - cz];
+            const f = (3 * r) / (3 * r + m[6] * x + m[7] * y + m[8] * z);
+            ex = Math.max(ex, Math.abs(m[0] * x + m[1] * y + m[2] * z) * f);
+            ey = Math.max(ey, Math.abs(m[3] * x + m[4] * y + m[5] * z) * f);
+          }
+        }
         const pad = w < 500 ? 24 : 40;
-        view = { scale: (Math.min(w, h) - 2 * pad) / (2 * r), ox: w / 2, oy: h / 2, cx, cy, cz, r };
+        view = { scale: Math.min((w / 2 - pad) / ex, (h / 2 - pad) / ey), ox: w / 2, oy: h / 2, cx, cy, cz, r };
         return;
       }
       const xs = nodes.map((n) => n.x);
@@ -295,7 +420,8 @@
         const fade = depth((proj.get(a).z + proj.get(b).z) / 2);
         // On the Graph tab, the links of the note under the pointer take its colour
         const glow = big && hover && (a === hover || b === hover);
-        ctx.globalAlpha = (hover && !(a === hover || b === hover) ? 0.25 : 1) * fade;
+        const remote = far.has(a.id) || far.has(b.id) ? FAR : 1;
+        ctx.globalAlpha = (hover && !(a === hover || b === hover) ? 0.25 : 1) * fade * remote;
         ctx.strokeStyle = glow ? colours.category[hover.category] || colours.node : link ? colours.edge : colours.faint;
         ctx.lineWidth = glow ? 2 : (link ? 1.2 : 0.8) * (big ? 1.25 : 1);
         ctx.setLineDash(link ? [] : [2, 3]);
@@ -310,10 +436,14 @@
       const order = big ? [...nodes].sort((a, b) => proj.get(b).z - proj.get(a).z) : nodes;
       for (const n of order) {
         const [x, y] = screen(n);
-        ctx.globalAlpha = (dim(n.id) ? 0.3 : 1) * depth(proj.get(n).z);
-        ctx.fillStyle = colours.category[n.category] || colours.node;
         ctx.beginPath();
         ctx.arc(x, y, radius(n), 0, 2 * Math.PI);
+        // A disc in the background colour first, so that a faded node hides the lines behind it
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = colours.bg;
+        ctx.fill();
+        ctx.globalAlpha = (dim(n.id) ? 0.3 : 1) * depth(proj.get(n).z) * (far.has(n.id) ? FAR : 1);
+        ctx.fillStyle = colours.category[n.category] || colours.node;
         ctx.fill();
         if (big) {
           // A ring in the background colour lifts the node off the lines that meet it

@@ -13,7 +13,10 @@
 #    before the post's footer.
 # 3. assets/data/notes-graph.json holds the posts (nodes) and their links and shared tags
 #    (edges), for the graph in the right panel and on the Graph tab (_includes/notes-graph.html,
-#    _tabs/graph.md, assets/js/notes-graph.js).
+#    _tabs/graph.md, assets/js/notes-graph.js). A tag edge lists the tags the two notes share.
+#    Each node also carries its primary tags, the one to three tags that say what the note is
+#    about: primary_tags in its front matter, or else its first two tags. The right panel
+#    draws a tag edge only for a shared primary tag, and the Graph tab draws them all.
 #
 # The theme's layouts are not changed: the links are rewritten in the Markdown before it is
 # rendered, and the backlinks and the graph are added to the rendered pages, next to markers
@@ -106,10 +109,16 @@ module NotesGraph
     Array(doc.data['categories']).first.to_s
   end
 
+  # primary_tags from the front matter, at most three, or else the first two tags
+  def primary_tags(doc)
+    explicit = Array(doc.data['primary_tags'])
+    (explicit.empty? ? Array(doc.data['tags']).first(2) : explicit).first(3)
+  end
+
   def graph(posts, links)
     nodes = posts.map do |doc|
       { id: doc.data['slug'], title: plain(doc.data['short_title'] || doc.data['title']), url: doc.url,
-        category: category_of(doc), tags: Array(doc.data['tags']) }
+        category: category_of(doc), tags: Array(doc.data['tags']), primary: primary_tags(doc) }
     end
     ids = posts.to_h { |doc| [doc, doc.data['slug']] }
 
@@ -122,13 +131,13 @@ module NotesGraph
 
     by_tag = Hash.new { |h, k| h[k] = [] }
     posts.each { |doc| Array(doc.data['tags']).each { |tag| by_tag[tag] << doc } }
-    shared = Hash.new(0)
-    by_tag.each_value do |docs|
+    shared = Hash.new { |h, k| h[k] = [] }
+    by_tag.each do |tag, docs|
       next if docs.size > TAG_HUB_LIMIT
 
-      docs.combination(2) { |a, b| shared[[ids[a], ids[b]].sort] += 1 }
+      docs.combination(2) { |a, b| shared[[ids[a], ids[b]].sort] << tag }
     end
-    shared.each { |(a, b), weight| edges << { source: a, target: b, kind: 'tag', weight: weight } }
+    shared.each { |(a, b), tags| edges << { source: a, target: b, kind: 'tag', weight: tags.size, tags: tags } }
 
     { nodes: nodes, edges: edges }
   end

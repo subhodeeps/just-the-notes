@@ -55,7 +55,7 @@ deactivate                  # restore the shell
 | --- | --- |
 | `bash tools/run.sh` | Serves the site at http://127.0.0.1:4000 with live reload. |
 | `bash tools/run.sh -p` | Serves the site in production mode. |
-| `bash tools/run.sh -d` | Serves the drafts and private notes alongside the posts. |
+| `bash tools/run.sh -d` | Serves the stubs, drafts and private notes alongside the posts. |
 | `bash tools/test.sh` | Builds the site in a temporary folder and checks it with html-proofer. The preview in `_site/` stays as it is. |
 
 The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the html-proofer check on every push. Vercel deploys the site from `main`.
@@ -121,6 +121,17 @@ rm -rf .venv && bash tools/setup.sh
 ## Writing Posts
 
 Posts follow the style of the APS journals. The classes below come from the partials in `_sass/`.
+
+### Front matter
+
+Besides Chirpy's fields (`title`, `description`, `date`, `categories`, `tags`, `math`, `pin`), a post can set two fields for the note graph:
+
+| Field | Purpose |
+| --- | --- |
+| `short_title` | The label of the note in the graph. Without it, the graph uses `title`. |
+| `primary_tags` | One to three tags that say what the note is about. On a post, the side panel draws a dotted line from the post to each note that shares one of them. Without the field, the first two tags count as primary. |
+
+The first category sets the colour of the note in the graph.
 
 ### Figures
 
@@ -266,28 +277,32 @@ A link to a note that does not exist renders as muted text, and the build prints
 
 **Backlinks.** The end of each post lists the notes that link to it, under "Linked from".
 
-**Note graph, in the right panel.**
+**Note graph, in the right panel.** A quiet map of where a note sits, beside its text.
 
-- Nodes are posts, coloured by their first category. The label is `short_title` from the front matter, or the title if there is none.
-- Solid lines are links, and dotted lines join notes that share a tag.
-- On a post, the graph shows the post's neighbourhood under the heading "Connections". On other pages, it shows every note under "Note Graph".
-- The layout is flat and static. Hovering over a node shows its title, and a click opens the note.
+- Nodes are posts, coloured by their first category, and labelled with `short_title` from the front matter, or the title if there is none.
+- Solid lines are links, and nodes are solid discs that hide the lines behind them.
+- On a post, under the heading "Connections", the post and the notes it links to or from appear at full strength. The notes one link further away, and the notes that share a primary tag with the post, appear faintly. Dotted lines join the post to the notes that share a primary tag with it, where no link joins them already.
+- On other pages, under "Note Graph", the panel shows every note with its links, and no dotted lines.
+- The layout is flat and static, and the panel has no legend. Hovering over a node shows its title, and a click opens the note.
 - The colours are the `--graph-*` variables in `_sass/amore/`, set for each theme. A new top-level category needs a `--graph-node-<category>` colour.
 - Chirpy hides the right panel below a width of 1200px.
 
 **Note Graph tab** (`_tabs/graph.md`), inspired by Obsidian's [Graph view](https://obsidian.md/help/plugins/graph).
 
-- The tab shows every note in three dimensions, and the graph turns slowly.
-- With a mouse, a drag on empty space moves the graph, and a drag on a node pulls the note. Its links stretch and take its colour, and its neighbours follow. Shift-drag or right-drag turns the graph.
+- The tab shows every note, every link and every shared tag in three dimensions, and the graph turns slowly. Notes farther back fade a little. The graph opens as large as the canvas allows through a full turn, with its longest extent across the screen and an even spread of notes.
+- With a mouse, a drag on empty space moves the graph, and a drag on a node pulls the note. Its links stretch and take its colour, its neighbours follow, and the graph springs back after the pull. Shift-drag or right-drag turns the graph all the way round.
 - On a touch screen, one finger moves the graph or pulls a note, and two fingers zoom and turn it. The first tap on a node shows its title, and the second opens the note.
 - The scroll wheel, a pinch, the + and − keys and the corner buttons zoom. The arrow keys move the graph.
+- The legend of the colours sits below the graph, with the credit to Obsidian.
 - Phones and narrow windows have no right panel and see the graph here. The right panel leaves out its graph on this page (`panel_graph: false`).
+
+The header of `assets/js/notes-graph.js` explains the design of both views: the forces, the starting view, the depth cues and the rules of the side panel.
 
 ### Foam in VS Code
 
 The repository is configured for [Foam](https://foambubble.github.io/foam/). The recommended extension adds `[[` completion, backlinks and a note graph to VS Code. `.vscode/settings.json` excludes the build output and the toolchain from Foam, and stops Foam from appending link reference definitions to the notes.
 
-**Foam: Create New Note** creates a draft in `_drafts/` from `.foam/templates/new-note.md`. To publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Foam resolves a note by its file name, so the posts link to each other as `[[2026-07-06-ode]]`, and a link to a draft needs the date prefix once the draft is published.
+**Foam: Create New Note** creates a draft in `_drafts/` from `.foam/templates/new-note.md`, with the front matter above, `short_title` and `primary_tags` included. To publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Foam resolves a note by its file name, so the posts link to each other as `[[2026-07-06-ode]]`, and a link to a draft needs the date prefix once the draft is published.
 
 ## Customising the Theme
 
@@ -301,10 +316,11 @@ New files:
 | Location | Contents |
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
-| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, cards of drafts and private notes, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
-| `_plugins/` | Home page hero, footer, note links and graph, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles (`posts-lastmod-hook.rb` comes with the starter) |
+| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, cards of stubs, drafts and private notes, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
+| `_plugins/` | Home page hero, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes with the starter) |
 | `_bibliography/` | The master BibTeX file and the style of the citations |
 | `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |
+| `tools/` | The toolchain setup (`setup.sh`), the scripts behind some figures, and changes to the starter's `run.sh` and `test.sh` |
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
 | `assets/img/favicons/` | Icons made from the profile picture, in place of Chirpy's |

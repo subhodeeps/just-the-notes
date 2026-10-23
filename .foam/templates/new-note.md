@@ -9,6 +9,7 @@ description: ""
 date: ${FOAM_DATE_YEAR}-${FOAM_DATE_MONTH}-${FOAM_DATE_DATE} ${FOAM_DATE_HOUR}:${FOAM_DATE_MINUTE}:00 +0530
 categories: []
 tags: []
+primary_tags: [] # one to three tags for the note graph; empty means the first two tags
 math: false
 ---
 

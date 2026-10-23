@@ -27,13 +27,12 @@
     </div>
     {% endif %}
   </div>
+  {% comment %} The legend is on the Graph tab only; the panel stays quiet (see assets/js/notes-graph.js) {% endcomment %}
   {% if include.page %}
   <div class="notes-graph-footer">
     <ul class="notes-graph-legend"></ul>
     <p class="notes-graph-credit">Inspired by Obsidian's <a href="https://obsidian.md/help/plugins/graph" target="_blank" rel="noopener">Graph view</a> plugin</p>
   </div>
-  {% else %}
-  <ul class="notes-graph-legend"></ul>
   {% endif %}
   <script defer src="{{ '/assets/js/notes-graph.js' | relative_url }}"></script>
 </section>
