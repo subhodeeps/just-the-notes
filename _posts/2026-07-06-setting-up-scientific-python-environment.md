@@ -3,11 +3,15 @@ title: "Setting Up a Scientific Python Environment using <code>venv</code>"
 short_title: "Python with venv" # in the note graph
 description: "A guide to creating a reproducible scientific Python environment on macOS (or Linux)."
 date: 2026-07-06 00:00:00 +0530
+last_modified_at: 2026-10-23 00:00:00 +0530
 categories: [Code Carpentry, Guides]
 tags: [python, macos, environment-setup]
 math: false
 pin: false
 ---
+
+> I now use [`uv`](https://docs.astral.sh/uv/) instead of the method in this guide. An environment made with `venv` is tied to the Python that created it, so moving it to a newer Python version, for example after Homebrew upgrades `python`, means creating it again and reinstalling every package, and it breaks if Homebrew later removes the old Python. `uv` installs and pins Python versions itself and rebuilds an environment quickly from its cache. A tutorial on `uv` is coming.
+{: .prompt-danger }
 
 This guide walks through creating a dedicated scientific Python environment called **`numerics`**, installing common scientific packages, and making the environment available inside Jupyter notebooks. The [[2026-07-06-ode|tutorial on solving ODEs]] runs in this environment.
 
@@ -146,8 +150,9 @@ These warnings are generally harmless and can be ignored.
 
 Some packages in the scientific stack (like `h5py`) require C-based system libraries to be present on the machine. Before installing the requirements, run:
 
-````bash
+```bash
 brew install hdf5
+```
 
 ---
 
@@ -160,7 +165,7 @@ python -m ipykernel install \
     --user \
     --name numerics \
     --display-name "Python (numerics)"
-````
+```
 
 After completion, Jupyter notebooks will offer:
 
