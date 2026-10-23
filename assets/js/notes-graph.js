@@ -14,8 +14,11 @@
  * node shows its title and the second opens it.
  *
  * In the panel the layout is flat and holds still. On the Graph tab it is three-dimensional and
- * drawn in perspective: it turns slowly by itself, a drag turns it by hand, and the wheel, a
- * pinch or the buttons in its corner zoom in and out.
+ * drawn in perspective, and it works like Obsidian's graph view: it turns slowly by itself, a
+ * drag on empty space moves it across the canvas, a drag on a note pulls the note, so that its
+ * links stretch and light up and its neighbours follow, and a drag with Shift or the right
+ * button turns it in 3D. On a touch screen, one finger moves the graph or pulls a note, and two
+ * fingers zoom and turn it. The wheel, a pinch or the buttons in its corner zoom in and out.
  *
  * Colours come from CSS variables set per theme in _sass/amore: --graph-node-<category>
  * (e.g. --graph-node-physics), --graph-node for other categories, --graph-edge,
@@ -29,6 +32,9 @@
   const HIT_TOUCH = 18; // px: the same, for a finger
   const PITCH = 0.35; // rad: the starting tilt of the 3D view
   const SPIN = 0.0025; // rad per frame: how fast the 3D view turns by itself
+  const HEAT = 0.3; // strength of the live simulation on the Graph tab, as alpha in step()
+  const SETTLE = 3000; // steps at that strength before the Graph tab draws, so the graph starts at rest
+  const HOLD = 120; // frames the simulation stays at full strength after a pull, so the graph springs back
   const [ZOOM_MIN, ZOOM_MAX] = [0.5, 4];
 
   document.querySelectorAll('.notes-graph').forEach((section) => {
@@ -107,55 +113,59 @@
       .map((e) => [byId.get(e.source), byId.get(e.target), e])
       .filter(([a, b]) => a && b);
 
-    for (let step = 0; step < ITERATIONS; step++) {
-      const alpha = 1 - step / ITERATIONS;
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i];
-          const b = nodes[j];
-          let dx = b.x - a.x;
-          let dy = b.y - a.y;
-          let dz = b.z - a.z;
-          const d2 = Math.max(dx * dx + dy * dy + dz * dz, 1);
-          const f = ((depth ? 2400 : 900) / d2) * alpha; // 3D has more room, so push harder
-          const d = Math.sqrt(d2);
-          dx /= d;
-          dy /= d;
-          dz /= d;
-          a.vx -= dx * f;
-          a.vy -= dy * f;
-          a.vz -= dz * f;
-          b.vx += dx * f;
-          b.vy += dy * f;
-          b.vz += dz * f;
-        }
-      }
-      for (const [a, b, e] of springs) {
-        const link = e.kind === 'link';
-        const rest = link ? LINK_LENGTH : TAG_LENGTH;
-        const k = (link ? 0.08 : 0.015 * (e.weight || 1)) * alpha;
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
-        const dz = b.z - a.z;
-        const d = Math.max(Math.hypot(dx, dy, dz), 0.01);
-        const f = (d - rest) * k;
-        a.vx += (dx / d) * f;
-        a.vy += (dy / d) * f;
-        a.vz += (dz / d) * f;
-        b.vx -= (dx / d) * f;
-        b.vy -= (dy / d) * f;
-        b.vz -= (dz / d) * f;
-      }
-      for (const n of nodes) {
-        n.vx = (n.vx - n.x * 0.02 * alpha) * 0.6;
-        n.vy = (n.vy - n.y * 0.02 * alpha) * 0.6;
-        n.vz = (n.vz - n.z * 0.02 * alpha) * 0.6;
-        n.x += n.vx;
-        n.y += n.vy;
-        n.z += n.vz;
+    for (let i = 0; i < ITERATIONS; i++) step(nodes, springs, depth, 1 - i / ITERATIONS);
+    return springs;
+  }
+
+  // One step of the force simulation, with the forces scaled by alpha. The layout runs it
+  // ITERATIONS times with alpha falling to zero; on the Graph tab it runs again while a note is
+  // pulled, so that the links stretch and the neighbours follow
+  function step(nodes, springs, depth, alpha) {
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i];
+        const b = nodes[j];
+        let dx = b.x - a.x;
+        let dy = b.y - a.y;
+        let dz = b.z - a.z;
+        const d2 = Math.max(dx * dx + dy * dy + dz * dz, 1);
+        const f = ((depth ? 2400 : 900) / d2) * alpha; // 3D has more room, so push harder
+        const d = Math.sqrt(d2);
+        dx /= d;
+        dy /= d;
+        dz /= d;
+        a.vx -= dx * f;
+        a.vy -= dy * f;
+        a.vz -= dz * f;
+        b.vx += dx * f;
+        b.vy += dy * f;
+        b.vz += dz * f;
       }
     }
-    return springs;
+    for (const [a, b, e] of springs) {
+      const link = e.kind === 'link';
+      const rest = link ? LINK_LENGTH : TAG_LENGTH;
+      const k = (link ? 0.08 : 0.015 * (e.weight || 1)) * alpha;
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const dz = b.z - a.z;
+      const d = Math.max(Math.hypot(dx, dy, dz), 0.01);
+      const f = (d - rest) * k;
+      a.vx += (dx / d) * f;
+      a.vy += (dy / d) * f;
+      a.vz += (dz / d) * f;
+      b.vx -= (dx / d) * f;
+      b.vy -= (dy / d) * f;
+      b.vz -= (dz / d) * f;
+    }
+    for (const n of nodes) {
+      n.vx = (n.vx - n.x * 0.02 * alpha) * 0.6;
+      n.vy = (n.vy - n.y * 0.02 * alpha) * 0.6;
+      n.vz = (n.vz - n.z * 0.02 * alpha) * 0.6;
+      n.x += n.vx;
+      n.y += n.vy;
+      n.z += n.vz;
+    }
   }
 
   function start(section, data) {
@@ -167,6 +177,9 @@
     const { nodes, edges } = subgraph(data, current);
     if (!nodes.length) return section.remove();
     const springs = layout(nodes, edges, big);
+    // On the Graph tab the simulation comes alive when a note is pulled; let it come to rest
+    // first, so that a pull moves only the pulled note and the notes it drags along
+    if (big) for (let i = 0; i < SETTLE; i++) step(nodes, springs, true, HEAT);
 
     const degree = new Map(nodes.map((n) => [n.id, 0]));
     const neighbours = new Map(nodes.map((n) => [n.id, new Set()]));
@@ -191,7 +204,8 @@
     let hover = null;
     let touch = false; // whether the last pointer was a finger
     let view = { scale: 1, ox: 0, oy: 0, cx: 0, cy: 0, cz: 0, r: 0 }; // r > 0 once the 3D view fits
-    let turn = { m: rotX(PITCH), zoom: 1 }; // m: how the 3D view is turned, a rotation matrix
+    // m: how the 3D view is turned, a rotation matrix; px, py: how far it is moved, in px
+    let turn = { m: rotX(PITCH), zoom: 1, px: 0, py: 0 };
     const proj = new Map(); // node -> where it is drawn: x, y, depth z and perspective factor f
     const dpr = () => window.devicePixelRatio || 1;
     const radius = (n) =>
@@ -258,7 +272,7 @@
         const z1 = m[6] * x + m[7] * y + m[8] * z;
         const f = distance / (distance + z1);
         const s = view.scale * turn.zoom * f;
-        proj.set(n, { x: view.ox + x1 * s, y: view.oy + y1 * s, z: z1, f });
+        proj.set(n, { x: view.ox + turn.px + x1 * s, y: view.oy + turn.py + y1 * s, z: z1, f });
       }
     }
 
@@ -280,9 +294,11 @@
         const [bx, by] = screen(b);
         const link = e.kind === 'link';
         const fade = depth((proj.get(a).z + proj.get(b).z) / 2);
+        // On the Graph tab, the links of the note under the pointer take its colour
+        const glow = big && hover && (a === hover || b === hover);
         ctx.globalAlpha = (hover && !(a === hover || b === hover) ? 0.25 : 1) * fade;
-        ctx.strokeStyle = link ? colours.edge : colours.faint;
-        ctx.lineWidth = (link ? 1.2 : 0.8) * (big ? 1.25 : 1);
+        ctx.strokeStyle = glow ? colours.category[hover.category] || colours.node : link ? colours.edge : colours.faint;
+        ctx.lineWidth = glow ? 2 : (link ? 1.2 : 0.8) * (big ? 1.25 : 1);
         ctx.setLineDash(link ? [] : [2, 3]);
         ctx.beginPath();
         ctx.moveTo(ax, ay);
@@ -358,9 +374,13 @@
       return best;
     }
 
-    // The 3D view: turning by itself, by hand, and zooming
+    // The 3D view: turning by itself, by hand, moving, zooming, and pulling notes
     let spinning = false;
     let frame = null;
+    let heat = 0; // strength of the live simulation: HEAT during a pull and HOLD frames after, then it cools
+    let hold = 0;
+    let grab = null; // the note being pulled: { node, z: its depth, off: pointer offset in px, target }
+    let mode = null; // what a drag does: 'pull', 'pan', 'turn' or, with two fingers, 'pinch'
     const spinButton = section.querySelector('[data-graph="spin"]');
 
     function setSpin(on) {
@@ -370,19 +390,62 @@
         spinButton.setAttribute('aria-label', on ? 'Stop turning' : 'Start turning');
         spinButton.title = spinButton.getAttribute('aria-label');
       }
-      if (on && !frame) frame = requestAnimationFrame(tick);
+      if (on) wake();
     }
+
+    const wake = () => {
+      if (!frame) frame = requestAnimationFrame(tick);
+    };
 
     // The view holds still while the pointer rests on a note, so that its title can be read
     function tick() {
       frame = null;
-      if (!spinning) return;
-      if (!hover) {
-        // About the layout's own vertical axis, like a globe, whichever way the view is tilted
-        turn.m = orthonormal(times(turn.m, rotY(SPIN)));
-        draw();
+      const live = heat > 0.005;
+      if (!spinning && !live) return;
+      if (live) {
+        for (let i = 0; i < 2; i++) {
+          step(nodes, springs, true, heat);
+          if (grab) pin();
+        }
+        if (grab) hold = HOLD;
+        heat = hold-- > 0 ? HEAT : heat * 0.97;
       }
+      const turning = spinning && !hover;
+      // About the layout's own vertical axis, like a globe, whichever way the view is tilted
+      if (turning) turn.m = orthonormal(times(turn.m, rotY(SPIN)));
+      if (live || turning) draw();
       frame = requestAnimationFrame(tick);
+    }
+
+    // The pulled note sits where the pointer holds it
+    function pin() {
+      const n = grab.node;
+      [n.x, n.y, n.z] = grab.target;
+      n.vx = n.vy = n.vz = 0;
+    }
+
+    // Move the pulled note to the pointer, at the depth where it was picked up: undo the
+    // perspective, then the turn (the transpose of a rotation is its inverse)
+    function pullTo(event) {
+      const rect = canvas.getBoundingClientRect();
+      const s = view.scale * turn.zoom * ((3 * view.r) / (3 * view.r + grab.z));
+      const x = (event.clientX - rect.left - grab.off[0] - view.ox - turn.px) / s;
+      const y = (event.clientY - rect.top - grab.off[1] - view.oy - turn.py) / s;
+      const [z, m] = [grab.z, turn.m];
+      grab.target = [
+        view.cx + m[0] * x + m[3] * y + m[6] * z,
+        view.cy + m[1] * x + m[4] * y + m[7] * z,
+        view.cz + m[2] * x + m[5] * y + m[8] * z
+      ];
+      pin();
+      heat = HEAT;
+      wake();
+    }
+
+    // About the axes of the screen, so that the view follows the pointer and turns all the way
+    // round in every direction, upside down included
+    function turnBy(dx, dy) {
+      turn.m = orthonormal(times(times(rotX(dy * 0.008), rotY(dx * 0.008)), turn.m));
     }
 
     function zoomBy(k) {
@@ -393,22 +456,31 @@
     const pointers = new Map(); // the pointers down on the 3D canvas: id -> last position
     let travel = 0; // px the pointers moved since they went down; a drag is not a click
 
-    function turnOrPinch(event) {
+    function drag(event) {
       const [px, py] = pointers.get(event.pointerId);
       const [qx, qy] = [event.clientX, event.clientY];
-      if (pointers.size === 1) {
-        // About the axes of the screen, so that the view follows the pointer and turns all the
-        // way round in every direction, upside down included
-        const drag = times(rotX((qy - py) * 0.008), rotY((qx - px) * 0.008));
-        turn.m = orthonormal(times(drag, turn.m));
-        travel += Math.hypot(qx - px, qy - py);
-      } else {
+      pointers.set(event.pointerId, [qx, qy]);
+      if (mode === 'pinch') {
+        if (pointers.size < 2) return;
         const [ox, oy] = [...pointers].find(([id]) => id !== event.pointerId)[1];
         zoomBy(Math.hypot(qx - ox, qy - oy) / Math.max(Math.hypot(px - ox, py - oy), 1));
+        turnBy((qx - px) / 2, (qy - py) / 2); // the point between the fingers moves half as far
         travel += 10;
+        draw();
+        return;
       }
-      pointers.set(event.pointerId, [qx, qy]);
-      if (travel > 4) canvas.style.cursor = 'grabbing';
+      travel += Math.hypot(qx - px, qy - py);
+      if (travel <= 4) return; // still a click
+      canvas.style.cursor = 'grabbing';
+      if (mode === 'pull') {
+        hover = grab.node;
+        pullTo(event);
+      } else if (mode === 'turn') {
+        turnBy(qx - px, qy - py);
+      } else {
+        turn.px += qx - px;
+        turn.py += qy - py;
+      }
       draw();
     }
 
@@ -419,12 +491,27 @@
       if (!big) return;
       pointers.set(event.pointerId, [event.clientX, event.clientY]);
       canvas.setPointerCapture(event.pointerId);
-      travel = 0;
       setSpin(false);
+      if (pointers.size > 1) {
+        // A second finger: pinch to zoom and turn, and let go of the note
+        grab = null;
+        mode = 'pinch';
+        return;
+      }
+      travel = 0;
+      const n = nodeAt(event);
+      if (n) {
+        const rect = canvas.getBoundingClientRect();
+        const [x, y] = screen(n);
+        grab = { node: n, z: proj.get(n).z, off: [event.clientX - rect.left - x, event.clientY - rect.top - y] };
+        mode = 'pull';
+      } else {
+        mode = event.shiftKey || event.button === 2 ? 'turn' : 'pan';
+      }
     });
     canvas.addEventListener('pointermove', (event) => {
       touch = event.pointerType === 'touch';
-      if (big && pointers.has(event.pointerId)) return turnOrPinch(event);
+      if (big && pointers.has(event.pointerId)) return drag(event);
       if (touch) return;
       const n = nodeAt(event);
       canvas.style.cursor = n ? 'pointer' : big ? 'grab' : 'default';
@@ -434,7 +521,13 @@
     });
     const release = (event) => {
       pointers.delete(event.pointerId);
-      if (big && !touch) canvas.style.cursor = 'grab';
+      if (!big) return;
+      if (!pointers.size) {
+        grab = null; // the note springs back as the simulation cools
+        mode = null;
+        if (touch && travel > 4) hover = null;
+      }
+      if (!touch) canvas.style.cursor = 'grab';
     };
     canvas.addEventListener('pointerup', release);
     canvas.addEventListener('pointercancel', release);
@@ -468,7 +561,7 @@
         'zoom-in': () => zoomBy(1.25),
         'zoom-out': () => zoomBy(0.8),
         reset: () => {
-          turn = { m: rotX(PITCH), zoom: 1 };
+          turn = { m: rotX(PITCH), zoom: 1, px: 0, py: 0 };
           draw();
         },
         spin: () => setSpin(!spinning)
@@ -476,6 +569,7 @@
       section.querySelectorAll('[data-graph]').forEach((button) => {
         button.addEventListener('click', () => actions[button.dataset.graph]());
       });
+      canvas.addEventListener('contextmenu', (event) => event.preventDefault()); // right-drag turns
       canvas.style.cursor = 'grab';
       setSpin(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     }

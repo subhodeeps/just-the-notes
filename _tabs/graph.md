@@ -1,12 +1,12 @@
 ---
 # the default layout is 'page'
-title: Graph
+title: Graph View
 icon: fas fa-diagram-project
 order: 3
 panel_graph: false # the page shows the whole graph, so the right panel leaves it out
 ---
 
-This graph shows every note on the site, with each note coloured by its category. A solid line joins two notes when one of them links to the other, and a faint dotted line joins notes that share a tag. The graph turns slowly in three dimensions, and you can drag it to look at it from any side. To zoom in and out, scroll over it, pinch it on a phone, or use the buttons in its corner, which also reset the view and stop the turning. If you hover over a note, you can see its title, and if you click on it, the note opens. On a phone or a tablet, the first tap on a note shows its title and a second tap opens it.
+This graph shows every note on the site, with each note coloured by its category. A solid line joins two notes when one of them links to the other, and a faint dotted line joins notes that share a tag. The graph turns slowly in three dimensions. You can drag empty space to move the graph across the page, and drag a note to pull it, which stretches its links and draws its neighbours along. To turn the graph by hand, drag with the Shift key or the right mouse button held down, or with two fingers on a phone. To zoom in and out, scroll over it, pinch it on a phone, or use the buttons in its corner, which also reset the view and stop the turning. If you hover over a note, you can see its title, and if you click on it, the note opens. On a phone or a tablet, the first tap on a note shows its title and a second tap opens it.
 
 {% include notes-graph.html page=true %}
 

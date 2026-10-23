@@ -26,7 +26,14 @@
     </div>
     {% endif %}
   </div>
+  {% if include.page %}
+  <div class="notes-graph-footer">
+    <ul class="notes-graph-legend"></ul>
+    <p class="notes-graph-credit">Inspired by the graph view of <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a></p>
+  </div>
+  {% else %}
   <ul class="notes-graph-legend"></ul>
+  {% endif %}
   <ul class="visually-hidden notes-graph-list" aria-label="Notes in the graph"></ul>
   <script defer src="{{ '/assets/js/notes-graph.js' | relative_url }}"></script>
 </section>
