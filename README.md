@@ -68,6 +68,32 @@ Other useful commands while activated:
   `_plugins/draft-files.rb` serves these files only with `-d`. To publish a draft, move each file to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`; the post itself needs no changes. Jekyll does not watch `_drafts/assets/`, so after you redraw a figure, save the draft or restart the preview to see it.
 - `bash tools/test.sh` builds the site and checks it with html-proofer. The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the same check on every push; Vercel deploys the site from `main`.
 
+### Syncing the drafts
+
+The drafts live in a second, private repository, cloned into `_drafts/` itself. This repository ignores everything in `_drafts/` except `.gitkeep`, so it never sees the inner repository, its `.git` folder included. Jekyll skips folders whose names start with a dot, so it does not read `.git` as drafts either.
+
+To set it up on the first device:
+
+```shell
+cd _drafts
+printf '.gitkeep\n.DS_Store\n' > .gitignore
+git init -b main
+git add -A
+git commit -m "Add the drafts"
+gh repo create quasinormal-notes-drafts --private --source=. --push
+```
+
+On another device, after you clone this repository:
+
+```shell
+cd _drafts
+git init -b main
+git remote add origin git@github.com:subhodeeps/quasinormal-notes-drafts.git
+git pull origin main
+```
+
+From then on, `git pull` and `git push` inside `_drafts/` sync the drafts. The inner `.gitignore` keeps the `.gitkeep` of this repository out of the drafts repository; without it, the pull on a second device stops on that file. When you publish a draft, its files move out of `_drafts/` into this repository, so the drafts repository holds only work in progress.
+
 ### Starting over
 
 Delete the environment and run setup again:
