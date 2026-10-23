@@ -26,7 +26,13 @@
 #   Inline math stays, and the home page loads MathJax for it (math: true in index.html).
 #   A wide tile carries the opening as well, hidden until assets/js/home-tiles.js lengthens
 #   the tile to two rows to close a gap, when it has the room of a large tile.
+# - The sort buttons above the grid (assets/js/list-sort.js) sort all the latest posts, not only
+#   those of the page in view. The plugin collects the tiles of every page of the home page and
+#   writes them, page by page, to assets/data/home-tiles.json after the build, with the title of
+#   each post. The grid names the file in data-all.
 
+require 'fileutils'
+require 'json'
 require 'zlib'
 
 module HomeTiles
@@ -36,8 +42,14 @@ module HomeTiles
   LARGE = 1500 # words: a longer post is a large square
   EXCERPT = { 'tile-tall' => 90, 'tile-wide' => 150, 'tile-large' => 150 }.freeze # words of the opening
   BLOCK = /\A\s*<(?:pre|details|blockquote|figure|table|div|ul|ol|h[1-6])\b/ # ends the opening run
+  DATA = 'assets/data/home-tiles.json' # the tiles of all pages, for the sort buttons
+  PAGES = {} # page number -> its tiles, collected during the build
 
   module_function
+
+  def plain(html)
+    html.to_s.gsub(/<[^>]+>/, '').strip
+  end
 
   # As slugify in assets/js/notes-graph.js, so that the names of the colours match
   def slug(category)
@@ -116,8 +128,28 @@ Jekyll::Hooks.register :pages, :post_render do |page|
   tiles = page.output.to_enum(:scan, HomeTiles::TILE).map { Regexp.last_match }
   next if tiles.empty?
 
+  # The tiles of this page, for the sort buttons, which sort the tiles of all pages
+  HomeTiles::PAGES[page.pager&.page || 1] = tiles.map do |tile|
+    post = posts[tile[0][/<a href="([^"]+)"/, 1]]
+    { title: HomeTiles.plain(post&.data&.fetch('title', nil)), html: tile[0] }
+  end
+
   start = tiles.first.begin(0)
   stop = tiles.last.end(0)
   script = %(<script defer src="#{site.baseurl}/assets/js/home-tiles.js"></script>) # closes the gaps
-  page.output = "#{page.output[0...start]}<div class=\"home-tiles\">#{page.output[start...stop]}</div>#{script}#{page.output[stop..]}"
+  grid = %(<div class="home-tiles" data-all="#{site.baseurl}/#{HomeTiles::DATA}">)
+  page.output = "#{page.output[0...start]}#{grid}#{page.output[start...stop]}</div>#{script}#{page.output[stop..]}"
+end
+
+Jekyll::Hooks.register :site, :pre_render do
+  HomeTiles::PAGES.clear
+end
+
+Jekyll::Hooks.register :site, :post_write do |site|
+  next if HomeTiles::PAGES.empty?
+
+  path = File.join(site.dest, HomeTiles::DATA)
+  FileUtils.mkdir_p(File.dirname(path))
+  pages = HomeTiles::PAGES.sort.map { |number, tiles| { page: number, tiles: tiles } }
+  File.write(path, JSON.generate(pages: pages))
 end

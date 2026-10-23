@@ -38,6 +38,7 @@ deactivate                  # restore the shell
 | `bash tools/run.sh -p` | Serves the site in production mode. |
 | `bash tools/run.sh -d` | Serves the stubs, drafts and private notes alongside the posts. |
 | `bash tools/stop.sh` | Stops the server, for example one left running in another terminal. |
+| `bash tools/new-note.sh name [title]` | Creates a private note, `_drafts/private/YYYY-MM-DD-name.md`, named as Foam names notes, with the front matter of the Foam template. |
 | `bash tools/test.sh` | Builds the site in a temporary folder and checks it with html-proofer. The preview in `_site/` stays as it is. |
 
 The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the html-proofer check on every push. Vercel deploys the site from `main`.
@@ -246,7 +247,7 @@ The home page lists the posts in Chirpy's order, ten to a page, below a hero tha
 - **Explore:** the other posts form a grid of tiles, under the heading set by `list_heading`. A tile's size follows the length of the post, without its code: under 300 words a small square, over 1,500 words a large square, and in between a wide or a tall tile, chosen by a hash of the post's name. The grid packs the tiles densely, and `assets/js/home-tiles.js` closes the gaps at its end, so every page ends in a straight edge at every width. On a phone, the tiles stand in one column. A tall or a large tile also shows the opening of the post, which fades out towards the date, and so does a wide tile that the script lengthens to two rows to close a gap. The opening is the paragraphs at the start of the post, up to its first heading, display equation, code block or folded box. The home page loads MathJax for the inline math in these excerpts (`math: true` in `index.html`).
 - **Colours:** every card, band or tile, takes the colour of its note in the graph, as a stripe on the left and a faint tint. The colour follows the subject, the first category. Drafts, stubs and private notes take the colour of their subject too, with a dashed border in that colour.
 
-- **Sorting:** buttons under the Explore heading sort the tiles of the page in view, newest or oldest first, or by title from A to Z or from Z to A (`assets/js/list-sort.js`). The pinned posts keep their place, and the grid packs itself again after each sort.
+- **Sorting:** buttons under the Explore heading sort the latest posts of all pages, newest or oldest first, or by title from A to Z or from Z to A (`assets/js/list-sort.js`). `_plugins/home-tiles.rb` writes the tiles of every page to `assets/data/home-tiles.json`, and each page shows its slice of the sorted order, with as many tiles as Chirpy puts there. The pinned posts keep their place, and the grid packs itself again after each sort.
 
 If a theme update changes the markup of the cards, the build warns and the page keeps Chirpy's list.
 

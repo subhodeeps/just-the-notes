@@ -13,15 +13,16 @@
  * opening of the post that the plugin puts in it (_sass/_home-tiles.scss), so that the
  * taller tile does not stand half empty.
  *
- * The sort buttons above the grid (assets/js/list-sort.js) reorder the tiles and then send the
- * event tiles:reorder, which packs the grid again.
+ * The sort buttons above the grid (assets/js/list-sort.js) reorder the tiles, or put in the
+ * tiles of other pages, and then send the event tiles:reorder, which packs the grid again.
  */
 (() => {
   const grid = document.querySelector('#post-list .home-tiles');
   if (!grid) return;
-  const tiles = [...grid.querySelectorAll(':scope > .tile')];
 
   function pack() {
+    // the sort buttons may have put other tiles in the grid, so take the ones it holds now
+    const tiles = [...grid.querySelectorAll(':scope > .tile')];
     tiles.forEach((tile) => {
       tile.style.gridColumn = '';
       tile.style.gridRow = '';
