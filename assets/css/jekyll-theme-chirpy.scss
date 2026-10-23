@@ -49,3 +49,6 @@
 
 /* Figures side by side ({: .figure-row } after a paragraph of images) */
 @use 'figure-row';
+
+/* Cards of drafts and private notes in the local preview */
+@use 'note-cards';

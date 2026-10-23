@@ -54,13 +54,14 @@ deactivate                  # restore your shell when done
 Other useful commands while activated:
 
 - `bash tools/run.sh -p` builds in production mode.
-- `bash tools/run.sh -d` serves the drafts in `_drafts/` alongside the posts and adds the tag `draft` to each of them, so that you can tell them apart. The deployed site never builds the drafts.
+- `bash tools/run.sh -d` serves the notes in `_drafts/` alongside the posts. `_plugins/draft-category.rb` puts each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories, and gives their cards on the home page a teal or red stripe. The deployed site never builds them.
 
   Git ignores everything in `_drafts/`, and the folder mirrors the root of the site, so that a draft keeps its files beside it and uses them the way a published post does:
 
   ```
   _drafts/
   ├── slug.md                        # the draft
+  ├── private/note.md                # a private note, never to be published
   ├── _includes/code/script.py       # {% include code/script.py %}
   └── assets/images/slug/name.png    # /assets/images/slug/name.png
   ```

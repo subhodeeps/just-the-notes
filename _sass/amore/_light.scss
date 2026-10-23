@@ -4,6 +4,7 @@
 //
 // Overrides the variables of Chirpy's _sass/themes/_light.scss.
 
+@use 'sass:color';
 @use 'palette' as p;
 @use 'syntax';
 
@@ -144,9 +145,20 @@ $tint: 0.3;
   --graph-node-coding: #{p.$green-main};
   --graph-node-homelab: #{p.$amber-main};
   --graph-node-personal: #{p.$plum-main};
+  --graph-node-draft: #{p.$teal-main};
+  --graph-node-private: #{p.$red-main};
   --graph-edge: #{p.$slate-light};
   --graph-edge-faint: #{p.alpha(p.$slate-main, 0.55)};
   --graph-current: #{$accent};
+
+
+  /* Cards of drafts and private notes (_sass/_note-cards.scss): main tone, shade */
+  --note-draft: #{p.$teal-main};
+  --note-draft-bg: #{p.$teal-shade};
+  --note-draft-hover-bg: #{color.mix(p.$teal-light, p.$teal-shade, 35%)};
+  --note-private: #{p.$red-main};
+  --note-private-bg: #{p.$red-shade};
+  --note-private-hover-bg: #{color.mix(p.$red-light, p.$red-shade, 35%)};
 
   @include syntax.styles(p.$inks, $accent, $muted-foreground, $muted, 0.25);
 }

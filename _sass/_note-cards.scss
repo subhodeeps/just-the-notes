@@ -1,0 +1,24 @@
+// Cards of drafts and private notes on the home page, in the local preview
+// (_plugins/draft-category.rb): a stripe on the left and a tint, in the
+// colours --note-draft and --note-private of _sass/amore/
+
+#post-list .post-preview {
+  &.note-draft {
+    --note: var(--note-draft);
+    --card-bg: var(--note-draft-bg);
+    --card-hover-bg: var(--note-draft-hover-bg);
+  }
+
+  &.note-private {
+    --note: var(--note-private);
+    --card-bg: var(--note-private-bg);
+    --card-hover-bg: var(--note-private-hover-bg);
+  }
+
+  &.note-draft,
+  &.note-private {
+    box-shadow:
+      inset 4px 0 0 var(--note),
+      var(--card-shadow);
+  }
+}
