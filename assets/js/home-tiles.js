@@ -12,6 +12,9 @@
  * A wide tile that is lengthened to two rows gets the class tile-grown, which shows the
  * opening of the post that the plugin puts in it (_sass/_home-tiles.scss), so that the
  * taller tile does not stand half empty.
+ *
+ * The sort buttons above the grid (assets/js/list-sort.js) reorder the tiles and then send the
+ * event tiles:reorder, which packs the grid again.
  */
 (() => {
   const grid = document.querySelector('#post-list .home-tiles');
@@ -90,4 +93,5 @@
   };
   repack();
   window.addEventListener('resize', () => requestAnimationFrame(repack));
+  grid.addEventListener('tiles:reorder', () => pack());
 })();

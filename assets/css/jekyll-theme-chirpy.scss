@@ -58,3 +58,6 @@
 
 /* The latest posts on the home page as a grid of tiles */
 @use 'home-tiles';
+
+/* Buttons that sort the posts of a category or a tag page */
+@use 'list-sort';
