@@ -1,31 +1,17 @@
-// Cards of drafts, stubs and private notes on the home page, in the local preview
-// (_plugins/draft-category.rb): a stripe on the left and a tint, in the colours
-// --note-draft, --note-to-write and --note-private of _sass/amore/
+// Every card of the home page in the colour of its note in the graph (_plugins/home-tiles.rb):
+// a stripe on the left and a faint tint of --note, which the plugin sets on each card from
+// --graph-node-<category> in _sass/amore/. Drafts, stubs and private notes take the colours of
+// their stages, which are their first categories. The strength of the tint, --card-tint, is
+// set for each theme.
 
-#post-list .post-preview {
-  &.note-draft {
-    --note: var(--note-draft);
-    --card-bg: var(--note-draft-bg);
-    --card-hover-bg: var(--note-draft-hover-bg);
-  }
+#post-list .post-preview.note-card {
+  --card-hover-bg: color-mix(in srgb, var(--note) var(--card-tint-hover), transparent);
 
-  &.note-to-write {
-    --note: var(--note-to-write);
-    --card-bg: var(--note-to-write-bg);
-    --card-hover-bg: var(--note-to-write-hover-bg);
-  }
-
-  &.note-private {
-    --note: var(--note-private);
-    --card-bg: var(--note-private-bg);
-    --card-hover-bg: var(--note-private-hover-bg);
-  }
-
-  &.note-draft,
-  &.note-to-write,
-  &.note-private {
-    box-shadow:
-      inset 4px 0 0 var(--note),
-      var(--card-shadow);
-  }
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--note) var(--card-tint), transparent),
+    color-mix(in srgb, var(--note) var(--card-tint), transparent)
+  );
+  box-shadow:
+    inset 4px 0 0 var(--note),
+    var(--card-shadow);
 }

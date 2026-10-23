@@ -153,16 +153,9 @@ $tint: 0.3;
   --graph-current: #{$accent};
 
 
-  /* Cards of drafts and private notes (_sass/_note-cards.scss): main tone, shade */
-  --note-draft: #{p.$teal-main};
-  --note-draft-bg: #{p.$teal-shade};
-  --note-draft-hover-bg: #{color.mix(p.$teal-light, p.$teal-shade, 35%)};
-  --note-to-write: #{p.$olive-main};
-  --note-to-write-bg: #{p.$olive-shade};
-  --note-to-write-hover-bg: #{color.mix(p.$olive-light, p.$olive-shade, 35%)};
-  --note-private: #{p.$red-main};
-  --note-private-bg: #{p.$red-shade};
-  --note-private-hover-bg: #{color.mix(p.$red-light, p.$red-shade, 35%)};
+  /* Cards of the home page (_sass/_note-cards.scss): the share of the note's colour in the tint */
+  --card-tint: 6%;
+  --card-tint-hover: 13%;
 
   @include syntax.styles(p.$inks, $accent, $muted-foreground, $muted, 0.25);
 }

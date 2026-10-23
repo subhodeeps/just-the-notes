@@ -79,7 +79,7 @@ Two plugins act on these files, only with `-d`:
 
 | Plugin | Function |
 | --- | --- |
-| `_plugins/draft-category.rb` | Puts each stub in `_drafts/to-write/` in the category To Write, each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories. Marks their cards on the home page with an olive, teal or red stripe. |
+| `_plugins/draft-category.rb` | Puts each stub in `_drafts/to-write/` in the category To Write, each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories. The stage, as the first category, gives the note its colour in the graph and on the home page. |
 | `_plugins/draft-files.rb` | Serves `_drafts/_includes/` and `_drafts/assets/` at the same paths as their counterparts at the root. |
 
 To publish a draft, move each of its files to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`. The post needs no other changes.
@@ -256,6 +256,16 @@ A post shows a script from `_includes/code/` with `{% include %}`, so the post a
 
 Code blocks fit the page width at 72 characters or fewer. `uvx ruff format --line-length 72` formats a script to this width. Ruff leaves long comments unchanged, so these go on lines of their own.
 
+## The Home Page
+
+The home page lists the posts in Chirpy's order, ten to a page, below a hero that `index.html` configures in its front matter (`hero`). `_plugins/home-hero.rb` and `_plugins/home-tiles.rb` rearrange Chirpy's rendered list and leave its layout unchanged.
+
+- **Pinned:** the posts with `pin: true` stay full-width bands, under the heading set by `pinned_heading`.
+- **Explore:** the other posts form a grid of tiles, under the heading set by `list_heading`. A tile's size follows the length of the post, without its code: under 300 words a small square, over 1,500 words a large square, and in between a wide or a tall tile, chosen by a hash of the post's name. The grid packs the tiles densely, and `assets/js/home-tiles.js` closes the gaps at its end, so every page ends in a straight edge at every width. On a phone, the tiles stand in one column.
+- **Colours:** every card, band or tile, takes the colour of its note in the graph, as a stripe on the left and a faint tint. The colour follows the first category, so drafts, stubs and private notes take the colours of their stages.
+
+If a theme update changes the markup of the cards, the build warns and the page keeps Chirpy's list.
+
 ## Linking Notes
 
 Posts link to each other in the manner of a Zettelkasten, with backlinks and a graph of the notes. `_plugins/notes-graph.rb` builds both at build time and leaves Chirpy's layouts unchanged.
@@ -316,16 +326,17 @@ New files:
 | Location | Contents |
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
-| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, cards of stubs, drafts and private notes, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
-| `_plugins/` | Home page hero, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes with the starter) |
+| `_sass/_*.scss` | Home page hero, tiles and card colours, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
+| `_plugins/` | Home page hero and tiles, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes with the starter) |
 | `_bibliography/` | The master BibTeX file and the style of the citations |
 | `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |
 | `tools/` | The toolchain setup (`setup.sh`), the scripts behind some figures, and changes to the starter's `run.sh` and `test.sh` |
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
+| `assets/js/home-tiles.js` | Packing of the tiles on the home page |
 | `assets/img/favicons/` | Icons made from the profile picture, in place of Chirpy's |
 
-After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles depend on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, only the style that uses it stops working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero and the footer, print a build warning when the markup they expect is missing, and the page then keeps Chirpy's version.
+After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles depend on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, only the style that uses it stops working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero, the tiles and the footer, print a build warning when the markup they expect is missing, and the page then keeps Chirpy's version.
 
 ## Usage
 

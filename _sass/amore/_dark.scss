@@ -157,16 +157,9 @@ $tint: 0.14;
   --graph-edge-faint: #{p.alpha(p.$slate-main, 0.45)};
   --graph-current: #{$accent};
 
-  /* Cards of drafts and private notes (_sass/_note-cards.scss): main tone over the card */
-  --note-draft: #{p.$teal-main};
-  --note-draft-bg: #{color.mix(p.$teal-main, $surface, 10%)};
-  --note-draft-hover-bg: #{color.mix(p.$teal-main, $surface, 18%)};
-  --note-to-write: #{p.$olive-main};
-  --note-to-write-bg: #{color.mix(p.$olive-main, $surface, 10%)};
-  --note-to-write-hover-bg: #{color.mix(p.$olive-main, $surface, 18%)};
-  --note-private: #{p.$red-main};
-  --note-private-bg: #{color.mix(p.$red-main, $surface, 10%)};
-  --note-private-hover-bg: #{color.mix(p.$red-main, $surface, 18%)};
+  /* Cards of the home page (_sass/_note-cards.scss): the share of the note's colour in the tint */
+  --card-tint: 10%;
+  --card-tint-hover: 18%;
 
   // Chirpy's dark theme hard-codes this gradient instead of using a variable
   #archives li:nth-child(odd) {

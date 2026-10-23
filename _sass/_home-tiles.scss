@@ -1,0 +1,97 @@
+// The latest posts of the home page as a grid of tiles (_plugins/home-tiles.rb): small squares,
+// wide and tall tiles, and large squares, packed densely so that the tiles fill the gaps and a
+// new post finds its place. The pinned posts above stay full-width bands. On a phone the tiles
+// stack in one column, like the bands.
+
+#post-list .home-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  grid-auto-rows: 10.5rem;
+  grid-auto-flow: dense;
+  gap: 1rem;
+
+  .card-wrapper.tile {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .tile-wide {
+    grid-column: span 2;
+  }
+
+  .tile-tall {
+    grid-row: span 2;
+  }
+
+  .tile-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  // The card fills its tile, and a preview image, if a post has one, gives way to the text
+  .post-preview {
+    height: 100%;
+
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+
+    > div:has(> img) {
+      display: none;
+    }
+  }
+
+  .card .card-body {
+    padding: 1rem 1.1rem 0.9rem;
+
+    .card-title {
+      font-size: 1.05rem;
+      line-height: 1.35;
+      -webkit-line-clamp: 3;
+    }
+
+    .card-text {
+      margin-bottom: 0.5rem !important;
+
+      p {
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    .post-meta {
+      font-size: 0.8rem;
+    }
+  }
+
+  .tile-wide .card-text p {
+    -webkit-line-clamp: 3;
+  }
+
+  .tile-tall .card-text p,
+  .tile-large .card-text p {
+    -webkit-line-clamp: 8;
+  }
+
+  .tile-large .card-title {
+    font-size: 1.3rem;
+  }
+
+  // A small square has room for the title, the description and the date
+  .tile-small .post-meta .categories,
+  .tile-small .post-meta .fa-folder-open {
+    display: none;
+  }
+
+  @media (max-width: 575.98px) {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+
+    .tile-wide,
+    .tile-tall,
+    .tile-large {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+}
