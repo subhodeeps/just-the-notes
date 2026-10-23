@@ -7,7 +7,7 @@ tags: [python, computational-physics, numerical-methods]
 math: true
 ---
 
-For a worked example, see [[2026-07-06-ode]]; for Julia, see [[2026-07-06-juliarefs]].
+For a worked example, see the [[2026-07-06-ode|tutorial on the nonlinear pendulum]], and for setting up an environment with these packages, the [[2026-07-06-setting-up-scientific-python-environment|venv guide]]. For Julia, see [[2026-07-06-juliarefs]].
 
 ## Introductory Books
 

@@ -10,7 +10,7 @@ math: true
 
 **Note: Some of these lecture notes can be classified under multiple headings, my choices are a bit arbitrary!**
 
-I keep the reviews on quasinormal modes in a separate list: [[2026-07-06-reviews-on-quasinormal-modes]].
+For review articles on quasinormal modes, see [[2026-07-06-reviews-on-quasinormal-modes]].
 
 ## Black Holes
 
