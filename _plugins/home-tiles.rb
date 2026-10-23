@@ -97,6 +97,12 @@ Jekyll::Hooks.register :pages, :post_render do |page|
     next card if post.data['pin']
 
     size = HomeTiles.size(post)
+    if size == 'tile-small' && post.draft?
+      # A small square hides the categories, but a draft still names its stage there
+      stage = Array(post.data['categories']).first
+      card = card.sub(%r{<span class="categories">.*?</span>}m, %(<span class="categories">#{stage}</span>))
+      size += ' tile-stage'
+    end
     card = card.sub('<article class="card-wrapper card">', %(<article class="card-wrapper card tile #{size}">))
     excerpt = HomeTiles::EXCERPT[size] && HomeTiles.excerpt(post, HomeTiles::EXCERPT[size])
     excerpt.to_s.empty? ? card : card.sub('<div class="post-meta', %(<div class="tile-excerpt">#{excerpt}</div><div class="post-meta))

@@ -98,9 +98,10 @@
     font-size: 1.3rem;
   }
 
-  // A small square has room for the title, the description and the date
-  .tile-small .post-meta .categories,
-  .tile-small .post-meta .fa-folder-open {
+  // A small square has room for the title, the description and the date, and for a draft, its
+  // stage in place of the categories
+  .tile-small:not(.tile-stage) .post-meta .categories,
+  .tile-small:not(.tile-stage) .post-meta .fa-folder-open {
     display: none;
   }
 
