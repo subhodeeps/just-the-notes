@@ -105,8 +105,9 @@ module NotesGraph
     targets.uniq - [doc]
   end
 
+  # The subject of the note, which sets its colour, even for a draft (_plugins/draft-category.rb)
   def category_of(doc)
-    Array(doc.data['categories']).first.to_s
+    NoteStage.subject(doc)
   end
 
   # primary_tags from the front matter, at most three, or else the first two tags
@@ -118,7 +119,8 @@ module NotesGraph
   def graph(posts, links)
     nodes = posts.map do |doc|
       { id: doc.data['slug'], title: plain(doc.data['short_title'] || doc.data['title']), url: doc.url,
-        category: category_of(doc), tags: Array(doc.data['tags']), primary: primary_tags(doc) }
+        category: category_of(doc), stage: NoteStage.stage(doc), tags: Array(doc.data['tags']),
+        primary: primary_tags(doc) }.compact
     end
     ids = posts.to_h { |doc| [doc, doc.data['slug']] }
 

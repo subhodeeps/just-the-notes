@@ -121,6 +121,15 @@
     margin-right: 0.3rem;
     border-radius: 50%;
   }
+
+  // The key for the dashed ring of drafts, stubs and private notes: a dot with a dashed ring,
+  // drawn as in the graph (an inline SVG from assets/js/notes-graph.js)
+  .ring {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.25rem;
+    vertical-align: -0.15rem;
+  }
 }
 
 // "Linked from", between the post and its footer

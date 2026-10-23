@@ -61,7 +61,7 @@ Two plugins act on these files, only with `-d`:
 
 | Plugin | Function |
 | --- | --- |
-| `_plugins/draft-category.rb` | Puts each stub in `_drafts/to-write/` in the category To Write, each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories. The stage, as the first category, gives the note its colour in the graph and on the home page. |
+| `_plugins/draft-category.rb` | Puts each stub in `_drafts/to-write/` in the category To Write, each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories. The graph and the home page colour the note by its subject, the category after the stage, and mark the stage with a dashed outline. |
 | `_plugins/draft-files.rb` | Serves `_drafts/_includes/` and `_drafts/assets/` at the same paths as their counterparts at the root. |
 
 To publish a draft, move each of its files to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`. The post needs no other changes.
@@ -244,7 +244,9 @@ The home page lists the posts in Chirpy's order, ten to a page, below a hero tha
 
 - **Pinned:** the posts with `pin: true` stay full-width bands, under the heading set by `pinned_heading`.
 - **Explore:** the other posts form a grid of tiles, under the heading set by `list_heading`. A tile's size follows the length of the post, without its code: under 300 words a small square, over 1,500 words a large square, and in between a wide or a tall tile, chosen by a hash of the post's name. The grid packs the tiles densely, and `assets/js/home-tiles.js` closes the gaps at its end, so every page ends in a straight edge at every width. On a phone, the tiles stand in one column. A tall or a large tile also shows the opening of the post, which fades out towards the date, and so does a wide tile that the script lengthens to two rows to close a gap. The opening is the paragraphs at the start of the post, up to its first heading, display equation, code block or folded box. The home page loads MathJax for the inline math in these excerpts (`math: true` in `index.html`).
-- **Colours:** every card, band or tile, takes the colour of its note in the graph, as a stripe on the left and a faint tint. The colour follows the first category, so drafts, stubs and private notes take the colours of their stages.
+- **Colours:** every card, band or tile, takes the colour of its note in the graph, as a stripe on the left and a faint tint. The colour follows the subject, the first category. Drafts, stubs and private notes take the colour of their subject too, with a dashed border in that colour.
+
+- **Sorting:** buttons under the Explore heading sort the tiles of the page in view, newest or oldest first, or by title from A to Z or from Z to A (`assets/js/list-sort.js`). The pinned posts keep their place, and the grid packs itself again after each sort.
 
 If a theme update changes the markup of the cards, the build warns and the page keeps Chirpy's list.
 
@@ -271,7 +273,7 @@ A link to a note that does not exist renders as muted text, and the build prints
 
 **Note graph, in the right panel.** A quiet map of where a note sits, beside its text.
 
-- Nodes are posts, coloured by their first category, and labelled with `short_title` from the front matter, or the title if there is none.
+- Nodes are posts, coloured by their first category, and labelled with `short_title` from the front matter, or the title if there is none. In the local preview, a draft, a stub or a private note takes the colour of its subject, the category after its stage, and has a dashed ring.
 - Solid lines are links, and nodes are solid discs that hide the lines behind them.
 - On a post, under the heading "Connections", the post and the notes it links to or from appear at full strength. The notes one link further away, and the notes that share a primary tag with the post, appear faintly. Dotted lines join the post to the notes that share a primary tag with it, where no link joins them already.
 - On other pages, under "Note Graph", the panel shows every note with its links, and no dotted lines.
@@ -285,7 +287,7 @@ A link to a note that does not exist renders as muted text, and the build prints
 - With a mouse, a drag on empty space moves the graph, and a drag on a node pulls the note. Its links stretch and take its colour, its neighbours follow, and the graph springs back after the pull. Shift-drag or right-drag turns the graph all the way round.
 - On a touch screen, one finger moves the graph or pulls a note, and two fingers zoom and turn it. The first tap on a node shows its title, and the second opens the note.
 - The scroll wheel, a pinch, the + and − keys and the corner buttons zoom. The arrow keys move the graph.
-- The legend of the colours sits below the graph, with the credit to Obsidian.
+- The legend of the colours sits below the graph, with the credit to Obsidian. In the local preview, it also explains the dashed ring of drafts, stubs and private notes.
 - Phones and narrow windows have no right panel and see the graph here. The right panel leaves out its graph on this page (`panel_graph: false`).
 
 The header of `assets/js/notes-graph.js` explains the design of both views: the forces, the starting view, the depth cues and the rules of the side panel.
@@ -301,14 +303,14 @@ The repository is configured for [Foam](https://foambubble.github.io/foam/). The
 All changes to Chirpy live in separate files, so new releases of the theme merge without conflicts. Two files replace files of the theme, and Chirpy provides both for this purpose:
 
 - `assets/css/jekyll-theme-chirpy.scss` keeps the theme's lines at the top. Below the line "append your custom style below", it has one `@use` for each partial in `_sass/`.
-- `_includes/metadata-hook.html` is the theme's empty placeholder for the `<head>`. It loads JetBrains Mono and the script that opens folded boxes.
+- `_includes/metadata-hook.html` is the theme's empty placeholder for the `<head>`. It loads JetBrains Mono, the script that opens folded boxes, and on the home, category and tag pages the sort buttons.
 
 New files:
 
 | Location | Contents |
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
-| `_sass/_*.scss` | Home page hero, tiles and card colours, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
+| `_sass/_*.scss` | Home page hero, tiles and card colours, sort buttons of category and tag pages, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
 | `_plugins/` | Home page hero and tiles, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes from Chirpy) |
 | `_bibliography/` | The master BibTeX file and the style of the citations |
 | `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |
@@ -316,6 +318,7 @@ New files:
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
 | `assets/js/home-tiles.js` | Packing of the tiles on the home page |
+| `assets/js/list-sort.js` | Buttons on category and tag pages, and above the Explore tiles of the home page, that sort the posts by date or by title, newest or oldest first, A–Z or Z–A |
 | `assets/img/favicons/` | The site icon, a light bulb, in place of Chirpy's. The 512 px icon is also the preview image that link previews show (`social_preview_image`). |
 
 After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles depend on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, only the style that uses it stops working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero, the tiles and the footer, print a build warning when the markup they expect is missing, and the page then keeps Chirpy's version.

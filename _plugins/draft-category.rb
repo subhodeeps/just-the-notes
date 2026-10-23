@@ -7,9 +7,28 @@
 #
 # Drafts appear only in the local preview (`bash tools/run.sh -d`), and the
 # category tells them apart from published posts there. The deployed site
-# builds without --drafts, so it never shows them. As the first category, the
-# stage also gives the note its colour in the graph and on its card on the home
-# page (_plugins/home-tiles.rb).
+# builds without --drafts, so it never shows them.
+#
+# The stage comes first among the categories, but it does not set the colour of
+# the note: the graph and the home page colour a note by its subject, its first
+# category after the stage, as they colour a published post, and they mark the
+# stage with a dashed outline (_plugins/notes-graph.rb, _plugins/home-tiles.rb).
+
+module NoteStage
+  STAGES = ['Draft', 'To Write', 'Private'].freeze
+
+  module_function
+
+  # The first category that is not a stage, which sets the colour of the note
+  def subject(doc)
+    (Array(doc.data['categories']) - STAGES).first.to_s
+  end
+
+  # Draft, To Write or Private for a note that is not published, nil for a post
+  def stage(doc)
+    (Array(doc.data['categories']) & STAGES).first
+  end
+end
 
 def note_kind(post)
   return 'Private' if post.relative_path.start_with?('_drafts/private/')

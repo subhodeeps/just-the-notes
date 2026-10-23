@@ -7,11 +7,12 @@
 # layout, and drifting from theme updates, this hook edits the rendered pages of the list, after
 # _plugins/home-hero.rb has split it into pinned and latest posts.
 #
-# - Each card takes the colour of its first category, which is the colour of its node in the
-#   note graph (--graph-node-<category> in _sass/amore/), as a stripe on the left and a faint
-#   tint (_sass/_note-cards.scss). Drafts, stubs and private notes have Draft, To Write or
-#   Private as their first category (_plugins/draft-category.rb), so they take the colours of
-#   those stages. A new category takes its graph colour with no further change.
+# - Each card takes the colour of its subject, its first category, which is the colour of its
+#   node in the note graph (--graph-node-<category> in _sass/amore/), as a stripe on the left
+#   and a faint tint (_sass/_note-cards.scss). A draft, a stub or a private note has its stage
+#   as the first category (_plugins/draft-category.rb), so its colour comes from the category
+#   after the stage, and its card gets a dashed border in that colour. A new category takes its
+#   graph colour with no further change.
 # - The latest posts form a grid (_sass/_home-tiles.scss). The size of a tile follows the
 #   length of the post, without its code: a short note is a small square, a longer one a wide
 #   or a tall tile, and the longest a large square. A hash of the post's name decides between
@@ -93,15 +94,16 @@ Jekyll::Hooks.register :pages, :post_render do |page|
     post = posts[card[/<a href="([^"]+)" class="post-preview/, 1]]
     next card unless post
 
-    category = HomeTiles.slug(Array(post.data['categories']).first)
+    category = HomeTiles.slug(NoteStage.subject(post))
     colour = %(style="--note: var(--graph-node-#{category}, var(--graph-node))")
-    card = card.sub('class="post-preview', %(#{colour} class="post-preview note-card))
+    unpublished = NoteStage.stage(post) ? ' note-unpublished' : ''
+    card = card.sub('class="post-preview', %(#{colour} class="post-preview note-card#{unpublished}))
     next card if post.data['pin']
 
     size = HomeTiles.size(post)
     if size == 'tile-small' && post.draft?
       # A small square hides the categories, but a draft still names its stage there
-      stage = Array(post.data['categories']).first
+      stage = NoteStage.stage(post)
       card = card.sub(%r{<span class="categories">.*?</span>}m, %(<span class="categories">#{stage}</span>))
       size += ' tile-stage'
     end

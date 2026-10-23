@@ -2,7 +2,9 @@
  * The note graph in the right panel and on the Graph tab (_includes/notes-graph.html), from
  * assets/data/notes-graph.json (_plugins/notes-graph.rb).
  *
- * Nodes are posts, coloured by their first category. Solid edges are links between notes,
+ * Nodes are posts, coloured by their subject, their first category. A draft, a stub or a
+ * private note, which the local preview shows, takes the colour of its subject too, with a
+ * dashed ring around the node (stage in the data). Solid edges are links between notes,
  * wikilinks or ordinary links, and dotted edges join notes that share tags. A node grows with
  * the number of its links. Hovering a node highlights it and its neighbours and shows its
  * title, and a click opens it. On a touch screen, which has no hover, the first tap on a node
@@ -304,12 +306,17 @@
       neighbours.get(b.id).add(a.id);
     }
 
-    // Legend: the categories in view
+    // Legend: the categories in view, and a key for the ring of the notes that are not published
     const categories = [...new Set(nodes.map((n) => n.category).filter(Boolean))].sort();
     if (legend) {
-      legend.innerHTML = categories
-        .map((c) => `<li><span class="dot" data-category="${slugify(c)}"></span>${c}</li>`)
-        .join('');
+      legend.innerHTML =
+        categories.map((c) => `<li><span class="dot" data-category="${slugify(c)}"></span>${c}</li>`).join('') +
+        (nodes.some((n) => n.stage)
+          ? '<li><svg class="ring" viewBox="0 0 16 16" aria-hidden="true">' +
+            '<circle cx="8" cy="8" r="3.2" fill="currentColor"/>' +
+            '<circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2.4 1.8"/>' +
+            '</svg>Draft, stub or private note</li>'
+          : '');
     }
 
     const ctx = canvas.getContext('2d');
@@ -341,7 +348,7 @@
           categories.map((c) => [c, get(`--graph-node-${slugify(c)}`, get('--graph-node', '#768594'))])
         )
       };
-      legend?.querySelectorAll('.dot').forEach((dot, i) => {
+      legend?.querySelectorAll('.dot[data-category]').forEach((dot, i) => {
         dot.style.background = colours.category[categories[i]];
       });
     }
@@ -445,6 +452,18 @@
         ctx.globalAlpha = (dim(n.id) ? 0.3 : 1) * depth(proj.get(n).z) * (far.has(n.id) ? FAR : 1);
         ctx.fillStyle = colours.category[n.category] || colours.node;
         ctx.fill();
+        if (n.stage) {
+          // A dashed ring in the colour of the note marks a draft, a stub or a private note
+          ctx.strokeStyle = colours.category[n.category] || colours.node;
+          ctx.lineWidth = big ? 1.4 : 1;
+          ctx.setLineDash(big ? [3, 2.5] : [2, 2]);
+          ctx.beginPath();
+          ctx.arc(x, y, radius(n) + (big ? 3 : 2.5), 0, 2 * Math.PI);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.beginPath();
+          ctx.arc(x, y, radius(n), 0, 2 * Math.PI);
+        }
         if (big) {
           // A ring in the background colour lifts the node off the lines that meet it
           ctx.strokeStyle = colours.bg;
