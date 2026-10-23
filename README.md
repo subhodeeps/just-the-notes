@@ -23,57 +23,71 @@ This starter bundles those files from the latest **Chirpy** release along with a
 
 ## Local Development
 
-`tools/setup.sh` builds a self-contained toolchain in `.venv/` (git-ignored), similar to a Python virtualenv. Nothing is installed globally and the system Ruby is left untouched.
+`tools/setup.sh` installs a self-contained toolchain in `.venv/`, which Git ignores. The script installs nothing globally and leaves the system Ruby untouched.
 
-| Component                         | Location        | Notes                                                        |
-| --------------------------------- | --------------- | ------------------------------------------------------------ |
-| Ruby 3.4.x                        | `.venv/ruby`    | Compiled from source with ruby-build; matches the CI version |
-| libyaml                           | `.venv/deps`    | Needed by Ruby's YAML extension (psych), which Jekyll uses   |
-| Node LTS + npm                    | `.venv/node`    | Official tarball, checksum-verified                          |
-| Bundler, Jekyll, Chirpy, html-proofer | `.venv/bundle`  | Installed from the `Gemfile`                                 |
-| Python + numpy, scipy, matplotlib, amore | `.venv/python` | Optional, for the figures of posts; needs [uv](https://docs.astral.sh/uv/) |
+| Component | Location | Notes |
+| --- | --- | --- |
+| Ruby 3.4.x | `.venv/ruby` | Compiled from source with ruby-build. Matches the CI version. |
+| libyaml | `.venv/deps` | Required by Ruby's YAML extension (psych), which Jekyll uses. |
+| Node LTS + npm | `.venv/node` | Official tarball, checksum-verified. |
+| Bundler, Jekyll, Chirpy, html-proofer | `.venv/bundle` | Installed from the `Gemfile`. |
+| Python + numpy, scipy, matplotlib, amore | `.venv/python` | Optional, for the figures of posts. Requires [uv](https://docs.astral.sh/uv/). |
 
 ### First-time setup
 
-Requires Xcode Command Line Tools on macOS (`xcode-select --install`), plus `git`, `curl`, `tar` and `make`. Compiling Ruby takes a few minutes.
+Requirements: Xcode Command Line Tools on macOS (`xcode-select --install`), `git`, `curl`, `tar` and `make`. Compiling Ruby takes a few minutes.
 
 ```shell
 bash tools/setup.sh
 ```
 
-The script is safe to re-run: components that are already installed are skipped and gems are brought up to date. To pin different versions, set `RUBY_SERIES` or `NODE_SERIES`, e.g. `RUBY_SERIES=3.3 bash tools/setup.sh`.
+The script is idempotent. It skips installed components and updates the gems. `RUBY_SERIES` and `NODE_SERIES` select other versions, for example `RUBY_SERIES=3.3 bash tools/setup.sh`.
 
-### Serving the site
+### Commands
 
 ```shell
 source .venv/bin/activate   # put the local toolchain on PATH
 bash tools/run.sh           # serve at http://127.0.0.1:4000 with live reload
-deactivate                  # restore your shell when done
+deactivate                  # restore the shell
 ```
 
-Other useful commands while activated:
+| Command | Effect |
+| --- | --- |
+| `bash tools/run.sh` | Serves the site at http://127.0.0.1:4000 with live reload. |
+| `bash tools/run.sh -p` | Serves the site in production mode. |
+| `bash tools/run.sh -d` | Serves the drafts and private notes alongside the posts. |
+| `bash tools/test.sh` | Builds the site and checks it with html-proofer. |
 
-- `bash tools/run.sh -p` builds in production mode.
-- `bash tools/run.sh -d` serves the notes in `_drafts/` alongside the posts. `_plugins/draft-category.rb` puts each draft in the category Draft, and each note in `_drafts/private/` in the category Private, ahead of its own categories, and gives their cards on the home page a teal or red stripe. The deployed site never builds them.
+The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the html-proofer check on every push. Vercel deploys the site from `main`.
 
-  Git ignores everything in `_drafts/`, and the folder mirrors the root of the site, so that a draft keeps its files beside it and uses them the way a published post does:
+### Drafts and private notes
 
-  ```
-  _drafts/
-  ├── slug.md                        # the draft
-  ├── private/note.md                # a private note, never to be published
-  ├── _includes/code/script.py       # {% include code/script.py %}
-  └── assets/images/slug/name.png    # /assets/images/slug/name.png
-  ```
+`_drafts/` holds drafts and private notes. Git ignores its contents, and the deployed site never builds them. The folder mirrors the root of the site:
 
-  `_plugins/draft-files.rb` serves these files only with `-d`. To publish a draft, move each file to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`; the post itself needs no changes. Jekyll does not watch `_drafts/assets/`, so after you redraw a figure, save the draft or restart the preview to see it.
-- `bash tools/test.sh` builds the site and checks it with html-proofer. The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the same check on every push; Vercel deploys the site from `main`.
+```
+_drafts/
+├── slug.md                        # draft
+├── private/note.md                # private note, never published
+├── _includes/code/script.py       # {% include code/script.py %}
+└── assets/images/slug/name.png    # /assets/images/slug/name.png
+```
+
+Two plugins act on these files, only with `-d`:
+
+| Plugin | Function |
+| --- | --- |
+| `_plugins/draft-category.rb` | Puts each draft in the category Draft and each note in `_drafts/private/` in the category Private, ahead of its own categories. Marks their cards on the home page with a teal or red stripe. |
+| `_plugins/draft-files.rb` | Serves `_drafts/_includes/` and `_drafts/assets/` at the same paths as their counterparts at the root. |
+
+To publish a draft, move each of its files to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`. The post needs no other changes.
+
+Jekyll does not watch `_drafts/assets/`. A redrawn figure appears after the draft is saved again or the preview restarts.
 
 ### Syncing the drafts
 
-The drafts live in a second, private repository, cloned into `_drafts/` itself. This repository ignores everything in `_drafts/` except `.gitkeep`, so it never sees the inner repository, its `.git` folder included. Jekyll skips folders whose names start with a dot, so it does not read `.git` as drafts either.
+A second, private repository holds the drafts and is cloned into `_drafts/`. This repository ignores the contents of `_drafts/` except `.gitkeep`, the inner `.git` folder included. Jekyll skips folders whose names start with a dot.
 
-To set it up on the first device:
+On the first device:
 
 ```shell
 cd _drafts
@@ -84,7 +98,7 @@ git commit -m "Add the drafts"
 gh repo create quasinormal-notes-private-notes --private --source=. --push
 ```
 
-On another device, after you clone this repository:
+On another device, after cloning this repository:
 
 ```shell
 cd _drafts
@@ -93,11 +107,9 @@ git remote add origin git@github.com:subhodeeps/quasinormal-notes-private-notes.
 git pull origin main
 ```
 
-From then on, `git pull` and `git push` inside `_drafts/` sync the drafts. The inner `.gitignore` keeps the `.gitkeep` of this repository out of the drafts repository; without it, the pull on a second device stops on that file. When you publish a draft, its files move out of `_drafts/` into this repository, so the drafts repository holds only work in progress.
+`git pull` and `git push` inside `_drafts/` then sync the drafts. The inner `.gitignore` excludes `.gitkeep`, which would otherwise block the first pull on a second device. Published drafts move out of `_drafts/`, so the drafts repository holds only work in progress.
 
 ### Starting over
-
-Delete the environment and run setup again:
 
 ```shell
 rm -rf .venv && bash tools/setup.sh
@@ -119,11 +131,11 @@ Each figure has a light and a dark version, and Chirpy shows the one that matche
 {: .aps-caption .aps-figure}
 ```
 
-In the text, write Fig. 1, or Figure 1 at the start of a sentence.
+In the text, a figure is Fig. 1, or Figure 1 at the start of a sentence.
 
 ### Tables
 
-The caption goes above the table, and the table gets double rules and no shading:
+The caption goes above the table. Tables have double rules and no shading:
 
 ```markdown
 <span class="aps-label">Table I.</span> Caption.
@@ -137,7 +149,7 @@ The caption goes above the table, and the table gets double rules and no shading
 
 ### Equations
 
-MathJax numbers the equations of an `align` environment. Label one with `\label{eq:name}` and refer to it as `Eq. $\eqref{eq:name}$`. A display equation wider than the page scrolls sideways, and the page itself keeps its width.
+MathJax numbers the equations of an `align` environment. `\label{eq:name}` labels an equation, and `Eq. $\eqref{eq:name}$` refers to it. A display equation wider than the page scrolls horizontally, and the page keeps its width.
 
 ### Folded boxes
 
@@ -152,11 +164,16 @@ A code block, a list, or any other Markdown.
 </details>
 ```
 
-`code-fold` gives a plain box, and `prompt-fold` one that looks like Chirpy's info box. A link to anything inside a closed box opens the box first.
+| Class | Appearance |
+| --- | --- |
+| `code-fold` | Plain box |
+| `prompt-fold` | Chirpy's info box |
+
+A link to an element inside a closed box opens the box first.
 
 ### Citations
 
-The references go at the end of a post, under `## References`, in a folded box. Each one gets a number and an anchor, and every citation in the text links to its anchor:
+References go at the end of a post, under `## References`, in a folded box. Each reference has a number and an anchor, and each citation links to the anchor:
 
 ```markdown
 ## References
@@ -170,27 +187,27 @@ The references go at the end of a post, under `## References`, in a folded box. 
 </details>
 ```
 
-| To cite | You write |
+| Citation | Markdown |
 | --- | --- |
 | One reference | `the well-known equation [\[1\]](#ref-1)` |
 | Several references | `ODEPACK [\[2\]](#ref-2), [\[4\]](#ref-4)` |
 
-The backslashes stop the note links from reading `[[1]]` as a link to a note. A citation opens the folded box, and the reference lights up briefly, as Chirpy's footnotes do.
+The backslashes prevent `[[1]]` from being read as a link to a note. A citation opens the folded box and briefly highlights the reference, as Chirpy's footnotes do.
 
-The references follow the style of the APS journals: initials before the surname, *et al.* after the first author when there are many, article titles in sentence case, the abbreviated journal name, the volume in bold, and the year in parentheses. The link goes on the journal reference, to the DOI.
+The references follow the APS style: initials before the surname, *et al.* after the first author for long author lists, article titles in sentence case, abbreviated journal names, the volume in bold, and the year in parentheses. The link goes on the journal reference and points to the DOI.
 
-| Source | You write |
+| Source | Markdown |
 | --- | --- |
 | Article | `[3] P. Virtanen et al., SciPy 1.0: Fundamental algorithms for scientific computing in Python, [Nat. Methods **17**, 261 (2020)](https://doi.org/10.1038/s41592-019-0686-2).` |
 | Preprint | `[5] A. Author and B. Author, Title of the preprint, [arXiv:2401.01234](https://arxiv.org/abs/2401.01234).` |
 | Book | `[1] S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015), Secs. 6.7 and 7.5.` |
 | Chapter in a book | `[2] A. C. Hindmarsh, ODEPACK, a systematized collection of ODE solvers, in *Scientific Computing*, edited by R. S. Stepleman et al. (North-Holland, Amsterdam, 1983), pp. 55–64.` |
 
-Further reading, which the text does not cite, goes before the references as an ordinary list, with the same format for each entry and a sentence or two on what it covers.
+Further reading, which the text does not cite, goes before the references as an ordinary list in the same format, with one or two sentences on each entry.
 
 ### Code from files
 
-A script in `_includes/code/` can appear in a post, so the post always shows the script as it is:
+A post shows a script from `_includes/code/` with `{% include %}`, so the post always shows the current version of the script:
 
 ~~~markdown
 ```python
@@ -198,54 +215,71 @@ A script in `_includes/code/` can appear in a post, so the post always shows the
 ```
 ~~~
 
-Code blocks fit the page without scrolling sideways at 72 characters or fewer. `uvx ruff format --line-length 72` formats a script to this width; it leaves long comments alone, so move them to a line of their own.
+Code blocks fit the page width at 72 characters or fewer. `uvx ruff format --line-length 72` formats a script to this width. Ruff leaves long comments unchanged, so these go on lines of their own.
 
 ## Linking Notes
 
-Posts can link to each other Zettelkasten-style, with backlinks and a graph of the notes. Everything happens at build time in `_plugins/notes-graph.rb`; Chirpy's layouts are not changed.
+Posts link to each other in the manner of a Zettelkasten, with backlinks and a graph of the notes. `_plugins/notes-graph.rb` builds both at build time and leaves Chirpy's layouts unchanged.
 
 ### Writing links
 
-| You write | You get |
+| Markdown | Result |
 | --- | --- |
-| `[[2026-07-06-ode]]` | A link to the post, with its title as the text |
-| `[[ode]]` | The same, by slug, which the site understands but Foam does not |
-| `[[2026-07-06-ode\|the ODE note]]` | A link with your own text |
-| `[[2026-07-06-ode#a-heading]]` | A link to a section of the post |
-| `[the ODE note](2026-07-06-ode.md)` | A relative `.md` link, which also works in the VS Code and GitHub previews |
-| `[the ODE note](/posts/ode/)` | An ordinary link, which counts as a link between notes too |
+| `[[2026-07-06-ode]]` | Link to the post, with its title as the text |
+| `[[ode]]` | The same link, by slug. The site resolves it, Foam does not. |
+| `[[2026-07-06-ode\|the ODE note]]` | Link with custom text |
+| `[[2026-07-06-ode#a-heading]]` | Link to a section of the post |
+| `[the ODE note](2026-07-06-ode.md)` | Relative `.md` link, also valid in the VS Code and GitHub previews |
+| `[the ODE note](/posts/ode/)` | Ordinary link, also counted as a link between notes |
 
-A link to a note that does not exist yet is shown as muted text, and the build prints a warning. Code blocks and inline code are left alone, so `[[ -f file ]]` in a shell snippet is safe.
+A link to a note that does not exist renders as muted text, and the build prints a warning. The plugin skips code blocks and inline code, so `[[ -f file ]]` in a shell snippet stays as it is.
 
-### What the site shows
+### Backlinks and the note graph
 
-- **Linked from:** at the end of each post, the notes that link to it (its backlinks).
-- **The note graph:** in the right panel, posts as dots coloured by their first category, solid lines for links and faint dotted lines for shared tags. On a post it shows that post's neighbourhood; on other pages, every note. Hovering a dot shows its title, and clicking opens it. The graph labels a note with its `short_title` from the front matter, or with its title when it has none. The colours follow the light and dark themes (`--graph-*` in `_sass/amore/`); a new top-level category needs a `--graph-node-<category>` colour there. Chirpy hides the right panel on screens narrower than 1200px.
-- **The Note Graph tab:** the sidebar has a Note Graph tab below Tags (`_tabs/graph.md`), which shows the whole graph on a page of its own, inspired by Obsidian's [Graph view](https://obsidian.md/help/plugins/graph) plugin. There the graph is three-dimensional and turns slowly. A drag on empty space moves it across the canvas, a drag on a dot pulls that note, so that its links stretch and light up and its neighbours follow, and a drag with Shift or the right mouse button turns it. On a touch screen, one finger moves the graph or pulls a note, and two fingers turn it. The scroll wheel, a pinch, the + and − keys or the buttons in its corner zoom in and out, and the arrow keys move the graph. Phones and narrow windows have no right panel, so this is where they can see the graph. Since a touch screen cannot hover, the first tap on a dot shows the title of the note and a second tap opens it. The right panel leaves out its own graph on this page (`panel_graph: false`).
+**Backlinks.** The end of each post lists the notes that link to it, under "Linked from".
+
+**Note graph, in the right panel.**
+
+- Nodes are posts, coloured by their first category. The label is `short_title` from the front matter, or the title if there is none.
+- Solid lines are links, and dotted lines join notes that share a tag.
+- On a post, the graph shows the post's neighbourhood under the heading "Connections". On other pages, it shows every note under "Note Graph".
+- The layout is flat and static. Hovering over a node shows its title, and a click opens the note.
+- The colours are the `--graph-*` variables in `_sass/amore/`, set for each theme. A new top-level category needs a `--graph-node-<category>` colour.
+- Chirpy hides the right panel below a width of 1200px.
+
+**Note Graph tab** (`_tabs/graph.md`), inspired by Obsidian's [Graph view](https://obsidian.md/help/plugins/graph).
+
+- The tab shows every note in three dimensions, and the graph turns slowly.
+- With a mouse, a drag on empty space moves the graph, and a drag on a node pulls the note. Its links stretch and take its colour, and its neighbours follow. Shift-drag or right-drag turns the graph.
+- On a touch screen, one finger moves the graph or pulls a note, and two fingers zoom and turn it. The first tap on a node shows its title, and the second opens the note.
+- The scroll wheel, a pinch, the + and − keys and the corner buttons zoom. The arrow keys move the graph.
+- Phones and narrow windows have no right panel and see the graph here. The right panel leaves out its graph on this page (`panel_graph: false`).
 
 ### Foam in VS Code
 
-The repository is set up for [Foam](https://foambubble.github.io/foam/): install the recommended extension, and VS Code offers `[[` completion, backlinks and a graph of the notes. `.vscode/settings.json` keeps Foam out of the build output and the toolchain, and stops it from appending link reference definitions to the notes, which the site does not need. **Foam: Create New Note** starts a draft in `_drafts/` from `.foam/templates/new-note.md`; to publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Foam finds a note by its file name, which is why the posts link to each other as `[[2026-07-06-ode]]`, and once a draft moves to `_posts/`, any link to it needs the date in front of its slug.
+The repository is configured for [Foam](https://foambubble.github.io/foam/). The recommended extension adds `[[` completion, backlinks and a note graph to VS Code. `.vscode/settings.json` excludes the build output and the toolchain from Foam, and stops Foam from appending link reference definitions to the notes.
 
-The idea of publishing a Foam workspace with Jekyll comes from hikerpig's [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), which rewrites Foam's links in the browser. This site does the same at build time, and adds backlinks and the graph.
+**Foam: Create New Note** creates a draft in `_drafts/` from `.foam/templates/new-note.md`. To publish it, move it to `_posts/` as `YYYY-MM-DD-slug.md`. Foam resolves a note by its file name, so the posts link to each other as `[[2026-07-06-ode]]`, and a link to a draft needs the date prefix once the draft is published.
 
 ## Customising the Theme
 
-All the changes to Chirpy live in files of their own, so a new release of the theme merges without conflicts. Only two files replace files of the theme, and Chirpy provides both for this purpose:
+All changes to Chirpy live in separate files, so new releases of the theme merge without conflicts. Two files replace files of the theme, and Chirpy provides both for this purpose:
 
-- `assets/css/jekyll-theme-chirpy.scss` keeps the theme's own lines at the top. The styles of this site follow the line "append your custom style below", one `@use` for each partial in `_sass/`.
-- `_includes/metadata-hook.html` is the theme's empty placeholder for the `<head>`. Here it loads JetBrains Mono and the script that opens folded boxes.
+- `assets/css/jekyll-theme-chirpy.scss` keeps the theme's lines at the top. Below the line "append your custom style below", it has one `@use` for each partial in `_sass/`.
+- `_includes/metadata-hook.html` is the theme's empty placeholder for the `<head>`. It loads JetBrains Mono and the script that opens folded boxes.
 
-Everything else is new:
+New files:
 
 | Location | Contents |
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
-| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, folded boxes, APS captions and tables, display equations, heading sizes, footer |
-| `_plugins/` | Home page hero, footer, note links and graph, inline code without line breaks, plain page titles (`posts-lastmod-hook.rb` comes with the starter) |
+| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, cards of drafts and private notes, folded boxes, APS captions and tables, display equations, heading sizes, footer |
+| `_plugins/` | Home page hero, footer, note links and graph, drafts and private notes, inline code without line breaks, page titles (`posts-lastmod-hook.rb` comes with the starter) |
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
+| `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
+| `assets/img/favicons/` | Icons made from the profile picture, in place of Chirpy's |
 
-After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy, at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles rely on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, the style that uses it stops applying, and the rest of the site keeps working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero and the footer, print a warning during the build when they cannot find the markup they look for, and the page then keeps Chirpy's own version.
+After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles depend on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, only the style that uses it stops working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero and the footer, print a build warning when the markup they expect is missing, and the page then keeps Chirpy's version.
 
 ## Usage
 
@@ -254,6 +288,15 @@ Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wi
 ## Contributing
 
 This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+
+## Credits
+
+- [Chirpy][chirpy] and [chirpy-starter](https://github.com/cotes2020/chirpy-starter), by Cotes Chung
+- [Foam](https://foambubble.github.io/foam/)
+- [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), by hikerpig
+- [Graph view](https://obsidian.md/help/plugins/graph), by Obsidian
+- [amore.mplstyle](https://github.com/subhodeeps/amore.mplstyle)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 
 ## License
 
