@@ -172,7 +172,6 @@
   function start(section, data) {
     const canvas = section.querySelector('canvas');
     const legend = section.querySelector('.notes-graph-legend');
-    const list = section.querySelector('.notes-graph-list');
     const current = canvas.dataset.current || null;
     const big = section.classList.contains('notes-graph-page'); // the Graph tab: larger and in 3D
     const { nodes, edges } = subgraph(data, current);
@@ -193,12 +192,11 @@
       neighbours.get(b.id).add(a.id);
     }
 
-    // Legend: the categories in view; hidden list: the notes, for screen readers
+    // Legend: the categories in view
     const categories = [...new Set(nodes.map((n) => n.category).filter(Boolean))].sort();
     legend.innerHTML = categories
       .map((c) => `<li><span class="dot" data-category="${slugify(c)}"></span>${c}</li>`)
       .join('');
-    list.innerHTML = nodes.map((n) => `<li><a href="${n.url}">${n.title}</a></li>`).join('');
 
     const ctx = canvas.getContext('2d');
     let colours = {};
