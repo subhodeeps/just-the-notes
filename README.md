@@ -272,7 +272,7 @@ A link to a note that does not exist renders as muted text, and the build prints
 
 **Backlinks.** The end of each post lists the notes that link to it, under "Linked from".
 
-**Note graph, in the right panel.** A quiet map of where a note sits, beside its text.
+**Note graph, in the right panel.** A quiet map of where a note sits, beside its text. It is the first section of the panel. On a post, the panel shows "Connections" and Chirpy's "Contents", which stays in view as the reader scrolls; `_plugins/post-panel.rb` leaves out Chirpy's "Recently Updated", which stays on the home page, the categories, the tags, the archives and the tabs, below the graph.
 
 - Nodes are posts, coloured by their first category, and labelled with `short_title` from the front matter, or the title if there is none. In the local preview, a draft, a stub or a private note takes the colour of its subject, the category after its stage, and has a dashed ring.
 - Solid lines are links, and nodes are solid discs that hide the lines behind them.
@@ -312,7 +312,7 @@ New files:
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
 | `_sass/_*.scss` | Home page hero, tiles and card colours, sort buttons of category and tag pages, enlarged figures, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
-| `_plugins/` | Home page hero and tiles, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes from Chirpy) |
+| `_plugins/` | Home page hero and tiles, footer, note links and graph, the right panel of posts, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes from Chirpy) |
 | `_data/locales/en.yml` | Chirpy's strings that differ: "Related Notes" in place of "Further Reading" for the posts that share tags with a post. Jekyll merges the file with the theme's. |
 | `_bibliography/` | The master BibTeX file and the style of the citations |
 | `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |

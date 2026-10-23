@@ -150,24 +150,13 @@ module NotesGraph
                      registers: { site: site, page: page.to_liquid })
   end
 
-  # Insert html as the last child of the element that starts at `marker` (a <div>), by
-  # counting <div> and </div> from there
-  def append_to_div(output, marker, html, where)
-    start = output.index(marker)
-    unless start
+  # Insert html as the first child of the element whose opening tag is `marker`
+  def prepend_to(output, marker, html, where)
+    unless output.include?(marker)
       Jekyll.logger.warn 'Notes:', "no #{marker} in #{where}; the theme's markup may have changed"
       return output
     end
-    depth = 0
-    output.to_enum(:scan, %r{<div\b|</div>}).each do
-      m = Regexp.last_match
-      next if m.begin(0) < start
-
-      depth += m[0] == '</div>' ? -1 : 1
-      return output[0...m.begin(0)] + html + output[m.begin(0)..] if depth.zero?
-    end
-    Jekyll.logger.warn 'Notes:', "unbalanced #{marker} in #{where}"
-    output
+    output.sub(marker) { marker + html }
   end
 
   def insert_before(output, markers, html, where)
@@ -218,13 +207,15 @@ Jekyll::Hooks.register :posts, :post_render do |post|
   post.output = NotesGraph.insert_before(post.output, [NotesGraph::TAIL_MARKER], html, post.relative_path)
 end
 
-# The graph, as the last section of the right panel's "access" block, after "Trending Tags".
+# The graph, as the first section of the right panel's "access" block, above "Recently Updated".
 # Inside that block it takes Chirpy's panel styles, and the block stays the panel's only child
-# on pages without a table of contents, which is what keeps it sticky (.access:only-child).
+# on pages without a table of contents, which is what keeps it sticky (.access:only-child). On a
+# post, _plugins/post-panel.rb leaves out "Recently Updated", so the graph comes first and
+# Chirpy's "Contents" follows the block.
 Jekyll::Hooks.register [:pages, :documents], :post_render do |doc|
   next unless doc.output_ext == '.html' && doc.output&.include?('id="panel-wrapper"')
   next if doc.data['panel_graph'] == false # the Graph tab, which shows the graph itself
 
   html = NotesGraph.render_include(doc.site, 'notes-graph.html', doc)
-  doc.output = NotesGraph.append_to_div(doc.output, NotesGraph::ACCESS_MARKER, html, doc.relative_path)
+  doc.output = NotesGraph.prepend_to(doc.output, NotesGraph::ACCESS_MARKER, html, doc.relative_path)
 end
