@@ -60,7 +60,7 @@ deactivate                  # restore the shell
 
 The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the html-proofer check on every push. Vercel deploys the site from `main`.
 
-The preview tells the browser to keep no copy of any page or file (`_plugins/preview-no-cache.rb`), so a reload always shows the latest build. Jekyll's server sends this header only with pages, not with styles and scripts. The preview also has no offline cache (`_config_dev.yml`), and it removes any service worker that a production build installed.
+The preview tells the browser to keep no copy of any page or file (`_plugins/preview-no-cache.rb`), so a reload always shows the latest build. Jekyll's server sends this header only with pages, not with styles and scripts. The preview also has no offline cache (`_config_dev.yml`). A browser that once opened a production build at the same address keeps Chirpy's service worker, which answers from its cache, so the pages stop updating. The preview serves a `sw.min.js` that replaces that worker, deletes its caches, unregisters itself and reloads the page.
 
 ### Stubs, drafts and private notes
 
