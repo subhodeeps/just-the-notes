@@ -56,6 +56,7 @@ deactivate                  # restore the shell
 | `bash tools/run.sh` | Serves the site at http://127.0.0.1:4000 with live reload. |
 | `bash tools/run.sh -p` | Serves the site in production mode. |
 | `bash tools/run.sh -d` | Serves the stubs, drafts and private notes alongside the posts. |
+| `bash tools/stop.sh` | Stops the server, for example one left running in another terminal. |
 | `bash tools/test.sh` | Builds the site in a temporary folder and checks it with html-proofer. The preview in `_site/` stays as it is. |
 
 The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the html-proofer check on every push. Vercel deploys the site from `main`.
