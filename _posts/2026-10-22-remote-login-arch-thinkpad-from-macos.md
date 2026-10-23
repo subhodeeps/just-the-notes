@@ -3,7 +3,7 @@ title: "Remote Login to an Arch Linux ThinkPad from macOS"
 short_title: "Remote Login to Arch" # in the note graph
 description: "Remote access from a Mac to an Arch Linux ThinkPad over Tailscale: a terminal over SSH, the desktop over VNC, Sunshine and Moonlight for 3D plots and video, and file transfer."
 date: 2026-10-22 00:00:00 +0530
-categories: [Homelab, Guides]
+categories: [Code Carpentry, Guides]
 tags: [linux, arch-linux, macos, ssh, tailscale, vnc, remote-desktop]
 math: false
 pin: false

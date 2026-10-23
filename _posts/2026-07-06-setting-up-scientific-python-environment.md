@@ -3,7 +3,7 @@ title: "Setting Up a Scientific Python Environment using <code>venv</code>"
 short_title: "Python with venv" # in the note graph
 description: "A guide to creating a reproducible scientific Python environment on macOS (or Linux)."
 date: 2026-07-06 00:00:00 +0530
-categories: [Homelab, Guides]
+categories: [Code Carpentry, Guides]
 tags: [python, macos, environment-setup]
 math: false
 pin: false
