@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The in-text citations of {% cite %}: [1] or [1, 2].
+     jekyll-scholar needs a bibliography layout too, but the site formats the references
+     itself, in the style of JHEP.bst (_plugins/jhep.rb). -->
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" default-locale="en-US">
+  <info>
+    <title>Numbered citations in brackets</title>
+    <id>https://quasinormal-notes.vercel.app/csl/citations</id>
+    <updated>2026-10-23T00:00:00+05:30</updated>
+  </info>
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter=", ">
+      <group delimiter=", ">
+        <text variable="citation-number"/>
+        <group delimiter=" ">
+          <label variable="locator" form="short"/>
+          <text variable="locator"/>
+        </group>
+      </group>
+    </layout>
+  </citation>
+  <bibliography>
+    <layout>
+      <text variable="title"/>
+    </layout>
+  </bibliography>
+</style>

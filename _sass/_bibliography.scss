@@ -1,0 +1,36 @@
+// References from _bibliography/references.bib in the style of JHEP.bst (_plugins/jhep.rb):
+// a list numbered [1], [2], ... with the numbers in a column of their own, as at the end of
+// a JHEP paper. A citation that links to a reference makes it clear the top bar and light up
+// briefly, like a footnote in Chirpy.
+
+.content ol.bibliography {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+
+  .bib-item {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    scroll-margin-top: 3.5rem;
+    border-radius: 0.25rem;
+
+    &:target {
+      background-color: var(--footnote-target-bg);
+      transition: background-color 1.75s ease-in-out;
+    }
+  }
+}
+
+// \ttfamily for arXiv numbers, \scshape for collaborations
+.content .bib-tt {
+  font-family: var(--bs-font-monospace);
+  font-size: 0.9em;
+}
+
+.content .bib-sc {
+  font-variant: small-caps;
+}

@@ -30,7 +30,7 @@ This starter bundles those files from the latest **Chirpy** release along with a
 | Ruby 3.4.x | `.venv/ruby` | Compiled from source with ruby-build. Matches the CI version. |
 | libyaml | `.venv/deps` | Required by Ruby's YAML extension (psych), which Jekyll uses. |
 | Node LTS + npm | `.venv/node` | Official tarball, checksum-verified. |
-| Bundler, Jekyll, Chirpy, html-proofer | `.venv/bundle` | Installed from the `Gemfile`. |
+| Bundler, Jekyll, Chirpy, jekyll-scholar, html-proofer | `.venv/bundle` | Installed from the `Gemfile`. |
 | Python + numpy, scipy, matplotlib, amore | `.venv/python` | Optional, for the figures of posts. Requires [uv](https://docs.astral.sh/uv/). |
 
 ### First-time setup
@@ -173,37 +173,62 @@ A link to an element inside a closed box opens the box first.
 
 ### Citations
 
-References go at the end of a post, under `## References`, in a folded box. Each reference has a number and an anchor, and each citation links to the anchor:
+All references live in one master file, `_bibliography/references.bib`. [jekyll-scholar](https://github.com/inukshuk/jekyll-scholar) reads the file, numbers the citations of a post in the order of first citation, and lists the cited entries at the end of the post. `_plugins/jhep.rb` formats the entries in the style of [JHEP.bst](https://jhep.sissa.it/jhep/help/JHEP/TeXclass/DOCS/JHEP.bst), version 2.18, the bibliography style of the Journal of High Energy Physics.
+
+**1. Add the entry.** [INSPIRE](https://inspirehep.net) exports BibTeX in the form that JHEP.bst expects. The *cite* button of a record gives the entry, and so does the INSPIRE API, by DOI or by arXiv number:
+
+```shell
+curl -s "https://inspirehep.net/api/literature?q=doi:10.1103/PhysRevD.100.024018&format=bibtex"
+curl -s "https://inspirehep.net/api/literature?q=arxiv:1906.00873&format=bibtex"
+```
+
+Paste the entry into `_bibliography/references.bib` unchanged. For a book or a paper that INSPIRE does not list, write the entry by hand in the same form: a key of the form `Author:Year`, the journal abbreviated as INSPIRE abbreviates it, and the `doi` and `eprint` fields where they exist. JHEP.bst links the journal reference to the DOI and the `eprint` to arXiv, and it ignores `url` for books and articles.
+
+**2. Cite it.** A post cites an entry by its key and lists the cited entries in the folded References box at its end:
 
 ```markdown
+the well-known equation {% cite Strogatz:2015 %}
+
 ## References
 
 <details class="code-fold" markdown="1">
 <summary>Show the references</summary>
 
-[1] S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015).
-{: #ref-1 }
+{% bibliography --cited_in_order %}
 
 </details>
 ```
 
-| Citation | Markdown |
-| --- | --- |
-| One reference | `the well-known equation [\[1\]](#ref-1)` |
-| Several references | `ODEPACK [\[2\]](#ref-2), [\[4\]](#ref-4)` |
+| Citation | Markdown | Output |
+| --- | --- | --- |
+| One reference | `{% cite Gralla:2019xty %}` | [1] |
+| Two references | `{% cite Hindmarsh:1983 Petzold:1983 %}` | [3, 4] |
+| Three or more consecutive references | `{% cite Strogatz:2015 Virtanen:2019joe Hindmarsh:1983 Petzold:1983 %}` | [1–4] |
 
-The backslashes prevent `[[1]]` from being read as a link to a note. A citation opens the folded box and briefly highlights the reference, as Chirpy's footnotes do.
+Runs of three or more consecutive numbers become a range, as with the cite package of LaTeX. A citation of several references links to the first of them. A citation opens the folded box and briefly highlights the reference, as Chirpy's footnotes do. `_bibliography/citations.csl` formats the citations.
 
-The references follow the APS style: initials before the surname, *et al.* after the first author for long author lists, article titles in sentence case, abbreviated journal names, the volume in bold, and the year in parentheses. The link goes on the journal reference and points to the DOI.
+**3. The style.** `_plugins/jhep.rb` ports the rules of JHEP.bst from LaTeX to HTML. A CSL style cannot reproduce the link that JHEP.bst puts around the whole journal reference, so the site does not use one for the references. The rules include:
+
+- Authors appear with initials, as in "S.E. Gralla, D.E. Holz and R.M. Wald". From the seventh author on, the list ends in "et al.". In an article, a `collaboration` field replaces the authors.
+- Article titles are in italics and in sentence case, as BibTeX sets them. Braces protect capitals, as in `{SciPy}` or `{Kerr}`. INSPIRE braces the titles it exports, so its entries keep their capitals.
+- The journal reference reads *Journal* **volume** (year) first page, and it links to the DOI.
+- The arXiv number follows in brackets, in a monospaced font, and links to arXiv.
+
+**4. Check the style.** `tools/bib/check.rb` runs BibTeX with `tools/bib/JHEP.bst` on a `.bib` file and compares each entry with the output of `_plugins/jhep.rb`, in text and in links. It requires a TeX installation:
+
+```shell
+bundle exec ruby tools/bib/check.rb                      # _bibliography/references.bib
+bundle exec ruby tools/bib/check.rb tools/bib/test.bib   # test entries of every type
+```
+
+Further reading, which the text does not cite, goes before the references as an ordinary list, with one or two sentences on each entry. Its entries follow the APS style: initials before the surname, *et al.* after the first author for long author lists, article titles in sentence case, abbreviated journal names, the volume in bold, and the year in parentheses. The link goes on the journal reference and points to the DOI.
 
 | Source | Markdown |
 | --- | --- |
-| Article | `[3] P. Virtanen et al., SciPy 1.0: Fundamental algorithms for scientific computing in Python, [Nat. Methods **17**, 261 (2020)](https://doi.org/10.1038/s41592-019-0686-2).` |
-| Preprint | `[5] A. Author and B. Author, Title of the preprint, [arXiv:2401.01234](https://arxiv.org/abs/2401.01234).` |
-| Book | `[1] S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015), Secs. 6.7 and 7.5.` |
-| Chapter in a book | `[2] A. C. Hindmarsh, ODEPACK, a systematized collection of ODE solvers, in *Scientific Computing*, edited by R. S. Stepleman et al. (North-Holland, Amsterdam, 1983), pp. 55–64.` |
-
-Further reading, which the text does not cite, goes before the references as an ordinary list in the same format, with one or two sentences on each entry.
+| Article | `P. Virtanen et al., SciPy 1.0: Fundamental algorithms for scientific computing in Python, [Nat. Methods **17**, 261 (2020)](https://doi.org/10.1038/s41592-019-0686-2).` |
+| Preprint | `A. Author and B. Author, Title of the preprint, [arXiv:2401.01234](https://arxiv.org/abs/2401.01234).` |
+| Book | `S. H. Strogatz, *Nonlinear Dynamics and Chaos*, 2nd ed. (Westview Press, Boulder, CO, 2015).` |
+| Chapter in a book | `A. C. Hindmarsh, ODEPACK, a systematized collection of ODE solvers, in *Scientific Computing*, edited by R. S. Stepleman et al. (North-Holland, Amsterdam, 1983), pp. 55–64.` |
 
 ### Code from files
 
@@ -273,8 +298,10 @@ New files:
 | Location | Contents |
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
-| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, cards of drafts and private notes, folded boxes, APS captions and tables, display equations, heading sizes, footer |
-| `_plugins/` | Home page hero, footer, note links and graph, drafts and private notes, inline code without line breaks, page titles (`posts-lastmod-hook.rb` comes with the starter) |
+| `_sass/_*.scss` | Home page hero, ringdown, code font, note graph, cards of drafts and private notes, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
+| `_plugins/` | Home page hero, footer, note links and graph, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles (`posts-lastmod-hook.rb` comes with the starter) |
+| `_bibliography/` | The master BibTeX file and the style of the citations |
+| `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
 | `assets/img/favicons/` | Icons made from the profile picture, in place of Chirpy's |
@@ -295,6 +322,9 @@ This repository is automatically updated with new releases from the theme reposi
 - [Foam](https://foambubble.github.io/foam/)
 - [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), by hikerpig
 - [Graph view](https://obsidian.md/help/plugins/graph), by Obsidian
+- [jekyll-scholar](https://github.com/inukshuk/jekyll-scholar), [citeproc-ruby](https://github.com/inukshuk/citeproc-ruby), [bibtex-ruby](https://github.com/inukshuk/bibtex-ruby) and [latex-decode](https://github.com/inukshuk/latex-decode), by Sylvester Keil
+- [JHEP.bst](https://jhep.sissa.it/jhep/help/JHEP/TeXclass/DOCS/JHEP.bst), by SISSA Medialab, under the LaTeX Project Public License
+- [INSPIRE](https://inspirehep.net), the source of the BibTeX entries
 - [amore.mplstyle](https://github.com/subhodeeps/amore.mplstyle)
 - [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 

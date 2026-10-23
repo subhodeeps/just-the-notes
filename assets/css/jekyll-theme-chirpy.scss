@@ -32,8 +32,11 @@
 /* Long code blocks folded under a summary (<details class="code-fold">) */
 @use 'code-fold';
 
-/* Captions, tables and cited references in the APS style */
+/* Captions and tables in the APS style */
 @use 'aps-table';
+
+/* References in the style of JHEP.bst (_plugins/jhep.rb) */
+@use 'bibliography';
 
 /* Wide display equations scroll in place */
 @use 'math';

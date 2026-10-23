@@ -215,6 +215,14 @@ compress_html:
   ignore:
     envs: [development]
 
+# References: jekyll-scholar reads _bibliography/references.bib and numbers the citations in
+# the order in which a post first cites them. _bibliography/citations.csl formats the
+# citations, [1], and the jhep filter (_plugins/jhep.rb) formats the references in the
+# style of JHEP.bst.
+scholar:
+  style: _bibliography/citations.csl
+  bibliography_template: '<span id="{{ key }}" class="bib-item"><span class="bib-label">[{{ index }}]</span><span class="bib-text">{{ entry | jhep }}</span></span>'
+
 exclude:
   - "*.gem"
   - "*.gemspec"
