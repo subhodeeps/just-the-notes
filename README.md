@@ -80,7 +80,7 @@ printf '.gitkeep\n.DS_Store\n' > .gitignore
 git init -b main
 git add -A
 git commit -m "Add the drafts"
-gh repo create quasinormal-notes-drafts --private --source=. --push
+gh repo create quasinormal-notes-private-notes --private --source=. --push
 ```
 
 On another device, after you clone this repository:
@@ -88,7 +88,7 @@ On another device, after you clone this repository:
 ```shell
 cd _drafts
 git init -b main
-git remote add origin git@github.com:subhodeeps/quasinormal-notes-drafts.git
+git remote add origin git@github.com:subhodeeps/quasinormal-notes-private-notes.git
 git pull origin main
 ```
 
