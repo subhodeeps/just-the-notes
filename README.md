@@ -1,25 +1,6 @@
-# Chirpy Starter
+# Quasinormal Notes
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
-
-A minimal, ready-to-use template for creating a blog with the [**Chirpy**][chirpy] Jekyll theme. Get up and running in minutes with all critical files pre-configured.
-
-## Why This Starter Exists
-
-When installing Chirpy through [RubyGems.org][gem], Jekyll can only read a subset of theme files (`_data`, `_layouts`, `_includes`, `_sass`, `assets`) and limited `_config.yml` options from the gem. As a result, users cannot enjoy the full out-of-the-box experience that Chirpy offers.
-
-To unlock all features, the following files must be present in your Jekyll site:
-
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
-```
-
-This starter bundles those files from the latest **Chirpy** release along with a [CD][CD] workflow, so you can start writing immediately.
+The source of [Quasinormal Notes](https://quasinormal-notes.vercel.app), notes on theoretical physics, numerical methods, programming and tools. The site runs on [Jekyll](https://jekyllrb.com) with the [Chirpy][chirpy] theme. Its own plugins and styles add linked notes with a note graph, a tiled home page, figures and tables in the APS style, and references in the JHEP style.
 
 ## Local Development
 
@@ -328,10 +309,10 @@ New files:
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
 | `_sass/_*.scss` | Home page hero, tiles and card colours, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
-| `_plugins/` | Home page hero and tiles, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes with the starter) |
+| `_plugins/` | Home page hero and tiles, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes from Chirpy) |
 | `_bibliography/` | The master BibTeX file and the style of the citations |
 | `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |
-| `tools/` | The toolchain setup (`setup.sh`), the scripts behind some figures, and changes to the starter's `run.sh` and `test.sh` |
+| `tools/` | The toolchain setup (`setup.sh`), the scripts behind some figures, and Chirpy's `run.sh` and `test.sh` with changes |
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
 | `assets/js/home-tiles.js` | Packing of the tiles on the home page |
@@ -339,17 +320,11 @@ New files:
 
 After a Chirpy update, compare the top of `assets/css/jekyll-theme-chirpy.scss` with the theme's copy at `$(bundle info --path jekyll-theme-chirpy)/assets/css/`, and copy over any change. The styles depend on Chirpy's class names and colour variables, such as `.content` and `--main-border-color`. If a release renames one of them, only the style that uses it stops working. The hooks in `_plugins/` that edit Chirpy's pages, for the home page hero, the tiles and the footer, print a build warning when the markup they expect is missing, and the page then keeps Chirpy's version.
 
-## Usage
-
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
-
-## Contributing
-
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+For Chirpy's own options, see the [theme's documentation](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
 
 ## Credits
 
-- [Chirpy][chirpy] and [chirpy-starter](https://github.com/cotes2020/chirpy-starter), by Cotes Chung
+- [Chirpy][chirpy] and its [starter template](https://github.com/cotes2020/chirpy-starter), by Cotes Chung
 - [Foam](https://foambubble.github.io/foam/)
 - [foam-jekyll-template](https://github.com/hikerpig/foam-jekyll-template), by hikerpig
 - [Graph view](https://obsidian.md/help/plugins/graph), by Obsidian
@@ -361,9 +336,6 @@ This repository is automatically updated with new releases from the theme reposi
 
 ## License
 
-This work is published under [MIT][mit] License.
+The code is under the [MIT License](LICENSE), which it inherits from Chirpy.
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
 [chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
