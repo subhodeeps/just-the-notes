@@ -1,0 +1,26 @@
+// Enlarged figures in Chirpy's popup (GLightbox, assets/js/lightbox-theme.js). The figures of the
+// posts have transparent backgrounds, and the popup draws them on a black backdrop, where the dark
+// lines of a light-theme figure would vanish. Each enlarged figure gets the background of the page
+// in the current theme, so it looks as it does in the post.
+
+.gslide-image img {
+  background: var(--main-bg);
+}
+
+// The caption under an enlarged figure, in the colours and the type of the page
+.glightbox-container.glightbox-clean {
+  .gslide-description {
+    background: var(--main-bg);
+  }
+
+  .gdesc-inner {
+    padding: 0.75rem 1rem;
+  }
+
+  .gslide-desc {
+    font-family: inherit;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-color);
+  }
+}

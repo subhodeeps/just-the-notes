@@ -311,14 +311,16 @@ New files:
 | Location | Contents |
 | --- | --- |
 | `_sass/amore/` | Colours of the light and dark themes |
-| `_sass/_*.scss` | Home page hero, tiles and card colours, sort buttons of category and tag pages, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
+| `_sass/_*.scss` | Home page hero, tiles and card colours, sort buttons of category and tag pages, enlarged figures, ringdown, code font, note graph, folded boxes, APS captions and tables, references, display equations, heading sizes, footer |
 | `_plugins/` | Home page hero and tiles, footer, note links and graph, stubs, drafts and private notes, references in the JHEP style, inline code without line breaks, page titles, no browser cache in the local preview (`posts-lastmod-hook.rb` comes from Chirpy) |
+| `_data/locales/en.yml` | Chirpy's strings that differ: "Related Notes" in place of "Further Reading" for the posts that share tags with a post. Jekyll merges the file with the theme's. |
 | `_bibliography/` | The master BibTeX file and the style of the citations |
 | `tools/bib/` | JHEP.bst, the script that compares `_plugins/jhep.rb` with it, and test entries |
 | `tools/` | The toolchain setup (`setup.sh`), the scripts behind some figures, and Chirpy's `run.sh` and `test.sh` with changes |
 | `_includes/` | Home page hero, footer (copyright line and quotation), backlinks, note graph, scripts that posts include (`code/`) |
 | `assets/js/notes-graph.js` | Drawing and interaction of the note graph |
 | `assets/js/home-tiles.js` | Packing of the tiles on the home page |
+| `assets/js/lightbox-theme.js` | Enlarged figures open in the theme the page shows, each with its caption (the `.aps-caption` paragraph after it). Chirpy's popup can otherwise open the dark figures after a switch from dark to light. `_sass/_lightbox.scss` gives each enlarged figure the background of the page, since the figures are transparent and the popup's backdrop is black. |
 | `assets/js/list-sort.js` | Buttons on category and tag pages, and above the Explore tiles of the home page, that sort the posts by date or by title, newest or oldest first, A–Z or Z–A |
 | `assets/img/favicons/` | The site icon, a light bulb, in place of Chirpy's. The 512 px icon is also the preview image that link previews show (`social_preview_image`). |
 
