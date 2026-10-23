@@ -1,5 +1,6 @@
 ---
 title: General Computing Resources
+short_title: "Computing Resources" # in the note graph
 description: "References and guides for Linux, Git, LaTeX, and high-performance computing."
 date: 2026-07-06 00:00:00 +0530
 categories: [Homelab, Homelab Resources]

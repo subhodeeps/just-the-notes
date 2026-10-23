@@ -1,5 +1,6 @@
 ---
 title: Reviews on Quasinormal Modes
+short_title: "QNM Reviews" # in the note graph
 description: "A comprehensive list of review articles on black hole perturbation theory and quasinormal modes."
 date: 2026-07-06 00:00:00 +0530
 categories: [Physics, Physics Resources]

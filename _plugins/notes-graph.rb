@@ -108,7 +108,7 @@ module NotesGraph
 
   def graph(posts, links)
     nodes = posts.map do |doc|
-      { id: doc.data['slug'], title: plain(doc.data['title']), url: doc.url,
+      { id: doc.data['slug'], title: plain(doc.data['short_title'] || doc.data['title']), url: doc.url,
         category: category_of(doc), tags: Array(doc.data['tags']) }
     end
     ids = posts.to_h { |doc| [doc, doc.data['slug']] }

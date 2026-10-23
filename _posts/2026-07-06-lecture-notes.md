@@ -1,5 +1,6 @@
 ---
 title: Lecture Notes
+short_title: "Lecture Notes" # in the note graph
 description: "A curated collection of lecture notes covering general relativity, black holes, cosmology, and quantum field theory."
 date: 2026-07-06 00:00:00 +0530
 categories: [Physics, Physics Resources]

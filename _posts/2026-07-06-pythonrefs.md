@@ -1,5 +1,6 @@
 ---
 title: Python Resources
+short_title: "Python Resources" # in the note graph
 description: "A collection of references, tutorials, and links for scientific computing using Python."
 date: 2026-07-06 00:00:00 +0530
 categories: [Coding, Coding Resources]

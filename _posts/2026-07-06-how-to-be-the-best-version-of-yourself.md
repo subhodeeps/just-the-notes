@@ -1,5 +1,6 @@
 ---
 title: How To Be the Best Version of Yourself
+short_title: "Best Version of Yourself" # in the note graph
 description: "Actually, nobody cares! Work harder!"
 date: 2026-07-06 00:00:00 +0530
 categories: [Personal, Advice]
