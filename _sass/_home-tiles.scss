@@ -94,6 +94,15 @@
     flex-grow: 0 !important; // Chirpy's flex-grow-1 would take the space of the excerpt
   }
 
+  // A wide tile shows its opening only when assets/js/home-tiles.js lengthens it to two rows
+  .tile-wide:not(.tile-grown) .tile-excerpt {
+    display: none;
+  }
+
+  .tile-wide:not(.tile-grown) .tile-excerpt + .post-meta {
+    flex-grow: 1 !important;
+  }
+
   .tile-large .card-title {
     font-size: 1.3rem;
   }

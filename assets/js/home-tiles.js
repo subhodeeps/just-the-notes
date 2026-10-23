@@ -8,6 +8,10 @@
  * row up: it widens the tile to the left of the cell, or else lengthens the tile above it, or
  * else widens the tile to its right towards it. The grid then ends in a straight edge at
  * every width. On a phone the tiles stand in one column, and there is nothing to fill.
+ *
+ * A wide tile that is lengthened to two rows gets the class tile-grown, which shows the
+ * opening of the post that the plugin puts in it (_sass/_home-tiles.scss), so that the
+ * taller tile does not stand half empty.
  */
 (() => {
   const grid = document.querySelector('#post-list .home-tiles');
@@ -18,6 +22,7 @@
     tiles.forEach((tile) => {
       tile.style.gridColumn = '';
       tile.style.gridRow = '';
+      tile.classList.remove('tile-grown');
     });
     const style = getComputedStyle(grid);
     const cols = style.gridTemplateColumns.split(' ').length;
@@ -72,6 +77,7 @@
     place.forEach((p) => {
       p.tile.style.gridColumn = `${p.col + 1} / span ${p.cols}`;
       p.tile.style.gridRow = `${p.row + 1} / span ${p.rows}`;
+      p.tile.classList.toggle('tile-grown', p.rows > 1 && p.tile.classList.contains('tile-wide'));
     });
   }
 

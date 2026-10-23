@@ -23,6 +23,8 @@
 #   paragraphs at the start of the post, up to the first display equation, code block, folded
 #   box, quotation, figure or table, so that it never starts in the middle of an argument.
 #   Inline math stays, and the home page loads MathJax for it (math: true in index.html).
+#   A wide tile carries the opening as well, hidden until assets/js/home-tiles.js lengthens
+#   the tile to two rows to close a gap, when it has the room of a large tile.
 
 require 'zlib'
 
@@ -31,7 +33,7 @@ module HomeTiles
   TILE = %r{<article class="card-wrapper card tile .*?</article>}m
   SMALL = 300 # words: a shorter post is a small square
   LARGE = 1500 # words: a longer post is a large square
-  EXCERPT = { 'tile-tall' => 90, 'tile-large' => 150 }.freeze # words of the opening of the post
+  EXCERPT = { 'tile-tall' => 90, 'tile-wide' => 150, 'tile-large' => 150 }.freeze # words of the opening
   BLOCK = /\A\s*<(?:pre|details|blockquote|figure|table|div|ul|ol|h[1-6])\b/ # ends the opening run
 
   module_function
