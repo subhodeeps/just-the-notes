@@ -55,6 +55,17 @@ Other useful commands while activated:
 
 - `bash tools/run.sh -p` builds in production mode.
 - `bash tools/run.sh -d` serves the drafts in `_drafts/` alongside the posts and adds the tag `draft` to each of them, so that you can tell them apart. The deployed site never builds the drafts.
+
+  Git ignores everything in `_drafts/`, and the folder mirrors the root of the site, so that a draft keeps its files beside it and uses them the way a published post does:
+
+  ```
+  _drafts/
+  ├── slug.md                        # the draft
+  ├── _includes/code/script.py       # {% include code/script.py %}
+  └── assets/images/slug/name.png    # /assets/images/slug/name.png
+  ```
+
+  `_plugins/draft-files.rb` serves these files only with `-d`. To publish a draft, move each file to the same path at the root, and the draft to `_posts/` as `YYYY-MM-DD-slug.md`; the post itself needs no changes. Jekyll does not watch `_drafts/assets/`, so after you redraw a figure, save the draft or restart the preview to see it.
 - `bash tools/test.sh` builds the site and checks it with html-proofer. The GitHub workflow (`.github/workflows/pages-deploy.yml`) runs the same check on every push; Vercel deploys the site from `main`.
 
 ### Starting over

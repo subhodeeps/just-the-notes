@@ -41,6 +41,8 @@
     "tools/**",
     "assets/**",
     "_includes/**",
+    "_drafts/_includes/**",
+    "_drafts/assets/**",
     "README.md",
     "LICENSE"
   ]

@@ -226,7 +226,7 @@ exclude:
   - "*.config.js"
   - "package*.json"
   - old_theme_backup # pre-Chirpy files kept for reference, not published
-  - _drafts/draft_codes # scripts that drafts include, which Jekyll would otherwise read as posts
+  - _drafts/assets # images that drafts show, which Jekyll would otherwise read as posts (_plugins/draft-files.rb)
 
 jekyll-archives:
   enabled: [categories, tags]
