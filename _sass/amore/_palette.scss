@@ -48,6 +48,10 @@ $slate-light: #c2c9d1;
 $slate-shade: #f4f5f7;
 
 // Text tones per theme, used by the syntax highlighter
+// Not part of amore: the colour of the Homelab category in the note graph and on the home
+// page, an indigo between the blue and plum palettes, which are the furthest apart in hue
+$indigo-main: #7f86cc;
+
 $inks: (
   slate: $slate-ink,
   red: $red-ink,
