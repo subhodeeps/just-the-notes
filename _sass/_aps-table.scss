@@ -8,8 +8,9 @@
   font-size: 0.9rem;
   line-height: 1.5;
 
+  // "FIG. 1." and "TABLE I." in capitals at the size of the caption, as Physical Review sets them
   .aps-label {
-    font-variant: all-small-caps;
+    text-transform: uppercase;
     letter-spacing: 0.04em;
     margin-right: 0.35em;
   }
