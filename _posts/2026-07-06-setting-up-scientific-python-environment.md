@@ -132,7 +132,13 @@ jupyterlab
 
 ## 5. Install the Scientific Stack
 
-Install all packages listed in the requirements file:
+Some packages in the scientific stack (like `h5py`) require C-based system libraries to be present on the machine. Before installing the requirements, run:
+
+```bash
+brew install hdf5
+```
+
+Then install all packages listed in the requirements file:
 
 ```bash
 pip install -r ~/numerics-requirements.txt
@@ -147,12 +153,6 @@ WARNING: Cache entry deserialization failed, entry ignored
 ```
 
 These warnings are generally harmless and can be ignored.
-
-Some packages in the scientific stack (like `h5py`) require C-based system libraries to be present on the machine. Before installing the requirements, run:
-
-```bash
-brew install hdf5
-```
 
 ---
 
@@ -349,9 +349,12 @@ jupyter kernelspec uninstall numerics
 
 ---
 
-## Requirements File (`numerics-requirements.txt`)
+## Requirements File
 
-Create this file in your **home directory** (`~/`) , this file defines the full scientific stack that will be installed:
+Create `numerics-requirements.txt` in your **home directory** (`~/`). It defines the full scientific stack that will be installed.
+
+<details class="code-fold" markdown="1">
+<summary>Show <code>numerics-requirements.txt</code></summary>
 
 ```text
 # Core & High-Performance
@@ -403,5 +406,6 @@ tqdm
 # Jupyter
 jupyterlab
 ipykernel
-
 ```
+
+</details>
